@@ -1,11 +1,13 @@
-package intellispacesframework.commons.exception;
+package intellispaces.commons.exception;
 
-import intellispacesframework.commons.utils.Strings;
+import intellispaces.commons.util.Strings;
 
 /**
- * Declared exception.<p/>
+ * Expected exception.<p/>
  *
- * Declared exceptions are caused by any expected assumption violation in established code and can be specific handled.
+ * This is the parent class for any exceptions related to <b>expected violations of assumptions</b> imposed on a particular method.<p/>
+ *
+ * Typical sample of expected exception are any business exceptions.
  */
 public class ExpectedException extends Exception {
 
@@ -16,11 +18,11 @@ public class ExpectedException extends Exception {
     super(cause);
   }
 
-  public ExpectedException(String message, Object... msgArguments) {
-    super(Strings.format(message, msgArguments));
+  public ExpectedException(String messageTemplate, Object... messageArguments) {
+    super(Strings.format(messageTemplate, messageArguments));
   }
 
-  public ExpectedException(Throwable cause, String message, Object... msgArguments) {
-    super(Strings.format(message, msgArguments), cause);
+  public ExpectedException(Throwable cause, String messageTemplate, Object... messageArguments) {
+    super(Strings.format(messageTemplate, messageArguments), cause);
   }
 }

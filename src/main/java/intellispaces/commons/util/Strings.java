@@ -10,6 +10,13 @@ public interface Strings {
     return !isNullOrBlank(string);
   }
 
+  static String format(String template, Object... arguments) {
+    if (template == null) {
+      return null;
+    }
+    return template.formatted(arguments);
+  }
+
   static String capitalizeFirstLetter(String string) {
     if (string == null || string.isEmpty()) {
       return string;

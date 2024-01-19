@@ -1,11 +1,11 @@
-package intellispacesframework.commons.exception;
+package intellispaces.commons.exception;
 
-import intellispacesframework.commons.utils.Strings;
+import intellispaces.commons.util.Strings;
 
 /**
  * Unexpected exception.<p/>
  *
- * Unexpected exceptions are related to any unexpected failures in established code.
+ * This is the parent class for any exceptions related to <b>unexpected violations of assumptions</b> imposed on a particular method.
  */
 public class UnexpectedException extends RuntimeException {
 
@@ -16,11 +16,11 @@ public class UnexpectedException extends RuntimeException {
     super(cause);
   }
 
-  public UnexpectedException(String message, Object... msgArguments) {
-    super(Strings.format(message, msgArguments));
+  public UnexpectedException(String messageTemplate, Object... messageArguments) {
+    super(Strings.format(messageTemplate, messageArguments));
   }
 
-  public UnexpectedException(Throwable cause, String message, Object... msgArguments) {
-    super(Strings.format(message, msgArguments), cause);
+  public UnexpectedException(Throwable cause, String messageTemplate, Object... messageArguments) {
+    super(Strings.format(messageTemplate, messageArguments), cause);
   }
 }
