@@ -1,6 +1,6 @@
-package intellispaces.commons.util;
+package intellispaces.commons;
 
-public interface Strings {
+public interface StringFunctions {
 
   static boolean isNullOrBlank(String string) {
     return string == null || string.isBlank();
