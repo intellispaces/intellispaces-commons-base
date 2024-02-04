@@ -8,6 +8,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+/**
+ * Resources processing functions.
+ */
 public class ResourceFunctions {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResourceFunctions.class);
