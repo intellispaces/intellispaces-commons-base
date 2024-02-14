@@ -22,6 +22,21 @@ public interface ExceptionFunctions {
     };
   }
 
+  @SuppressWarnings("unchecked")
+  static <T, R, E extends Exception, E2 extends RuntimeException> Function<T, R> coverThrowableFunction(
+      ThrowingFunction<T, R, E> function, Function<E, E2> exceptionFactory
+  ) {
+    return t -> {
+      try {
+        return function.apply(t);
+      } catch (RuntimeException e) {
+        throw e;
+      } catch (Exception e) {
+        throw exceptionFactory.apply((E) e);
+      }
+    };
+  }
+
   static <T, E extends Exception> Consumer<T> coverThrowableConsumer(ThrowingConsumer<T, E> consumer) {
     return t -> {
       try {
@@ -35,9 +50,37 @@ public interface ExceptionFunctions {
   }
 
   @SuppressWarnings("unchecked")
+  static <T, E extends Exception, E2 extends RuntimeException> Consumer<T> coverThrowableConsumer(
+      ThrowingConsumer<T, E> consumer, Function<E, E2> exceptionFactory
+  ) {
+    return t -> {
+      try {
+        consumer.accept(t);
+      } catch (RuntimeException e) {
+        throw e;
+      } catch (Exception e) {
+        throw exceptionFactory.apply((E) e);
+      }
+    };
+  }
+
+  @SuppressWarnings("unchecked")
   static <E extends Exception> void uncoverThrowable(Class<E> e, Runnable runnable) throws E {
     try {
       runnable.run();
+    } catch (CoveredException se) {
+      if (e.isInstance(se.getCause())) {
+        throw (E) se.getCause();
+      } else {
+        throw se;
+      }
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  static <T, R, E extends Exception> R uncoverThrowable(Class<E> e, T argument, Function<T, R> function) throws E {
+    try {
+      return function.apply(argument);
     } catch (CoveredException se) {
       if (e.isInstance(se.getCause())) {
         throw (E) se.getCause();

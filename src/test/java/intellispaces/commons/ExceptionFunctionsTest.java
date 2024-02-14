@@ -26,7 +26,8 @@ public class ExceptionFunctionsTest {
         .toList();
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class).hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
+        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
   }
 
   @Test
@@ -37,7 +38,8 @@ public class ExceptionFunctionsTest {
         .toList();
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class).hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
+        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
   }
 
   @Test
@@ -63,7 +65,55 @@ public class ExceptionFunctionsTest {
   }
 
   @Test
-  public void testUncoverThrowable_whenExactMatch() {
+  public void testCoverThrowableFunction_whenCheckedExceptionAndExceptionFactory() {
+    // When
+    ThrowableAssert.ThrowingCallable action = () -> Stream.of("a", "", "b")
+        .map(coverThrowableFunction(this::throwingCheckedFunction, IllegalArgumentException::new))
+        .toList();
+
+    // Then
+    assertThatThrownBy(action).isExactlyInstanceOf(IllegalArgumentException.class)
+        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+  }
+
+  @Test
+  public void testCoverThrowableConsumer_whenCheckedExceptionAndExceptionFactory() {
+    // When
+    ThrowableAssert.ThrowingCallable action = () -> Stream.of("a", "", "b")
+        .peek(coverThrowableConsumer(this::throwingCheckedConsumer, IllegalArgumentException::new))
+        .toList();
+
+    // Then
+    assertThatThrownBy(action).isExactlyInstanceOf(IllegalArgumentException.class)
+        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+  }
+
+  @Test
+  public void testCoverThrowableFunction_whenUncheckedExceptionAndExceptionFactory() {
+    // When
+    ThrowableAssert.ThrowingCallable action = () -> Stream.of("a", "", "b")
+        .map(coverThrowableFunction(this::throwingUncheckedFunction, IllegalArgumentException::new))
+        .toList();
+
+    // Then
+    assertThatThrownBy(action).isExactlyInstanceOf(RuntimeException.class)
+        .hasNoCause();
+  }
+
+  @Test
+  public void testCoverThrowableConsumer_whenUncheckedExceptionAndExceptionFactory() {
+    // When
+    ThrowableAssert.ThrowingCallable action = () -> Stream.of("a", "", "b")
+        .peek(coverThrowableConsumer(this::throwingUncheckedConsumer, IllegalArgumentException::new))
+        .toList();
+
+    // Then
+    assertThatThrownBy(action).isExactlyInstanceOf(RuntimeException.class)
+        .hasNoCause();
+  }
+
+  @Test
+  public void testUncoverThrowable_whenRunnableAndExactMatch() {
     // When
     ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(ExpectedViolationException.class, () -> Stream.of("a", "", "b")
         .map(coverThrowableFunction(this::throwingCheckedFunction))
@@ -74,7 +124,7 @@ public class ExceptionFunctionsTest {
   }
 
   @Test
-  public void testUncoverThrowable_whenBaseExceptionSpecified() {
+  public void testUncoverThrowable_whenRunnableAndBaseExceptionSpecified() {
     // When
     ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(Exception.class, () -> Stream.of("a", "", "b")
         .map(coverThrowableFunction(this::throwingCheckedFunction))
@@ -85,14 +135,58 @@ public class ExceptionFunctionsTest {
   }
 
   @Test
-  public void testUncoverThrowable_whenOtherExceptionSpecified() {
+  public void testUncoverThrowable_whenRunnableAndOtherExceptionSpecified() {
     // When
     ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(IOException.class, () -> Stream.of("a", "", "b")
         .map(coverThrowableFunction(this::throwingCheckedFunction))
         .toList());
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class).hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
+        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+  }
+
+  @Test
+  public void testUncoverThrowable_whenFunctionAndExactMatch() {
+    // Given
+    Stream<String> stream = Stream.of("a", "", "b");
+
+    // When
+    ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(ExpectedViolationException.class, stream, (s) -> s
+        .map(coverThrowableFunction(this::throwingCheckedFunction))
+        .toList());
+
+    // Then
+    assertThatThrownBy(action).isExactlyInstanceOf(ExpectedViolationException.class);
+  }
+
+  @Test
+  public void testUncoverThrowable_whenFunctionAndBaseExceptionSpecified() {
+    // Given
+    Stream<String> stream = Stream.of("a", "", "b");
+
+    // When
+    ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(Exception.class, stream, (s) -> s
+        .map(coverThrowableFunction(this::throwingCheckedFunction))
+        .toList());
+
+    // Then
+    assertThatThrownBy(action).isExactlyInstanceOf(ExpectedViolationException.class);
+  }
+
+  @Test
+  public void testUncoverThrowable_whenFunctionAndOtherExceptionSpecified() {
+    // Given
+    Stream<String> stream = Stream.of("a", "", "b");
+
+    // When
+    ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(IOException.class, stream, (s) -> s
+        .map(coverThrowableFunction(this::throwingCheckedFunction))
+        .toList());
+
+    // Then
+    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
+        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
   }
 
   private Character throwingCheckedFunction(String string) throws ExpectedViolationException {
