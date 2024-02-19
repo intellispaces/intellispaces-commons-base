@@ -51,5 +51,4 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.capitalizeFirstLetter("a")).isEqualTo("A");
     assertThat(StringFunctions.capitalizeFirstLetter("abc")).isEqualTo("Abc");
   }
-
 }
