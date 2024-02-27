@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ExpectedViolationException}.
+ * Tests for {@link PossibleViolationException}.
  */
-public class ExpectedViolationExceptionTest {
+public class PossibleViolationExceptionTest {
 
   @Test
   public void testInstantiation() {
     Exception cause = new RuntimeException();
-    ExpectedViolationException exception = new ExpectedViolationException(cause, "Exception {}", "message");
+    PossibleViolationException exception = new PossibleViolationException(cause, "Exception {}", "message");
     assertThat(exception.getCause()).isSameAs(cause);
     assertThat(exception.getMessage()).isEqualTo("Exception message");
   }

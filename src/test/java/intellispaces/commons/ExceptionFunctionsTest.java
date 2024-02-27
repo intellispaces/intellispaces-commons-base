@@ -1,7 +1,7 @@
 package intellispaces.commons;
 
 import intellispaces.commons.exception.CoveredException;
-import intellispaces.commons.exception.ExpectedViolationException;
+import intellispaces.commons.exception.PossibleViolationException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,7 @@ public class ExceptionFunctionsTest {
 
     // Then
     assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -39,7 +39,7 @@ public class ExceptionFunctionsTest {
 
     // Then
     assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -73,7 +73,7 @@ public class ExceptionFunctionsTest {
 
     // Then
     assertThatThrownBy(action).isExactlyInstanceOf(IllegalArgumentException.class)
-        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -85,7 +85,7 @@ public class ExceptionFunctionsTest {
 
     // Then
     assertThatThrownBy(action).isExactlyInstanceOf(IllegalArgumentException.class)
-        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -115,12 +115,12 @@ public class ExceptionFunctionsTest {
   @Test
   public void testUncoverThrowable_whenRunnableAndExactMatch() {
     // When
-    ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(ExpectedViolationException.class, () -> Stream.of("a", "", "b")
+    ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(PossibleViolationException.class, () -> Stream.of("a", "", "b")
         .map(coverThrowableFunction(this::throwingCheckedFunction))
         .toList());
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(ExpectedViolationException.class);
+    assertThatThrownBy(action).isExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -131,7 +131,7 @@ public class ExceptionFunctionsTest {
         .toList());
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(ExpectedViolationException.class);
+    assertThatThrownBy(action).isExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -143,7 +143,7 @@ public class ExceptionFunctionsTest {
 
     // Then
     assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -152,12 +152,12 @@ public class ExceptionFunctionsTest {
     Stream<String> stream = Stream.of("a", "", "b");
 
     // When
-    ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(ExpectedViolationException.class, stream, (s) -> s
+    ThrowableAssert.ThrowingCallable action = () -> uncoverThrowable(PossibleViolationException.class, stream, (s) -> s
         .map(coverThrowableFunction(this::throwingCheckedFunction))
         .toList());
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(ExpectedViolationException.class);
+    assertThatThrownBy(action).isExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -171,7 +171,7 @@ public class ExceptionFunctionsTest {
         .toList());
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(ExpectedViolationException.class);
+    assertThatThrownBy(action).isExactlyInstanceOf(PossibleViolationException.class);
   }
 
   @Test
@@ -186,19 +186,19 @@ public class ExceptionFunctionsTest {
 
     // Then
     assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(ExpectedViolationException.class);
+        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
-  private Character throwingCheckedFunction(String string) throws ExpectedViolationException {
+  private Character throwingCheckedFunction(String string) throws PossibleViolationException {
     if (string.isEmpty()) {
-      throw new ExpectedViolationException("Empty string");
+      throw new PossibleViolationException("Empty string");
     }
     return string.charAt(0);
   }
 
-  private void throwingCheckedConsumer(String string) throws ExpectedViolationException {
+  private void throwingCheckedConsumer(String string) throws PossibleViolationException {
     if (string.isEmpty()) {
-      throw new ExpectedViolationException("Empty string");
+      throw new PossibleViolationException("Empty string");
     }
   }
 
