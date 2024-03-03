@@ -1,6 +1,8 @@
 package intellispaces.commons;
 
 import intellispaces.commons.exception.CoveredException;
+import intellispaces.commons.function.ThrowingConsumer;
+import intellispaces.commons.function.ThrowingFunction;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
