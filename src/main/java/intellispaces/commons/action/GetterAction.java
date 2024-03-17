@@ -3,9 +3,9 @@ package intellispaces.commons.action;
 import java.util.function.Supplier;
 
 /**
- * Getter action.<p/>
+ * Getter action.
  *
- * Getter is action to return a value.
+ * <p>Getter is action to return a value.
  *
  * @param <T> getter result value type.
  */

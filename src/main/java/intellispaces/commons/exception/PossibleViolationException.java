@@ -3,11 +3,11 @@ package intellispaces.commons.exception;
 import intellispaces.commons.StringFunctions;
 
 /**
- * Possible violation exception.<p/>
+ * Possible violation exception.
  *
- * This is the parent class for any exceptions related to <b>possible violations of assumptions</b> imposed on a particular method.<p/>
+ * <p>This is the parent class for any exceptions related to <b>possible and expected violations of assumptions</b> imposed on a particular method.
  *
- * Typical sample of expected exception are any business exceptions.
+ * <p>Typical sample of expected exception are any business exceptions.
  */
 public class PossibleViolationException extends Exception {
 

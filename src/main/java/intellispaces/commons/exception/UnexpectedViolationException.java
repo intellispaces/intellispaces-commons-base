@@ -3,9 +3,9 @@ package intellispaces.commons.exception;
 import intellispaces.commons.StringFunctions;
 
 /**
- * Unexpected violation exception.<p/>
+ * Unexpected violation exception.
  *
- * This is the parent class for any exceptions related to <b>unexpected violations of assumptions</b> imposed on a particular method.
+ * <p>This is the parent class for any exceptions related to <b>unexpected violations of assumptions</b> imposed on a particular method.
  */
 public class UnexpectedViolationException extends RuntimeException {
 

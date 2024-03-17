@@ -3,16 +3,16 @@ package intellispaces.commons.action;
 import java.util.function.Consumer;
 
 /**
- * Handler action.<p/>
+ * Handler action.
  *
- * Handler is action that to process a value.
+ * <p>Handler is action that to process a value.
  */
 public interface HandlerAction<T> extends Action, Consumer<T> {
 
-  void perform(T value);
+  void execute(T value);
 
   @Override
   default void accept(T value) {
-    perform(value);
+    execute(value);
   }
 }
