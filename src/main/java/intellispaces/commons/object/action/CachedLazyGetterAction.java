@@ -1,4 +1,6 @@
-package intellispaces.commons.action;
+package intellispaces.commons.object.action;
+
+import intellispaces.commons.model.action.GetterAction;
 
 import java.util.function.Supplier;
 
@@ -12,7 +14,7 @@ public class CachedLazyGetterAction<T> implements GetterAction<T> {
   }
 
   @Override
-  public T perform() {
+  public T execute() {
     if (!performed) {
       value = supplier.get();
       performed = true;

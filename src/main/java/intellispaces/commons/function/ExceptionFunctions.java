@@ -1,8 +1,8 @@
-package intellispaces.commons;
+package intellispaces.commons.function;
 
 import intellispaces.commons.exception.CoveredException;
-import intellispaces.commons.function.ThrowingConsumer;
-import intellispaces.commons.function.ThrowingFunction;
+import intellispaces.commons.model.function.ThrowingConsumer;
+import intellispaces.commons.model.function.ThrowingFunction;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

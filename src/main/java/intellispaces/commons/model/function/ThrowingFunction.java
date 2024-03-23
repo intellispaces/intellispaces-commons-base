@@ -1,4 +1,4 @@
-package intellispaces.commons.function;
+package intellispaces.commons.model.function;
 
 @FunctionalInterface
 public interface ThrowingFunction<T, R, E extends Exception> {

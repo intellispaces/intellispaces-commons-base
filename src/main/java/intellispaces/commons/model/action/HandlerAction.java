@@ -1,4 +1,4 @@
-package intellispaces.commons.action;
+package intellispaces.commons.model.action;
 
 import java.util.function.Consumer;
 

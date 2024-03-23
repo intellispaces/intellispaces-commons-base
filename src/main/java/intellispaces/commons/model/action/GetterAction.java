@@ -1,4 +1,4 @@
-package intellispaces.commons.action;
+package intellispaces.commons.model.action;
 
 import java.util.function.Supplier;
 
@@ -11,10 +11,10 @@ import java.util.function.Supplier;
  */
 public interface GetterAction<T> extends Action, Supplier<T> {
 
-  T perform();
+  T execute();
 
   @Override
   default T get() {
-    return perform();
+    return execute();
   }
 }

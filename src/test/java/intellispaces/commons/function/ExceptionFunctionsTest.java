@@ -1,16 +1,17 @@
-package intellispaces.commons;
+package intellispaces.commons.function;
 
 import intellispaces.commons.exception.CoveredException;
 import intellispaces.commons.exception.PossibleViolationException;
+import intellispaces.commons.function.ExceptionFunctions;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.stream.Stream;
 
-import static intellispaces.commons.ExceptionFunctions.coverThrowableConsumer;
-import static intellispaces.commons.ExceptionFunctions.coverThrowableFunction;
-import static intellispaces.commons.ExceptionFunctions.uncoverThrowable;
+import static intellispaces.commons.function.ExceptionFunctions.coverThrowableConsumer;
+import static intellispaces.commons.function.ExceptionFunctions.coverThrowableFunction;
+import static intellispaces.commons.function.ExceptionFunctions.uncoverThrowable;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**

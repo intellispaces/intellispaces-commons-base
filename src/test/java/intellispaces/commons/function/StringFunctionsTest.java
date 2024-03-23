@@ -1,5 +1,6 @@
-package intellispaces.commons;
+package intellispaces.commons.function;
 
+import intellispaces.commons.function.StringFunctions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

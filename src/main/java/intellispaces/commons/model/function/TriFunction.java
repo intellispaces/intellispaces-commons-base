@@ -1,4 +1,4 @@
-package intellispaces.commons.function;
+package intellispaces.commons.model.function;
 
 /**
  * Function with three arguments.

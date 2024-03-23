@@ -1,4 +1,4 @@
-package intellispaces.commons;
+package intellispaces.commons.function;
 
 /**
  * Character processing functions.

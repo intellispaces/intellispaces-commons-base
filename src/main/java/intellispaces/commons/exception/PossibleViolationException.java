@@ -1,6 +1,6 @@
 package intellispaces.commons.exception;
 
-import intellispaces.commons.StringFunctions;
+import intellispaces.commons.function.StringFunctions;
 
 /**
  * Possible violation exception.
