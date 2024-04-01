@@ -1,10 +1,13 @@
 package intellispaces.commons.function;
 
+import intellispaces.commons.exception.UnexpectedViolationException;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests for {@link ResourceFunctions}.
@@ -22,6 +25,22 @@ public class ResourceFunctionsTest {
   public void testReadResourceAsString_whenResourceNotExists() throws Exception {
     Optional<String> resource = ResourceFunctions.readResourceAsString(ResourceFunctionsTest.class, "/nonExistentResource.txt");
     assertThat(resource).isEmpty();
+  }
+
+  @Test
+  public void testReadResourceAsStringForce_whenResourceExists() {
+    String resource = ResourceFunctions.readResourceAsStringForce(ResourceFunctionsTest.class, "/resource.txt");
+    assertThat(resource).isNotNull();
+    assertThat(resource).isEqualTo("This is the resource.");
+  }
+
+  @Test
+  public void testReadResourceAsStringForce_whenResourceNotExists() {
+    ThrowableAssert.ThrowingCallable action = () -> {
+      ResourceFunctions.readResourceAsStringForce(ResourceFunctionsTest.class, "/nonExistentResource.txt");
+    };
+    assertThatThrownBy(action).isExactlyInstanceOf(UnexpectedViolationException.class)
+        .hasMessage("Resource by name /nonExistentResource.txt is not found");
   }
 
   @Test

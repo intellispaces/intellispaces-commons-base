@@ -1,5 +1,6 @@
 package intellispaces.commons.function;
 
+import intellispaces.commons.exception.UnexpectedViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,7 @@ public class ResourceFunctions {
    *
    * @param aClass class associated with resource.
    * @param name resource name.
-   * @return string or empty optional if no resource with given name is found or resource can't be loaded.
+   * @return string or empty optional if no resource with given name is found.
    * @throws IOException throws if any I/O error occurs.
    */
   public static Optional<String> readResourceAsString(Class<?> aClass, String name) throws IOException {
@@ -33,7 +34,7 @@ public class ResourceFunctions {
    * @param aClass class associated with resource.
    * @param name resource name.
    * @param charset string charset.
-   * @return string or empty optional if no resource with given name is found or resource can't be loaded.
+   * @return string or empty optional if no resource with given name is found.
    * @throws IOException throws if any I/O error occurs.
    */
   public static Optional<String> readResourceAsString(Class<?> aClass, String name, Charset charset) throws IOException {
@@ -45,7 +46,40 @@ public class ResourceFunctions {
   }
 
   /**
-   * Read resource as string.
+   * Force read resource as string.
+   *
+   * @param aClass class associated with resource.
+   * @param name resource name.
+   * @return resource string representation.
+   * @throws UnexpectedViolationException throws if no resource with given name is found or resource can't be loaded.
+   */
+  public static String readResourceAsStringForce(Class<?> aClass, String name) {
+    return readResourceAsStringForce(aClass, name, StandardCharsets.UTF_8);
+  }
+
+  /**
+   * Force read resource as string.
+   *
+   * @param aClass class associated with resource.
+   * @param name resource name.
+   * @param charset string charset.
+   * @return resource string representation.
+   * @throws UnexpectedViolationException throws if no resource with given name is found or resource can't be loaded.
+   */
+  public static String readResourceAsStringForce(Class<?> aClass, String name, Charset charset) {
+    var is = aClass.getResourceAsStream(name);
+    if (is == null) {
+      throw new UnexpectedViolationException("Resource by name {} is not found", name);
+    }
+    try {
+      return new String(is.readAllBytes(), charset);
+    } catch (IOException e) {
+      throw new UnexpectedViolationException(e, "Failed to read resource by name {}", name);
+    }
+  }
+
+  /**
+   * Silently read resource as string.
    *
    * @param aClass class associated with resource.
    * @param name resource name.
@@ -56,7 +90,7 @@ public class ResourceFunctions {
   }
 
   /**
-   * Read resource as string.
+   * Silently read resource as string.
    *
    * @param aClass class associated with resource.
    * @param name resource name.
