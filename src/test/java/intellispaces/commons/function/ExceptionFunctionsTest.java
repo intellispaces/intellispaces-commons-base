@@ -1,8 +1,7 @@
 package intellispaces.commons.function;
 
-import intellispaces.commons.exception.CoveredException;
+import intellispaces.commons.exception.CoveredCheckedException;
 import intellispaces.commons.exception.PossibleViolationException;
-import intellispaces.commons.function.ExceptionFunctions;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +26,7 @@ public class ExceptionFunctionsTest {
         .toList();
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
+    assertThatThrownBy(action).isExactlyInstanceOf(CoveredCheckedException.class)
         .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
@@ -39,7 +38,7 @@ public class ExceptionFunctionsTest {
         .toList();
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
+    assertThatThrownBy(action).isExactlyInstanceOf(CoveredCheckedException.class)
         .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
@@ -143,7 +142,7 @@ public class ExceptionFunctionsTest {
         .toList());
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
+    assertThatThrownBy(action).isExactlyInstanceOf(CoveredCheckedException.class)
         .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 
@@ -186,7 +185,7 @@ public class ExceptionFunctionsTest {
         .toList());
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(CoveredException.class)
+    assertThatThrownBy(action).isExactlyInstanceOf(CoveredCheckedException.class)
         .hasCauseExactlyInstanceOf(PossibleViolationException.class);
   }
 

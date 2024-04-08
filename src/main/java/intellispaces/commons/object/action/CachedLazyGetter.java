@@ -1,15 +1,15 @@
 package intellispaces.commons.object.action;
 
-import intellispaces.commons.model.action.GetterAction;
+import intellispaces.commons.model.action.Getter;
 
 import java.util.function.Supplier;
 
-public class CachedLazyGetterAction<T> implements GetterAction<T> {
+public class CachedLazyGetter<T> implements Getter<T> {
   private final Supplier<T> supplier;
   private T value;
   private boolean performed;
 
-  public CachedLazyGetterAction(Supplier<T> supplier) {
+  public CachedLazyGetter(Supplier<T> supplier) {
     this.supplier = supplier;
   }
 

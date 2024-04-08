@@ -1,7 +1,7 @@
 package intellispaces.commons.function;
 
-import intellispaces.commons.object.action.CachedLazyGetterAction;
-import intellispaces.commons.model.action.GetterAction;
+import intellispaces.commons.object.action.CachedLazyGetter;
+import intellispaces.commons.model.action.Getter;
 import intellispaces.commons.model.function.QuadFunction;
 import intellispaces.commons.model.function.TriFunction;
 
@@ -21,8 +21,8 @@ public interface ActionFunctions {
    * @param <T> getter result value type.
    * @return getter action.
    */
-  static <T> GetterAction<T> cachedLazyGetter(Supplier<T> supplier) {
-    return new CachedLazyGetterAction<>(supplier);
+  static <T> Getter<T> cachedLazyGetter(Supplier<T> supplier) {
+    return new CachedLazyGetter<>(supplier);
   }
 
   /**
@@ -34,7 +34,7 @@ public interface ActionFunctions {
    * @param <V> type of the source value.
    * @return getter action.
    */
-  static <T, V> GetterAction<T> cachedLazyGetter(Function<V, T> function, V value) {
+  static <T, V> Getter<T> cachedLazyGetter(Function<V, T> function, V value) {
     return cachedLazyGetter(() -> function.apply(value));
   }
 
@@ -49,7 +49,7 @@ public interface ActionFunctions {
    * @param <V2> type of the second source value.
    * @return getter action.
    */
-  static <T, V1, V2> GetterAction<T> cachedLazyGetter(BiFunction<V1, V2, T> function, V1 value1, V2 value2) {
+  static <T, V1, V2> Getter<T> cachedLazyGetter(BiFunction<V1, V2, T> function, V1 value1, V2 value2) {
     return cachedLazyGetter(() -> function.apply(value1, value2));
   }
 
@@ -66,7 +66,7 @@ public interface ActionFunctions {
    * @param <V3> type of the third source value.
    * @return getter action.
    */
-  static <T, V1, V2, V3> GetterAction<T> cachedLazyGetter(TriFunction<V1, V2, V3, T> function, V1 value1, V2 value2, V3 value3) {
+  static <T, V1, V2, V3> Getter<T> cachedLazyGetter(TriFunction<V1, V2, V3, T> function, V1 value1, V2 value2, V3 value3) {
     return cachedLazyGetter(() -> function.apply(value1, value2, value3));
   }
 
@@ -85,7 +85,7 @@ public interface ActionFunctions {
    * @param <V4> type of the fourth source value.
    * @return getter action.
    */
-  static <T, V1, V2, V3, V4> GetterAction<T> cachedLazyGetter(QuadFunction<V1, V2, V3, V4, T> function, V1 value1, V2 value2, V3 value3, V4 value4) {
+  static <T, V1, V2, V3, V4> Getter<T> cachedLazyGetter(QuadFunction<V1, V2, V3, V4, T> function, V1 value1, V2 value2, V3 value3, V4 value4) {
     return cachedLazyGetter(() -> function.apply(value1, value2, value3, value4));
   }
 }

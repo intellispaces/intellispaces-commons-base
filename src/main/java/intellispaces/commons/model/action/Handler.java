@@ -7,7 +7,7 @@ import java.util.function.Consumer;
  *
  * <p>Handler is action that to process a value.
  */
-public interface HandlerAction<T> extends Action, Consumer<T> {
+public interface Handler<T> extends Action, Consumer<T> {
 
   void execute(T value);
 

@@ -1,6 +1,6 @@
 package intellispaces.commons.function;
 
-import intellispaces.commons.exception.CoveredException;
+import intellispaces.commons.exception.CoveredCheckedException;
 import intellispaces.commons.model.function.ThrowingConsumer;
 import intellispaces.commons.model.function.ThrowingFunction;
 
@@ -19,7 +19,7 @@ public interface ExceptionFunctions {
       } catch (RuntimeException e) {
         throw e;
       } catch (Exception e) {
-        throw new CoveredException(e);
+        throw new CoveredCheckedException(e);
       }
     };
   }
@@ -46,7 +46,7 @@ public interface ExceptionFunctions {
       } catch (RuntimeException e) {
         throw e;
       } catch (Exception e) {
-        throw new CoveredException(e);
+        throw new CoveredCheckedException(e);
       }
     };
   }
@@ -70,7 +70,7 @@ public interface ExceptionFunctions {
   static <E extends Exception> void uncoverThrowable(Class<E> e, Runnable runnable) throws E {
     try {
       runnable.run();
-    } catch (CoveredException se) {
+    } catch (CoveredCheckedException se) {
       if (e.isInstance(se.getCause())) {
         throw (E) se.getCause();
       } else {
@@ -83,7 +83,7 @@ public interface ExceptionFunctions {
   static <T, R, E extends Exception> R uncoverThrowable(Class<E> e, T argument, Function<T, R> function) throws E {
     try {
       return function.apply(argument);
-    } catch (CoveredException se) {
+    } catch (CoveredCheckedException se) {
       if (e.isInstance(se.getCause())) {
         throw (E) se.getCause();
       } else {

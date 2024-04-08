@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  *
  * @param <T> getter result value type.
  */
-public interface GetterAction<T> extends Action, Supplier<T> {
+public interface Getter<T> extends Action, Supplier<T> {
 
   T execute();
 

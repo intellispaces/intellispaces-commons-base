@@ -1,6 +1,6 @@
 package intellispaces.commons.function;
 
-import intellispaces.commons.model.action.GetterAction;
+import intellispaces.commons.model.action.Getter;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayDeque;
@@ -21,7 +21,7 @@ public class ActionFunctionsTest {
     Deque<String> deque = new ArrayDeque<>(List.of("a", "b", "c"));
 
     // When
-    GetterAction<String> getterAction = ActionFunctions.cachedLazyGetter(deque::pollFirst);
+    Getter<String> getterAction = ActionFunctions.cachedLazyGetter(deque::pollFirst);
     String result1 = getterAction.execute();
     String result2 = getterAction.get();
     String result3 = getterAction.execute();
@@ -37,7 +37,7 @@ public class ActionFunctionsTest {
     Deque<String> deque = new ArrayDeque<>(List.of("a", "b", "c"));
 
     // When
-    GetterAction<String> getterAction = ActionFunctions.cachedLazyGetter(v -> deque.pollFirst(), 1);
+    Getter<String> getterAction = ActionFunctions.cachedLazyGetter(v -> deque.pollFirst(), 1);
     String result1 = getterAction.execute();
     String result2 = getterAction.get();
     String result3 = getterAction.execute();
@@ -53,7 +53,7 @@ public class ActionFunctionsTest {
     Deque<String> deque = new ArrayDeque<>(List.of("a", "b", "c"));
 
     // When
-    GetterAction<String> getterAction = ActionFunctions.cachedLazyGetter((v1, v2) -> deque.pollFirst(), 1, 2);
+    Getter<String> getterAction = ActionFunctions.cachedLazyGetter((v1, v2) -> deque.pollFirst(), 1, 2);
     String result1 = getterAction.execute();
     String result2 = getterAction.get();
     String result3 = getterAction.execute();
@@ -69,7 +69,7 @@ public class ActionFunctionsTest {
     Deque<String> deque = new ArrayDeque<>(List.of("a", "b", "c"));
 
     // When
-    GetterAction<String> getterAction = ActionFunctions.cachedLazyGetter((v1, v2, v3) -> deque.pollFirst(), 1, 2, 3);
+    Getter<String> getterAction = ActionFunctions.cachedLazyGetter((v1, v2, v3) -> deque.pollFirst(), 1, 2, 3);
     String result1 = getterAction.execute();
     String result2 = getterAction.get();
     String result3 = getterAction.execute();
@@ -85,7 +85,7 @@ public class ActionFunctionsTest {
     Deque<String> deque = new ArrayDeque<>(List.of("a", "b", "c"));
 
     // When
-    GetterAction<String> getterAction = ActionFunctions.cachedLazyGetter((v1, v2, v3, v4) -> deque.pollFirst(), 1, 2, 3, 4);
+    Getter<String> getterAction = ActionFunctions.cachedLazyGetter((v1, v2, v3, v4) -> deque.pollFirst(), 1, 2, 3, 4);
     String result1 = getterAction.execute();
     String result2 = getterAction.get();
     String result3 = getterAction.execute();
