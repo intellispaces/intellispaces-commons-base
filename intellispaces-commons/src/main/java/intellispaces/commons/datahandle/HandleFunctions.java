@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 /**
  * Data handle functions.
  */
-public interface DataHandleFunctions {
+public interface HandleFunctions {
 
   /**
    * Processes the value with the given handler.

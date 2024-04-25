@@ -8,9 +8,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DataHandleFunctions}.
+ * Tests for {@link HandleFunctions}.
  */
-public class DataHandleFunctionsTest {
+public class HandleFunctionsTest {
 
   @Test
   public void testHandle_whenOneHandler() {
@@ -18,7 +18,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handle("abc", list::add);
+    HandleFunctions.handle("abc", list::add);
 
     // Then
     assertThat(list).containsExactly("abc");
@@ -30,7 +30,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handle("abc", list::add, list::add);
+    HandleFunctions.handle("abc", list::add, list::add);
 
     // Then
     assertThat(list).containsExactly("abc", "abc");
@@ -42,7 +42,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handle("abc", list::add, list::add, list::add);
+    HandleFunctions.handle("abc", list::add, list::add, list::add);
 
     // Then
     assertThat(list).containsExactly("abc", "abc", "abc");
@@ -54,7 +54,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handle("abc", list::add, list::add, list::add, list::add);
+    HandleFunctions.handle("abc", list::add, list::add, list::add, list::add);
 
     // Then
     assertThat(list).containsExactly("abc", "abc", "abc", "abc");
@@ -66,7 +66,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handle("abc", list::add, list::add, list::add, list::add, list::add);
+    HandleFunctions.handle("abc", list::add, list::add, list::add, list::add, list::add);
 
     // Then
     assertThat(list).containsExactly("abc", "abc", "abc", "abc", "abc");
@@ -78,7 +78,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handleEach("a", "b", list::add);
+    HandleFunctions.handleEach("a", "b", list::add);
 
     // Then
     assertThat(list).containsExactly("a", "b");
@@ -90,7 +90,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handleEach("a", "b", "c", list::add);
+    HandleFunctions.handleEach("a", "b", "c", list::add);
 
     // Then
     assertThat(list).containsExactly("a", "b", "c");
@@ -102,7 +102,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handleEach("a", "b", "c", "d", list::add);
+    HandleFunctions.handleEach("a", "b", "c", "d", list::add);
 
     // Then
     assertThat(list).containsExactly("a", "b", "c", "d");
@@ -114,7 +114,7 @@ public class DataHandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    DataHandleFunctions.handleEach("a", "b", "c", "d", "e", list::add);
+    HandleFunctions.handleEach("a", "b", "c", "d", "e", list::add);
 
     // Then
     assertThat(list).containsExactly("a", "b", "c", "d", "e");
@@ -122,17 +122,17 @@ public class DataHandleFunctionsTest {
 
   @Test
   public void testCoalesce_whenSuppliers() {
-    assertThat(DataHandleFunctions.coalesce(() -> "a", () -> "b")).isEqualTo("a");
-    assertThat(DataHandleFunctions.coalesce(() -> null, () -> "b")).isEqualTo("b");
-    assertThat(DataHandleFunctions.coalesce(() -> "a", () -> null)).isEqualTo("a");
-    assertThat(DataHandleFunctions.coalesce(() -> null, () -> (String) null)).isNull();
+    assertThat(HandleFunctions.coalesce(() -> "a", () -> "b")).isEqualTo("a");
+    assertThat(HandleFunctions.coalesce(() -> null, () -> "b")).isEqualTo("b");
+    assertThat(HandleFunctions.coalesce(() -> "a", () -> null)).isEqualTo("a");
+    assertThat(HandleFunctions.coalesce(() -> null, () -> (String) null)).isNull();
   }
 
   @Test
   public void testCoalesce_whenFunctions() {
-    assertThat((String) DataHandleFunctions.coalesce(1, n -> "a", n -> "b")).isEqualTo("a");
-    assertThat((String) DataHandleFunctions.coalesce(1, n -> null, n -> "b")).isEqualTo("b");
-    assertThat((String) DataHandleFunctions.coalesce(1, n -> "a", n -> null)).isEqualTo("a");
-    assertThat((String) DataHandleFunctions.coalesce(1, n -> null, n -> null)).isNull();
+    assertThat((String) HandleFunctions.coalesce(1, n -> "a", n -> "b")).isEqualTo("a");
+    assertThat((String) HandleFunctions.coalesce(1, n -> null, n -> "b")).isEqualTo("b");
+    assertThat((String) HandleFunctions.coalesce(1, n -> "a", n -> null)).isEqualTo("a");
+    assertThat((String) HandleFunctions.coalesce(1, n -> null, n -> null)).isNull();
   }
 }
