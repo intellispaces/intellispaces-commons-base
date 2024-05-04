@@ -3,7 +3,7 @@
 
     <parent>
         <groupId>intellispaces</groupId>
-        <artifactId>intellispacesframework-commons-root</artifactId>
+        <artifactId>intellispacesframework-commons-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
