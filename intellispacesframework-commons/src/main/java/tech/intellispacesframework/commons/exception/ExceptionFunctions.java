@@ -68,6 +68,14 @@ public interface ExceptionFunctions {
     };
   }
 
+  static RuntimeException coverException(Exception e) {
+    if (e instanceof RuntimeException) {
+      return (RuntimeException) e;
+    } else {
+      return new CoveredCheckedException(e);
+    }
+  }
+
   static <T, R, E extends Exception> R coverException(ThrowingFunction<T, R, E> function, T t) {
     try {
       return function.apply(t);

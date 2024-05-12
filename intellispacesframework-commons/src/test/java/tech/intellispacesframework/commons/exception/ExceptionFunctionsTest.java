@@ -194,6 +194,20 @@ public class ExceptionFunctionsTest {
   }
 
   @Test
+  public void testCoverException() {
+    assertThat(ExceptionFunctions.coverException(new RuntimeException("message")))
+        .isExactlyInstanceOf(RuntimeException.class)
+        .hasMessage("message")
+        .hasNoCause();
+
+    assertThat(ExceptionFunctions.coverException(new Exception("message")))
+        .isExactlyInstanceOf(CoveredCheckedException.class)
+        .cause()
+        .isExactlyInstanceOf(Exception.class)
+        .hasMessage("message");
+  }
+
+  @Test
   public void testCoverException_whenFunction() {
     // Given
     ThrowingFunction<String, Integer, PossibleViolationException> function1 = s -> 1;
