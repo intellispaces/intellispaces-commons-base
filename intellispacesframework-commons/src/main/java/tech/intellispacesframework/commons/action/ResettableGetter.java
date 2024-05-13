@@ -1,6 +1,6 @@
 package tech.intellispacesframework.commons.action;
 
-class ResettableGetter<T> implements SettableGetter<T> {
+public class ResettableGetter<T> implements SettableGetter<T> {
   private T value;
 
   public ResettableGetter() {

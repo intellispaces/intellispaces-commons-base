@@ -12,11 +12,11 @@ import java.util.function.Supplier;
  */
 public interface ActionBuilders {
 
-  static <R> SettableGetter<R> resettableGetter() {
+  static <R> ResettableGetter<R> resettableGetter() {
     return new ResettableGetter<>();
   }
 
-  static <R> SettableGetter<R> resettableGetter(R initValue) {
+  static <R> ResettableGetter<R> resettableGetter(R initValue) {
     return new ResettableGetter<>(initValue);
   }
 
@@ -27,7 +27,7 @@ public interface ActionBuilders {
    * @param <R> getter result value type.
    * @return getter action.
    */
-  static <R> Getter<R> cachedLazyGetter(Supplier<R> supplier) {
+  static <R> CachedLazyGetter<R> cachedLazyGetter(Supplier<R> supplier) {
     return new CachedLazyGetter<>(supplier);
   }
 
@@ -40,7 +40,7 @@ public interface ActionBuilders {
    * @param <T> type of the function argument.
    * @return getter action.
    */
-  static <R, T> Getter<R> cachedLazyGetter(Function<T, R> function, T arg) {
+  static <R, T> CachedLazyGetter<R> cachedLazyGetter(Function<T, R> function, T arg) {
     return cachedLazyGetter(() -> function.apply(arg));
   }
 
@@ -55,7 +55,7 @@ public interface ActionBuilders {
    * @param <T2> type of the second function argument.
    * @return getter action.
    */
-  static <R, T1, T2> Getter<R> cachedLazyGetter(BiFunction<T1, T2, R> function, T1 arg1, T2 arg2) {
+  static <R, T1, T2> CachedLazyGetter<R> cachedLazyGetter(BiFunction<T1, T2, R> function, T1 arg1, T2 arg2) {
     return cachedLazyGetter(() -> function.apply(arg1, arg2));
   }
 
@@ -72,7 +72,7 @@ public interface ActionBuilders {
    * @param <T3> type of the third function argument.
    * @return getter action.
    */
-  static <R, T1, T2, T3> Getter<R> cachedLazyGetter(TriFunction<T1, T2, T3, R> function, T1 arg1, T2 arg2, T3 arg3) {
+  static <R, T1, T2, T3> CachedLazyGetter<R> cachedLazyGetter(TriFunction<T1, T2, T3, R> function, T1 arg1, T2 arg2, T3 arg3) {
     return cachedLazyGetter(() -> function.apply(arg1, arg2, arg3));
   }
 
@@ -91,7 +91,7 @@ public interface ActionBuilders {
    * @param <T4> type of the fourth function argument.
    * @return getter action.
    */
-  static <R, T1, T2, T3, T4> Getter<R> cachedLazyGetter(QuadFunction<T1, T2, T3, T4, R> function, T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
+  static <R, T1, T2, T3, T4> CachedLazyGetter<R> cachedLazyGetter(QuadFunction<T1, T2, T3, T4, R> function, T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
     return cachedLazyGetter(() -> function.apply(arg1, arg2, arg3, arg4));
   }
 }

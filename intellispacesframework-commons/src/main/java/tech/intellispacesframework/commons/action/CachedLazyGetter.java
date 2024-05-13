@@ -2,7 +2,7 @@ package tech.intellispacesframework.commons.action;
 
 import java.util.function.Supplier;
 
-class CachedLazyGetter<T> implements Getter<T> {
+public class CachedLazyGetter<T> implements Getter<T> {
   private final Supplier<T> supplier;
   private T cache;
   private boolean isCached;
