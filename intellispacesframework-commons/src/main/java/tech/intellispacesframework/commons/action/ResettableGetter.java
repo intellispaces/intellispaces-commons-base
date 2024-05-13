@@ -1,15 +1,16 @@
 package tech.intellispacesframework.commons.action;
 
-public class DefinedGetter<T> implements Getter<T> {
+class ResettableGetter<T> implements SettableGetter<T> {
   private T value;
 
-  public DefinedGetter() {
+  public ResettableGetter() {
   }
 
-  public DefinedGetter(T value) {
+  public ResettableGetter(T value) {
     this.value = value;
   }
 
+  @Override
   public void set(T value) {
     this.value = value;
   }

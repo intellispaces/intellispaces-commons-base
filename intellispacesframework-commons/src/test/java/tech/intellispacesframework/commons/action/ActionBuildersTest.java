@@ -13,6 +13,29 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ActionBuildersTest {
 
+  @Test
+  public void testResettableGetter_whenNoInitValue() {
+    SettableGetter<String> getter = ActionBuilders.resettableGetter();
+    assertThat(getter.get()).isNull();
+
+    getter.set("value1");
+    assertThat(getter.get()).isEqualTo("value1");
+
+    getter.set("value2");
+    assertThat(getter.get()).isEqualTo("value2");
+  }
+
+  @Test
+  public void testResettableGetter_whenInitValue() {
+    SettableGetter<String> getter = ActionBuilders.resettableGetter("value1");
+    assertThat(getter.get()).isEqualTo("value1");
+
+    getter.set("value2");
+    assertThat(getter.get()).isEqualTo("value2");
+
+    getter.set("value3");
+    assertThat(getter.get()).isEqualTo("value3");
+  }
 
   @Test
   public void testCachedLazyGetter_whenSupplier() {

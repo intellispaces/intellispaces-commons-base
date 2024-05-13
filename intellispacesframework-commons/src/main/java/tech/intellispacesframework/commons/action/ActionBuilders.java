@@ -12,6 +12,14 @@ import java.util.function.Supplier;
  */
 public interface ActionBuilders {
 
+  static <R> SettableGetter<R> resettableGetter() {
+    return new ResettableGetter<>();
+  }
+
+  static <R> SettableGetter<R> resettableGetter(R initValue) {
+    return new ResettableGetter<>(initValue);
+  }
+
   /**
    * Builds getter action on base given supplier.
    *
