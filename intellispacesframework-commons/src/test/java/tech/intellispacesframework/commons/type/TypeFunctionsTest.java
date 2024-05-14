@@ -12,6 +12,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class TypeFunctionsTest {
 
   @Test
+  public void testGetClass() {
+    assertThat(TypeFunctions.getClass("java.lang.String")).contains(String.class);
+    assertThat(TypeFunctions.getClass("java.lang.String12345")).isEmpty();
+  }
+
+  @Test
   public void testGetSimpleName() {
     assertThatThrownBy(() -> TypeFunctions.getSimpleName(null)).isExactlyInstanceOf(NullPointerException.class);
     assertThatThrownBy(() -> TypeFunctions.getSimpleName("")).isExactlyInstanceOf(UnexpectedViolationException.class);

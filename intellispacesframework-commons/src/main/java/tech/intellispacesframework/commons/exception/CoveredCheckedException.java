@@ -8,4 +8,8 @@ public class CoveredCheckedException extends RuntimeException {
   public CoveredCheckedException(Exception cause) {
     super(cause);
   }
+
+  public static CoveredCheckedException withCause(Exception cause) {
+    return new CoveredCheckedException(cause);
+  }
 }

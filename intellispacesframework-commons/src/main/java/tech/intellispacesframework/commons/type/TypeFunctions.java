@@ -2,19 +2,29 @@ package tech.intellispacesframework.commons.type;
 
 import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 
+import javax.lang.model.element.Element;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Type related functions.
  */
 public class TypeFunctions {
 
+  public static Optional<Class<?>> getClass(String className) {
+    try {
+      return Optional.of(Class.forName(className));
+    } catch (ClassNotFoundException e) {
+      return Optional.empty();
+    }
+  }
+
   public static String getSimpleName(String canonicalName) {
     if (canonicalName.isEmpty()) {
-      throw UnexpectedViolationException.withMessage("Class canonical name can't be empty");
+      throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
     }
     int lastDot = canonicalName.lastIndexOf('.');
     return canonicalName.substring(lastDot + 1);
@@ -22,7 +32,7 @@ public class TypeFunctions {
 
   public static String getPackageName(String canonicalName) {
     if (canonicalName.isEmpty()) {
-      throw UnexpectedViolationException.withMessage("Class canonical name can't be empty");
+      throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
     }
     int lastDot = canonicalName.lastIndexOf('.');
     return lastDot > 0 ? canonicalName.substring(0, lastDot) : "";
@@ -30,6 +40,10 @@ public class TypeFunctions {
 
   public static boolean isAbstractClass(Class<?> aClass) {
     return Modifier.isAbstract(aClass.getModifiers());
+  }
+
+  public static boolean isAbstractElement(Element element) {
+    return element.getModifiers().contains(javax.lang.model.element.Modifier.ABSTRACT);
   }
 
   public static boolean isAbstractMethod(Method method) {
