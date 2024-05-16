@@ -8,7 +8,7 @@ package tech.intellispacesframework.commons.function;
  * @param <E> the exception type.
  */
 @FunctionalInterface
-public interface ThrowingFunction<T, R, E extends Exception> {
+public interface ThrowingFunction<T, R, E extends Throwable> {
 
   /**
    * Applies function.

@@ -5,11 +5,11 @@ package tech.intellispacesframework.commons.exception;
  */
 public class CoveredCheckedException extends RuntimeException {
 
-  public CoveredCheckedException(Exception cause) {
+  public CoveredCheckedException(Throwable cause) {
     super(cause);
   }
 
-  public static CoveredCheckedException withCause(Exception cause) {
+  public static CoveredCheckedException withCause(Throwable cause) {
     return new CoveredCheckedException(cause);
   }
 }
