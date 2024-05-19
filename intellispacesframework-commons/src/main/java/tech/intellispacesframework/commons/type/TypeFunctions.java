@@ -38,6 +38,11 @@ public class TypeFunctions {
     return lastDot > 0 ? canonicalName.substring(0, lastDot) : "";
   }
 
+  public static String addPrefixToClassName(String prefix, String canonicalName) {
+    String packageName = getPackageName(canonicalName);
+    return packageName + (packageName.isEmpty() ? "" : ".") + prefix + getSimpleName(canonicalName);
+  }
+
   public static boolean isAbstractClass(Class<?> aClass) {
     return Modifier.isAbstract(aClass.getModifiers());
   }

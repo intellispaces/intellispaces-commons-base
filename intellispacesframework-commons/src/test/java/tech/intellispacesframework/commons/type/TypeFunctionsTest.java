@@ -35,6 +35,12 @@ public class TypeFunctionsTest {
   }
 
   @Test
+  public void testAddPrefixToClassName() {
+    assertThat(TypeFunctions.addPrefixToClassName("Prefix", "Object")).isEqualTo("PrefixObject");
+    assertThat(TypeFunctions.addPrefixToClassName("Prefix", "java.lang.Object")).isEqualTo("java.lang.PrefixObject");
+  }
+
+  @Test
   public void testGetObjectClass() {
     assertThat(TypeFunctions.getObjectClass(boolean.class)).isSameAs(Boolean.class);
     assertThat(TypeFunctions.getObjectClass(Boolean.class)).isSameAs(Boolean.class);
