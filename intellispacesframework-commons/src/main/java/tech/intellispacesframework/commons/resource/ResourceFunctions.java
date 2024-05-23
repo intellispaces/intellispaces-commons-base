@@ -1,8 +1,8 @@
 package tech.intellispacesframework.commons.resource;
 
-import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

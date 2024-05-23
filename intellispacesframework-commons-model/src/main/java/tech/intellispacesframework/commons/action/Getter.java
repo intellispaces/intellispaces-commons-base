@@ -5,16 +5,14 @@ import java.util.function.Supplier;
 /**
  * Getter action.
  *
- * <p>Getter is action to return a value.
+ * <p>Getter is action that returns a data.
  *
- * @param <T> getter result value type.
+ * @param <T> result data type.
  */
 public interface Getter<T> extends Action, Supplier<T> {
 
-  T execute();
-
   @Override
-  default T get() {
-    return execute();
+  default void execute() {
+    get();
   }
 }

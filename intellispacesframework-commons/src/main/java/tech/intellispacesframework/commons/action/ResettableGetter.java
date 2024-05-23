@@ -1,6 +1,6 @@
 package tech.intellispacesframework.commons.action;
 
-public class ResettableGetter<T> implements SettableGetter<T> {
+public class ResettableGetter<T> extends AbstractAction implements SettableGetter<T> {
   private T value;
 
   public ResettableGetter() {
@@ -11,12 +11,12 @@ public class ResettableGetter<T> implements SettableGetter<T> {
   }
 
   @Override
-  public void set(T value) {
-    this.value = value;
+  public T get() {
+    return value;
   }
 
   @Override
-  public T execute() {
-    return value;
+  public void set(T value) {
+    this.value = value;
   }
 }

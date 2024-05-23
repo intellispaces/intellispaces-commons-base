@@ -4,6 +4,7 @@ import tech.intellispacesframework.commons.function.QuadFunction;
 import tech.intellispacesframework.commons.function.TriFunction;
 
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -11,6 +12,14 @@ import java.util.function.Supplier;
  * Action builders.
  */
 public interface ActionBuilders {
+
+  static Action action(Runnable runnable) {
+    return new RunnableBaseAction(runnable);
+  }
+
+  static <T> Action action(Consumer<T> consumer, T value) {
+    return action(() -> consumer.accept(value));
+  }
 
   static <R> ResettableGetter<R> resettableGetter() {
     return new ResettableGetter<>();

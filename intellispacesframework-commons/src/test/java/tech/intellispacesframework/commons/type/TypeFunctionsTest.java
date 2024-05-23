@@ -1,7 +1,7 @@
 package tech.intellispacesframework.commons.type;
 
-import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 import org.junit.jupiter.api.Test;
+import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

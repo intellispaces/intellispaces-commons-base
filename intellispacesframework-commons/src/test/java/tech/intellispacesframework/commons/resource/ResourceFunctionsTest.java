@@ -1,8 +1,8 @@
 package tech.intellispacesframework.commons.resource;
 
-import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
+import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 
 import java.util.Optional;
 

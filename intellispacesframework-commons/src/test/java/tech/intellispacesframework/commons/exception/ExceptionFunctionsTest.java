@@ -1,19 +1,16 @@
 package tech.intellispacesframework.commons.exception;
 
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ThrowableAssert;
+import org.junit.jupiter.api.Test;
 import tech.intellispacesframework.commons.function.ThrowingBiFunction;
 import tech.intellispacesframework.commons.function.ThrowingFunction;
 import tech.intellispacesframework.commons.function.ThrowingQuadFunction;
 import tech.intellispacesframework.commons.function.ThrowingTriFunction;
-import org.assertj.core.api.Assertions;
-import org.assertj.core.api.ThrowableAssert;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.stream.Stream;
 
-import static tech.intellispacesframework.commons.exception.ExceptionFunctions.coverThrowableConsumer;
-import static tech.intellispacesframework.commons.exception.ExceptionFunctions.coverThrowableFunction;
-import static tech.intellispacesframework.commons.exception.ExceptionFunctions.uncoverThrowable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
