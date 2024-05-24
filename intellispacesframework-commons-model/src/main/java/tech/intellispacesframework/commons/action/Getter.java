@@ -9,6 +9,7 @@ import java.util.function.Supplier;
  *
  * @param <T> result data type.
  */
+@FunctionalInterface
 public interface Getter<T> extends Action, Supplier<T> {
 
   @Override

@@ -7,6 +7,7 @@ package tech.intellispacesframework.commons.action;
  *
  * <p>The action is an object. Each action object has 'execute' method to perform activity.
  */
+@FunctionalInterface
 public interface Action {
 
   /**
@@ -20,15 +21,21 @@ public interface Action {
    * @param action other action.
    * @return result action.
    */
-  Action join(Action action);
+  default Action join(Action action) {
+    throw new UnsupportedOperationException();
+  }
 
   /**
    * Returns action that executes this action first time only.
    */
-  Action firstTimeOnly();
+  default Action firstTimeOnly() {
+    throw new UnsupportedOperationException();
+  }
 
   /**
    * Returns action that executes this action not first time only.
    */
-  Action notFirstTimeOnly();
+  default Action notFirstTimeOnly() {
+    throw new UnsupportedOperationException();
+  }
 }

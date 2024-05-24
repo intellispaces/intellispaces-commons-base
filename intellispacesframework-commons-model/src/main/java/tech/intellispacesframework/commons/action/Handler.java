@@ -9,6 +9,7 @@ import java.util.function.Consumer;
  *
  * @param <T> input data type.
  */
+@FunctionalInterface
 public interface Handler<T> extends Action, Consumer<T> {
 
   /**
