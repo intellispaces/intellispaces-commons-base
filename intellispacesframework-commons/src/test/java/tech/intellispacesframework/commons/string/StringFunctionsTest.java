@@ -50,5 +50,15 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.capitalizeFirstLetter("")).isEqualTo("");
     assertThat(StringFunctions.capitalizeFirstLetter("a")).isEqualTo("A");
     assertThat(StringFunctions.capitalizeFirstLetter("abc")).isEqualTo("Abc");
+    assertThat(StringFunctions.capitalizeFirstLetter("Abc")).isEqualTo("Abc");
+  }
+
+  @Test
+  public void testLowercaseFirstLetter() {
+    assertThat(StringFunctions.lowercaseFirstLetter(null)).isNull();
+    assertThat(StringFunctions.lowercaseFirstLetter("")).isEqualTo("");
+    assertThat(StringFunctions.lowercaseFirstLetter("A")).isEqualTo("a");
+    assertThat(StringFunctions.lowercaseFirstLetter("ABC")).isEqualTo("aBC");
+    assertThat(StringFunctions.lowercaseFirstLetter("aBC")).isEqualTo("aBC");
   }
 }

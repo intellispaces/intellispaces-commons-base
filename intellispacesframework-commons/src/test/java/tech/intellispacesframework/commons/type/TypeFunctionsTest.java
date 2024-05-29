@@ -18,6 +18,17 @@ public class TypeFunctionsTest {
   }
 
   @Test
+  public void testGetMethod() {
+    assertThat(TypeFunctions.getMethod(String.class, "trim")).isPresent();
+    assertThat(TypeFunctions.getMethod(String.class, "trim123")).isNotPresent();
+  }
+
+  @Test
+  public void testGetJavaLibraryName() {
+    assertThat(TypeFunctions.getJavaLibraryName(TypeFunctions.class)).isNotBlank();
+  }
+
+  @Test
   public void testGetSimpleName() {
     assertThatThrownBy(() -> TypeFunctions.getSimpleName(null)).isExactlyInstanceOf(NullPointerException.class);
     assertThatThrownBy(() -> TypeFunctions.getSimpleName("")).isExactlyInstanceOf(UnexpectedViolationException.class);
@@ -32,6 +43,17 @@ public class TypeFunctionsTest {
     assertThatThrownBy(() -> TypeFunctions.getPackageName("")).isExactlyInstanceOf(UnexpectedViolationException.class);
     assertThat(TypeFunctions.getPackageName("Object")).isEqualTo("");
     assertThat(TypeFunctions.getPackageName("java.lang.Object")).isEqualTo("java.lang");
+  }
+
+  @Test
+  public void testJoinPackageAndClassname() {
+    assertThatThrownBy(() -> TypeFunctions.joinPackageAndClassname("", null)).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThat(TypeFunctions.joinPackageAndClassname(null, "SomeClass")).isEqualTo("SomeClass");
+    assertThat(TypeFunctions.joinPackageAndClassname("", "SomeClass")).isEqualTo("SomeClass");
+    assertThat(TypeFunctions.joinPackageAndClassname("a", "SomeClass")).isEqualTo("a.SomeClass");
+    assertThat(TypeFunctions.joinPackageAndClassname("a.b", "SomeClass")).isEqualTo("a.b.SomeClass");
+    assertThat(TypeFunctions.joinPackageAndClassname("a.b.c", "SomeClass")).isEqualTo("a.b.c.SomeClass");
+
   }
 
   @Test

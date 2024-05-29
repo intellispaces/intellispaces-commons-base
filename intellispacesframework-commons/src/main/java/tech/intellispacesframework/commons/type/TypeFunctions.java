@@ -3,6 +3,7 @@ package tech.intellispacesframework.commons.type;
 import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 
 import javax.lang.model.element.Element;
+import java.io.File;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -22,6 +23,22 @@ public class TypeFunctions {
     }
   }
 
+  public static Optional<Method> getMethod(Class<?> aClass, String methodName) {
+    try {
+      return Optional.of(aClass.getMethod(methodName));
+    } catch (NoSuchMethodException e) {
+      return Optional.empty();
+    }
+  }
+
+  public static String getJavaLibraryName(Class<?> aClass) {
+    try {
+      return new File(aClass.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
+    } catch (Exception e) {
+      return "unknown";
+    }
+  }
+
   public static String getSimpleName(String canonicalName) {
     if (canonicalName.isEmpty()) {
       throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
@@ -36,6 +53,17 @@ public class TypeFunctions {
     }
     int lastDot = canonicalName.lastIndexOf('.');
     return lastDot > 0 ? canonicalName.substring(0, lastDot) : "";
+  }
+
+  public static String joinPackageAndClassname(String packageName, String classSimpleName) {
+    if (classSimpleName == null || classSimpleName.isBlank()) {
+      throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
+    }
+    if (packageName == null || packageName.isEmpty()) {
+      return classSimpleName;
+    } else {
+      return packageName + "." + classSimpleName;
+    }
   }
 
   public static String addPrefixToClassName(String prefix, String canonicalName) {
