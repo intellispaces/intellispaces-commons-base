@@ -97,26 +97,26 @@ public class TypeFunctionsTest {
   }
 
   @Test
-  public void testGetAnyValidValueOfClass() {
-    assertThat(TypeFunctions.getAnyValidValueOfClass(boolean.class)).isEqualTo(false);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(char.class)).isEqualTo('\u0000');
-    assertThat(TypeFunctions.getAnyValidValueOfClass(byte.class)).isEqualTo((byte) 0);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(short.class)).isEqualTo((short) 0);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(int.class)).isEqualTo(0);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(long.class)).isEqualTo(0L);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(float.class)).isEqualTo(0.0f);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(double.class)).isEqualTo(0.0);
+  public void testGetDefaultValueOf() {
+    assertThat(TypeFunctions.getDefaultValueOf(boolean.class)).isEqualTo(false);
+    assertThat(TypeFunctions.getDefaultValueOf(char.class)).isEqualTo('\u0000');
+    assertThat(TypeFunctions.getDefaultValueOf(byte.class)).isEqualTo((byte) 0);
+    assertThat(TypeFunctions.getDefaultValueOf(short.class)).isEqualTo((short) 0);
+    assertThat(TypeFunctions.getDefaultValueOf(int.class)).isEqualTo(0);
+    assertThat(TypeFunctions.getDefaultValueOf(long.class)).isEqualTo(0L);
+    assertThat(TypeFunctions.getDefaultValueOf(float.class)).isEqualTo(0.0f);
+    assertThat(TypeFunctions.getDefaultValueOf(double.class)).isEqualTo(0.0);
 
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Boolean.class)).isEqualTo(false);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Character.class)).isEqualTo('\u0000');
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Byte.class)).isEqualTo((byte) 0);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Short.class)).isEqualTo((short) 0);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Integer.class)).isEqualTo(0);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Long.class)).isEqualTo(0L);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Float.class)).isEqualTo(0.0f);
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Double.class)).isEqualTo(0.0);
+    assertThat(TypeFunctions.getDefaultValueOf(Boolean.class)).isEqualTo(false);
+    assertThat(TypeFunctions.getDefaultValueOf(Character.class)).isEqualTo('\u0000');
+    assertThat(TypeFunctions.getDefaultValueOf(Byte.class)).isEqualTo((byte) 0);
+    assertThat(TypeFunctions.getDefaultValueOf(Short.class)).isEqualTo((short) 0);
+    assertThat(TypeFunctions.getDefaultValueOf(Integer.class)).isEqualTo(0);
+    assertThat(TypeFunctions.getDefaultValueOf(Long.class)).isEqualTo(0L);
+    assertThat(TypeFunctions.getDefaultValueOf(Float.class)).isEqualTo(0.0f);
+    assertThat(TypeFunctions.getDefaultValueOf(Double.class)).isEqualTo(0.0);
 
-    assertThat(TypeFunctions.getAnyValidValueOfClass(String.class)).isNull();
-    assertThat(TypeFunctions.getAnyValidValueOfClass(Class.class)).isNull();
+    assertThat(TypeFunctions.getDefaultValueOf(String.class)).isNull();
+    assertThat(TypeFunctions.getDefaultValueOf(Class.class)).isNull();
   }
 }

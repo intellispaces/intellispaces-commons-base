@@ -110,7 +110,7 @@ public class TypeFunctions {
   }
 
   @SuppressWarnings("unchecked")
-  public static <T> T getAnyValidValueOfClass(Class<T> type) {
+  public static <T> T getDefaultValueOf(Class<T> type) {
     return (T) DEFAULT_VALUES.get(type);
   }
 
