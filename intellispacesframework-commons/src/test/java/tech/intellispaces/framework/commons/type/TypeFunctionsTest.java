@@ -35,6 +35,7 @@ public class TypeFunctionsTest {
 
     assertThat(TypeFunctions.getSimpleName("Object")).isEqualTo("Object");
     assertThat(TypeFunctions.getSimpleName("java.lang.Object")).isEqualTo("Object");
+    assertThat(TypeFunctions.getSimpleName("java.util.Map.Entry")).isEqualTo("Entry");
   }
 
   @Test
