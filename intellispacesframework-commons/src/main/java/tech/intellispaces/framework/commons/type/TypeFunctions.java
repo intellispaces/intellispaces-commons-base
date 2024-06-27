@@ -4,6 +4,7 @@ import tech.intellispaces.framework.commons.exception.UnexpectedViolationExcepti
 
 import javax.lang.model.element.Element;
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -21,6 +22,21 @@ public class TypeFunctions {
     } catch (ClassNotFoundException e) {
       return Optional.empty();
     }
+  }
+
+  public static boolean hasAnnotationDeep(Class<?> aClass, Class<? extends Annotation> annotation) {
+    if (aClass.isAnnotationPresent(annotation)) {
+      return true;
+    }
+    if (aClass.getSuperclass() != null && hasAnnotationDeep(aClass.getSuperclass(), annotation)) {
+      return true;
+    }
+    for (Class<?> interfaceClass : aClass.getInterfaces()) {
+      if (hasAnnotationDeep(interfaceClass, annotation)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static Optional<Method> getMethod(Class<?> aClass, String methodName) {
