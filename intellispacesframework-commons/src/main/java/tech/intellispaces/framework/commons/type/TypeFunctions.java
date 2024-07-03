@@ -130,6 +130,14 @@ public class TypeFunctions {
     return (T) DEFAULT_VALUES.get(type);
   }
 
+  public static Class<?> getPrimitiveWrapperClass(String primitiveType) {
+    Class<?> primitiveClass = WRAPPER_CLASSES.get(primitiveType);
+    if (primitiveClass == null) {
+      throw UnexpectedViolationException.withMessage("Not primitive type: {}", primitiveType);
+    }
+    return primitiveClass;
+  }
+
   private TypeFunctions() {}
 
   private static final Map<Class<?>, Object> DEFAULT_VALUES = new HashMap<>();
@@ -152,4 +160,15 @@ public class TypeFunctions {
     DEFAULT_VALUES.put(Float.class, 0.0f);
     DEFAULT_VALUES.put(Double.class, 0.0);
   }
+
+  private final static Map<String, Class<?>> WRAPPER_CLASSES = Map.of(
+      "boolean", Boolean.class,
+      "byte", Byte.class,
+      "short", Short.class,
+      "int", Integer.class,
+      "long", Long.class,
+      "float", Float.class,
+      "double", Double.class,
+      "char", Character.class
+  );
 }

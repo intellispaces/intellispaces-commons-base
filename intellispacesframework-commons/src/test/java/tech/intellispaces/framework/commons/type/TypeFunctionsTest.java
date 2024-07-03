@@ -120,4 +120,16 @@ public class TypeFunctionsTest {
     assertThat(TypeFunctions.getDefaultValueOf(String.class)).isNull();
     assertThat(TypeFunctions.getDefaultValueOf(Class.class)).isNull();
   }
+
+  @Test
+  public void testGetPrimitiveWrapperClass() {
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("boolean")).isEqualTo(Boolean.class);
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("byte")).isEqualTo(Byte.class);
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("short")).isEqualTo(Short.class);
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("int")).isEqualTo(Integer.class);
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("long")).isEqualTo(Long.class);
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("float")).isEqualTo(Float.class);
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("double")).isEqualTo(Double.class);
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("char")).isEqualTo(Character.class);
+  }
 }
