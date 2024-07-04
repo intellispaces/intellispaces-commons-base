@@ -55,4 +55,22 @@ public interface StringFunctions {
     }
     return string.substring(0, 1).toLowerCase() + string.substring(1);
   }
+
+  static String replaceLast(String string, String target, String replacement) {
+    if (string == null) {
+      return null;
+    }
+    if (target == null) {
+      return string;
+    }
+    if (replacement == null) {
+      replacement = "";
+    }
+    int index = string.lastIndexOf(target);
+    if (index > -1) {
+      return string.substring(0, index) + replacement + string.substring(index + target.length());
+    } else {
+      return string;
+    }
+  }
 }

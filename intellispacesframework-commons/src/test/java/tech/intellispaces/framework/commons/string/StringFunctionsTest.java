@@ -61,4 +61,13 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.lowercaseFirstLetter("ABC")).isEqualTo("aBC");
     assertThat(StringFunctions.lowercaseFirstLetter("aBC")).isEqualTo("aBC");
   }
+
+  @Test
+  public void testReplaceLast() {
+    assertThat(StringFunctions.replaceLast(null, null, null)).isNull();
+    assertThat(StringFunctions.replaceLast("aa2aa", null, null)).isEqualTo("aa2aa");
+    assertThat(StringFunctions.replaceLast("aa2aa", "aa", null)).isEqualTo("aa2");
+    assertThat(StringFunctions.replaceLast("aa2aa", "aa", "")).isEqualTo("aa2");
+    assertThat(StringFunctions.replaceLast("aa2aa", "aa", "bbb")).isEqualTo("aa2bbb");
+  }
 }
