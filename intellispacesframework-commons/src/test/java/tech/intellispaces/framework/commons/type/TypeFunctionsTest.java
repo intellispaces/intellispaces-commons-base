@@ -36,6 +36,7 @@ public class TypeFunctionsTest {
     assertThat(TypeFunctions.getSimpleName("Object")).isEqualTo("Object");
     assertThat(TypeFunctions.getSimpleName("java.lang.Object")).isEqualTo("Object");
     assertThat(TypeFunctions.getSimpleName("java.util.Map.Entry")).isEqualTo("Entry");
+    assertThat(TypeFunctions.getSimpleName("java.util.Map$Entry")).isEqualTo("Entry");
   }
 
   @Test
@@ -44,6 +45,7 @@ public class TypeFunctionsTest {
     assertThatThrownBy(() -> TypeFunctions.getPackageName("")).isExactlyInstanceOf(UnexpectedViolationException.class);
     assertThat(TypeFunctions.getPackageName("Object")).isEqualTo("");
     assertThat(TypeFunctions.getPackageName("java.lang.Object")).isEqualTo("java.lang");
+    assertThat(TypeFunctions.getPackageName("java.lang.Map$Entry")).isEqualTo("java.lang");
   }
 
   @Test

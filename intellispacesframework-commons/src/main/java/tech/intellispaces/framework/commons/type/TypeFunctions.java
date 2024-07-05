@@ -55,30 +55,43 @@ public class TypeFunctions {
     }
   }
 
-  public static String getSimpleName(String canonicalName) {
-    if (canonicalName.isEmpty()) {
+  /**
+   * Extract simple name.
+   *
+   * @param name name obtained from methods Class#getName or Class#getCanonicalName
+   * @return simple name.
+   */
+  public static String getSimpleName(String name) {
+    if (name.isEmpty()) {
       throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
     }
-    int lastDot = canonicalName.lastIndexOf('.');
-    return canonicalName.substring(lastDot + 1);
+    int lastDot = name.lastIndexOf('.');
+    int lastDollar = name.lastIndexOf('$');
+    return name.substring(Math.max(lastDot, lastDollar) + 1);
   }
 
-  public static String getPackageName(String canonicalName) {
-    if (canonicalName.isEmpty()) {
-      throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
+  /**
+   * Extract package name.
+   *
+   * @param className class name obtained from method Class#getName
+   * @return package name.
+   */
+  public static String getPackageName(String className) {
+    if (className.isEmpty()) {
+      throw UnexpectedViolationException.withMessage("Class name should be not empty");
     }
-    int lastDot = canonicalName.lastIndexOf('.');
-    return lastDot > 0 ? canonicalName.substring(0, lastDot) : "";
+    int lastDot = className.lastIndexOf('.');
+    return lastDot > 0 ? className.substring(0, lastDot) : "";
   }
 
-  public static String joinPackageAndClassname(String packageName, String classSimpleName) {
-    if (classSimpleName == null || classSimpleName.isBlank()) {
+  public static String joinPackageAndClassname(String packageName, String simpleName) {
+    if (simpleName == null || simpleName.isBlank()) {
       throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
     }
     if (packageName == null || packageName.isEmpty()) {
-      return classSimpleName;
+      return simpleName;
     } else {
-      return packageName + "." + classSimpleName;
+      return packageName + "." + simpleName;
     }
   }
 
