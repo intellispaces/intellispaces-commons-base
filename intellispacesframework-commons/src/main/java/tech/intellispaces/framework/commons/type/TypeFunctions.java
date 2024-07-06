@@ -84,7 +84,7 @@ public class TypeFunctions {
     return lastDot > 0 ? className.substring(0, lastDot) : "";
   }
 
-  public static String joinPackageAndClassname(String packageName, String simpleName) {
+  public static String joinPackageAndSimpleName(String packageName, String simpleName) {
     if (simpleName == null || simpleName.isBlank()) {
       throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
     }
@@ -93,6 +93,16 @@ public class TypeFunctions {
     } else {
       return packageName + "." + simpleName;
     }
+  }
+
+  public static String replaceSimpleName(String canonicalName, String newSimpleName) {
+    if (canonicalName == null || canonicalName.isBlank()) {
+      throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
+    }
+    if (newSimpleName == null || newSimpleName.isBlank()) {
+      throw UnexpectedViolationException.withMessage("Class simple name should be not empty");
+    }
+    return joinPackageAndSimpleName(getPackageName(canonicalName), newSimpleName);
   }
 
   public static String addPrefixToClassName(String prefix, String canonicalName) {

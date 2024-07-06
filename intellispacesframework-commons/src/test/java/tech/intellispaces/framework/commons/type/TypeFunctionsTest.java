@@ -49,14 +49,24 @@ public class TypeFunctionsTest {
   }
 
   @Test
-  public void testJoinPackageAndClassname() {
-    assertThatThrownBy(() -> TypeFunctions.joinPackageAndClassname("", null)).isExactlyInstanceOf(UnexpectedViolationException.class);
-    assertThat(TypeFunctions.joinPackageAndClassname(null, "SomeClass")).isEqualTo("SomeClass");
-    assertThat(TypeFunctions.joinPackageAndClassname("", "SomeClass")).isEqualTo("SomeClass");
-    assertThat(TypeFunctions.joinPackageAndClassname("a", "SomeClass")).isEqualTo("a.SomeClass");
-    assertThat(TypeFunctions.joinPackageAndClassname("a.b", "SomeClass")).isEqualTo("a.b.SomeClass");
-    assertThat(TypeFunctions.joinPackageAndClassname("a.b.c", "SomeClass")).isEqualTo("a.b.c.SomeClass");
+  public void testJoinPackageAndSimpleName() {
+    assertThatThrownBy(() -> TypeFunctions.joinPackageAndSimpleName("", null)).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThat(TypeFunctions.joinPackageAndSimpleName(null, "SomeClass")).isEqualTo("SomeClass");
+    assertThat(TypeFunctions.joinPackageAndSimpleName("", "SomeClass")).isEqualTo("SomeClass");
+    assertThat(TypeFunctions.joinPackageAndSimpleName("a", "SomeClass")).isEqualTo("a.SomeClass");
+    assertThat(TypeFunctions.joinPackageAndSimpleName("a.b", "SomeClass")).isEqualTo("a.b.SomeClass");
+    assertThat(TypeFunctions.joinPackageAndSimpleName("a.b.c", "SomeClass")).isEqualTo("a.b.c.SomeClass");
+  }
 
+  @Test
+  public void testReplaceSimpleName() {
+    assertThatThrownBy(() -> TypeFunctions.replaceSimpleName(null, "New")).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> TypeFunctions.replaceSimpleName("", "New")).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> TypeFunctions.replaceSimpleName("com", null)).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> TypeFunctions.replaceSimpleName("com", "")).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThat(TypeFunctions.replaceSimpleName("com", "New")).isEqualTo("New");
+    assertThat(TypeFunctions.replaceSimpleName("com.Old", "New")).isEqualTo("com.New");
+    assertThat(TypeFunctions.replaceSimpleName("com.app.Old", "New")).isEqualTo("com.app.New");
   }
 
   @Test
