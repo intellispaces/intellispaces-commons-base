@@ -1,5 +1,7 @@
 package tech.intellispaces.framework.commons.string;
 
+import java.util.Arrays;
+
 /**
  * Strings processing functions.
  */
@@ -72,5 +74,14 @@ public interface StringFunctions {
     } else {
       return string;
     }
+  }
+
+  static String createBlankString(int length) {
+    if (length <= 0) {
+      return "";
+    }
+    char[] charArray = new char[length];
+    Arrays.fill(charArray, ' ');
+    return new String(charArray);
   }
 }

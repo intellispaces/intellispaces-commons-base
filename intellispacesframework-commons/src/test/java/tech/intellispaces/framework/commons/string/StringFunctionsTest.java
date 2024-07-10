@@ -70,4 +70,13 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.replaceLast("aa2aa", "aa", "")).isEqualTo("aa2");
     assertThat(StringFunctions.replaceLast("aa2aa", "aa", "bbb")).isEqualTo("aa2bbb");
   }
+
+  @Test
+  public void testCreateBlankString() {
+    assertThat(StringFunctions.createBlankString(-1)).isEmpty();
+    assertThat(StringFunctions.createBlankString(0)).isEmpty();
+    assertThat(StringFunctions.createBlankString(1)).isEqualTo(" ");
+    assertThat(StringFunctions.createBlankString(2)).isEqualTo("  ");
+    assertThat(StringFunctions.createBlankString(3)).isEqualTo("   ");
+  }
 }
