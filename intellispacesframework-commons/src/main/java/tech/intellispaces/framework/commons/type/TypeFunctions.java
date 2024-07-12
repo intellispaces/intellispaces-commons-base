@@ -24,6 +24,14 @@ public class TypeFunctions {
     }
   }
 
+  public static Optional<Method> getMethod(Class<?> aClass, String name, Class<?>... parameterTypes) {
+    try {
+      return Optional.of(aClass.getMethod(name, parameterTypes));
+    } catch (NoSuchMethodException e) {
+      return Optional.empty();
+    }
+  }
+
   public static boolean hasAnnotationDeep(Class<?> aClass, Class<? extends Annotation> annotation) {
     if (aClass.isAnnotationPresent(annotation)) {
       return true;
