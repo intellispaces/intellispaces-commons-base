@@ -169,6 +169,11 @@ public class TypeFunctions {
     return primitiveClass;
   }
 
+  @SuppressWarnings("unchecked")
+  public static <T extends B, B> Class<T> typedClass(Class<B> aClass) {
+    return (Class<T>) aClass;
+  }
+
   private TypeFunctions() {}
 
   private static final Map<Class<?>, Object> DEFAULT_VALUES = new HashMap<>();
