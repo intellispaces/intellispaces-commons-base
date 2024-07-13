@@ -169,9 +169,8 @@ public class TypeFunctions {
     return primitiveClass;
   }
 
-  @SuppressWarnings("unchecked")
-  public static <T> Class<T> typedClass(Class<? super T> aClass) {
-    return (Class<T>) aClass;
+  public static <T extends C, C> Type<T> typeOf(Class<C> aClass) {
+    return new Type<>(aClass);
   }
 
   private TypeFunctions() {}
