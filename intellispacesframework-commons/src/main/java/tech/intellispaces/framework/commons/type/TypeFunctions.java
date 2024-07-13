@@ -170,7 +170,7 @@ public class TypeFunctions {
   }
 
   @SuppressWarnings("unchecked")
-  public static <T extends C, C> Class<T> typedClass(Class<C> aClass) {
+  public static <T> Class<T> typedClass(Class<? super T> aClass) {
     return (Class<T>) aClass;
   }
 
