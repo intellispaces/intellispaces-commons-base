@@ -1,6 +1,9 @@
 package tech.intellispaces.framework.commons.action;
 
 import org.junit.jupiter.api.Test;
+import tech.intellispaces.framework.commons.action.getter.ResettableGetter;
+import tech.intellispaces.framework.commons.action.onetime.FirstTimeOnlyAction;
+import tech.intellispaces.framework.commons.action.onetime.NotFirstTimeOnlyAction;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -15,79 +18,79 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ActionBuildersTest {
 
   @Test
-  public void testAction_whenRunnable() {
+  public void testRunner_whenRunnable() {
     // Given
     List<Integer> values = new ArrayList<>();
     Runnable runnable = () -> values.add(values.size() + 1);
-    Action action = ActionBuilders.action(runnable);
+    Executor executor = ActionBuilders.runner(runnable);
 
     // When
-    action.execute();
-    action.execute();
-    action.execute();
+    executor.execute();
+    executor.execute();
+    executor.execute();
 
     // Then
     assertThat(values).containsExactly(1, 2, 3);
   }
 
   @Test
-  public void testAction_whenRunnable_andFirstTimeOnly() {
+  public void testRunner_whenRunnable_andFirstTimeOnly() {
     // Given
     List<Integer> values = new ArrayList<>();
     Runnable runnable = () -> values.add(values.size() + 1);
-    Action action = ActionBuilders.action(runnable).firstTimeOnly();
+    Executor executor = ActionBuilders.runner(runnable).wrap(FirstTimeOnlyAction::new);
 
     // When
-    action.execute();
-    action.execute();
-    action.execute();
+    executor.execute();
+    executor.execute();
+    executor.execute();
 
     // Then
     assertThat(values).containsExactly(1);
   }
 
   @Test
-  public void testAction_whenRunnable_andNotFirstTimeOnly() {
+  public void testRunner_whenRunnable_andNotFirstTimeOnly() {
     // Given
     List<Integer> values = new ArrayList<>();
     Runnable runnable = () -> values.add(values.size() + 1);
-    Action action = ActionBuilders.action(runnable).notFirstTimeOnly();
+    Executor executor = ActionBuilders.runner(runnable).wrap(NotFirstTimeOnlyAction::new);
 
     // When
-    action.execute();
-    action.execute();
-    action.execute();
+    executor.execute();
+    executor.execute();
+    executor.execute();
 
     // Then
     assertThat(values).containsExactly(1, 2);
   }
 
   @Test
-  public void testAction_whenConsumer() {
+  public void testRunner_whenConsumer() {
     // Given
     List<Integer> values = new ArrayList<>();
-    Action action = ActionBuilders.action(values::add, 1);
+    Executor executor = ActionBuilders.runner(values::add, 1);
 
     // When
-    action.execute();
-    action.execute();
-    action.execute();
+    executor.execute();
+    executor.execute();
+    executor.execute();
 
     // Then
     assertThat(values).containsExactly(1, 1, 1);
   }
 
   @Test
-  public void testAction_whenJoin() {
+  public void testJoinedRunners() {
     // Given
     List<Integer> values = new ArrayList<>();
-    Action action = ActionBuilders.action(values::add, 1)
-        .join(ActionBuilders.action(values::add, 2));
+    Executor executor = ActionBuilders.runner(values::add, 1)
+        .then(ActionBuilders.runner(values::add, 2));
 
     // When
-    action.execute();
-    action.execute();
-    action.execute();
+    executor.execute();
+    executor.execute();
+    executor.execute();
 
     // Then
     assertThat(values).containsExactly(1, 2, 1, 2, 1, 2);

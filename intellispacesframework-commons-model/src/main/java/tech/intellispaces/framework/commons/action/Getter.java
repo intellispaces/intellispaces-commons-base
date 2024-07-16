@@ -1,5 +1,6 @@
 package tech.intellispaces.framework.commons.action;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -7,13 +8,16 @@ import java.util.function.Supplier;
  *
  * <p>Getter is action that returns a data.
  *
- * @param <T> result data type.
+ * @param <V> result data type.
  */
-@FunctionalInterface
-public interface Getter<T> extends Action, Supplier<T> {
+public interface Getter<V> extends Action0<V>, Supplier<V> {
 
   @Override
-  default void execute() {
-    get();
+  default V execute() {
+    return get();
   }
+
+  Getter<V> wrap(
+      Function<Action<V, Void, Void, Void, Void, Void>, Action<V, Void, Void, Void, Void, Void>> wrapperFactory
+  );
 }

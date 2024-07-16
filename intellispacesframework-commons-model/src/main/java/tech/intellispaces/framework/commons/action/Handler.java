@@ -1,31 +1,38 @@
 package tech.intellispaces.framework.commons.action;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Handler action.
  *
  * <p>Handler is action that processes an input data.
  *
- * @param <T> input data type.
+ * @param <D> handled data type.
  */
-@FunctionalInterface
-public interface Handler<T> extends Action, Consumer<T> {
+public interface Handler<D> extends Action1<D, D>, Consumer<D> {
 
   /**
    * Executes action.
    *
-   * @param value input data.
+   * @param data input data.
    */
-  void handle(T value);
+  void handle(D data);
+
+  Handler<D> then(Action1<D, D> otherAction);
 
   @Override
-  default void execute() {
-    throw new UnsupportedOperationException("There is no input data");
+  default D execute(D value) {
+    handle(value);
+    return value;
   }
 
   @Override
-  default void accept(T value) {
+  default void accept(D value) {
     handle(value);
   }
+
+  Handler<D> wrap(
+      Function<Action<D, D, Void, Void, Void, Void>, Action<D, D, Void, Void, Void, Void>> wrapperFactory
+  );
 }

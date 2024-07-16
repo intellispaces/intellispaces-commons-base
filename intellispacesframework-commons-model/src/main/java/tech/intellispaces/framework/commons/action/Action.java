@@ -1,41 +1,20 @@
 package tech.intellispaces.framework.commons.action;
 
+import java.util.function.Function;
+
 /**
- * Action.
+ * Action.<p/>
  *
- * <p>Action is an activity that can be executed.
+ * Action is any activity that can be executed. Actions are lightweight superstructure over Java functions, suppliers
+ * and consumers.<p/>
  *
- * <p>The action is an object. Each action object has 'execute' method to perform activity.
+ * The action is an object. Each action object has 'execute' method to perform activity.<p/>
  */
-@FunctionalInterface
-public interface Action {
+public interface Action<V, D1, D2, D3, D4, D5> {
 
-  /**
-   * Executes action.
-   */
-  void execute();
+  V execute(D1 data1, D2 data2, D3 data3, D4 data4, D5 data5);
 
-  /**
-   * Joins this action with other action.
-   *
-   * @param action other action.
-   * @return result action.
-   */
-  default Action join(Action action) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * Returns action that executes this action first time only.
-   */
-  default Action firstTimeOnly() {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * Returns action that executes this action not first time only.
-   */
-  default Action notFirstTimeOnly() {
-    throw new UnsupportedOperationException();
-  }
+  <A extends Action<_V, _D1, _D2, _D3, _D4, _D5>, _V, _D1, _D2, _D3, _D4, _D5> A wrapAction(
+      Function<Action<V, D1, D2, D3, D4, D5>, A> wrapperFactory
+  );
 }
