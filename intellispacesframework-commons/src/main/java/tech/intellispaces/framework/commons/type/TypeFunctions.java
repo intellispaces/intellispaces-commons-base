@@ -169,10 +169,6 @@ public class TypeFunctions {
     return primitiveClass;
   }
 
-  public static <T extends C, C> Type<T> typeOf(Class<C> aClass) {
-    return new Type<>(aClass);
-  }
-
   private TypeFunctions() {}
 
   private static final Map<Class<?>, Object> DEFAULT_VALUES = new HashMap<>();
