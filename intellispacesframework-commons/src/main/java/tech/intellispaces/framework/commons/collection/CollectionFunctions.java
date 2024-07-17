@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Strings processing functions.
+ * Collection processing functions.
  */
 public interface CollectionFunctions {
 
