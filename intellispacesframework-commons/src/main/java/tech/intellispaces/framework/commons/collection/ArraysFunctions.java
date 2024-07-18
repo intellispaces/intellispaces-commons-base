@@ -67,21 +67,21 @@ public interface ArraysFunctions {
 
   static Boolean[] wrap(boolean[] elements) {
     if (elements == null) {
-      return new Boolean[0];
+      return null;
     }
     return IntStream.range(0, elements.length).mapToObj(ind -> elements[ind]).toArray(Boolean[]::new);
   }
 
   static Integer[] wrap(int[] elements) {
     if (elements == null) {
-      return new Integer[0];
+      return null;
     }
     return IntStream.of(elements).boxed().toArray(Integer[]::new);
   }
 
   static Double[] wrap(double[] elements) {
     if (elements == null) {
-      return new Double[0];
+      return null;
     }
     return DoubleStream.of(elements).boxed().toArray(Double[]::new);
   }
