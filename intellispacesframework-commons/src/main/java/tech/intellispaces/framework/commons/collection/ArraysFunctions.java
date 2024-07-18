@@ -2,6 +2,8 @@ package tech.intellispaces.framework.commons.collection;
 
 import java.lang.reflect.Array;
 import java.util.function.Function;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
 
 /**
  * Arrays processing functions.
@@ -61,5 +63,26 @@ public interface ArraysFunctions {
       result[i] = mapper.apply(array[i]);
     }
     return result;
+  }
+
+  static Boolean[] wrap(boolean[] elements) {
+    if (elements == null) {
+      return new Boolean[0];
+    }
+    return IntStream.range(0, elements.length).mapToObj(ind -> elements[ind]).toArray(Boolean[]::new);
+  }
+
+  static Integer[] wrap(int[] elements) {
+    if (elements == null) {
+      return new Integer[0];
+    }
+    return IntStream.of(elements).boxed().toArray(Integer[]::new);
+  }
+
+  static Double[] wrap(double[] elements) {
+    if (elements == null) {
+      return new Double[0];
+    }
+    return DoubleStream.of(elements).boxed().toArray(Double[]::new);
   }
 }

@@ -34,4 +34,25 @@ public class ArraysFunctionsTest {
     assertThat(ArraysFunctions.map(new String[0], Integer::valueOf, Integer.class)).isEmpty();
     assertThat(ArraysFunctions.map(new String[] {"1", "2", "3"}, Integer::valueOf, Integer.class)).contains(1, 2, 3);
   }
+
+  @Test
+  public void testWrap_whenBoolean() {
+    assertThat(ArraysFunctions.wrap((boolean[]) null)).isEmpty();
+    assertThat(ArraysFunctions.wrap(new boolean[] { true })).containsExactly(Boolean.TRUE);
+    assertThat(ArraysFunctions.wrap(new boolean[] { true, false })).containsExactly(Boolean.TRUE, Boolean.FALSE);
+  }
+
+  @Test
+  public void testWrap_whenInteger() {
+    assertThat(ArraysFunctions.wrap((int[]) null)).isEmpty();
+    assertThat(ArraysFunctions.wrap(new int[] { 1 })).containsExactly(1);
+    assertThat(ArraysFunctions.wrap(new int[] { 1, 2 })).containsExactly(1, 2);
+  }
+
+  @Test
+  public void testWrap_whenDouble() {
+    assertThat(ArraysFunctions.wrap((double[]) null)).isEmpty();
+    assertThat(ArraysFunctions.wrap(new double[] { 1.1 })).containsExactly(1.1);
+    assertThat(ArraysFunctions.wrap(new double[] { 1.1, 2.2 })).containsExactly(1.1, 2.2);
+  }
 }
