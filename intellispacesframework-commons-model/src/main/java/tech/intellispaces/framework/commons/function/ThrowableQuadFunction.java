@@ -11,7 +11,7 @@ package tech.intellispaces.framework.commons.function;
  * @param <E> the exception type.
  */
 @FunctionalInterface
-public interface ThrowingQuadFunction<T1, T2, T3, T4, R, E extends Throwable> {
+public interface ThrowableQuadFunction<T1, T2, T3, T4, R, E extends Throwable> {
 
   /**
    * Applies function.

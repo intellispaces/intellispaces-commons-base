@@ -1,13 +1,37 @@
 package tech.intellispaces.framework.commons.function;
 
-import java.util.function.Consumer;
+import tech.intellispaces.framework.commons.exception.CoveredCheckedException;
 
-public final class Functions {
+import java.util.function.Function;
 
-  @SuppressWarnings("unchecked")
-  public static <T> Consumer<T> idleConsumer() {
-    return (Consumer<T>) IDLE_CONSUMER;
+public interface Functions {
+
+  static <T, R, E extends Throwable> Function<T, R> coveredThrowableFunction(
+      ThrowableFunction<T, R, E> function
+  ) {
+    return t -> {
+      try {
+        return function.apply(t);
+      } catch (RuntimeException e) {
+        throw e;
+      } catch (Throwable e) {
+        throw new CoveredCheckedException(e);
+      }
+    };
   }
 
-  private static final Consumer<?> IDLE_CONSUMER = v -> {};
+  @SuppressWarnings("unchecked")
+  static <T, R, E extends Throwable, E2 extends RuntimeException> Function<T, R> coveredThrowableFunction(
+      ThrowableFunction<T, R, E> function, Function<E, E2> exceptionFactory
+  ) {
+    return t -> {
+      try {
+        return function.apply(t);
+      } catch (RuntimeException e) {
+        throw e;
+      } catch (Throwable e) {
+        throw exceptionFactory.apply((E) e);
+      }
+    };
+  }
 }
