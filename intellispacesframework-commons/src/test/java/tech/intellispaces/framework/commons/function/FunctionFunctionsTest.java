@@ -25,11 +25,11 @@ public class FunctionFunctionsTest {
 
     // When
     ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUncoverIfCovered(
-        PossibleViolationException.class,
-        stream,
         (s) -> s
           .map(Functions.coveredThrowableFunction(TestFunctionSamples::throwingCheckedFunction))
-          .toList());
+          .toList(),
+        stream,
+        PossibleViolationException.class);
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(PossibleViolationException.class);
@@ -42,11 +42,11 @@ public class FunctionFunctionsTest {
 
     // When
     ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUncoverIfCovered(
-        Exception.class,
-        stream,
         (s) -> s
           .map(Functions.coveredThrowableFunction(TestFunctionSamples::throwingCheckedFunction))
-          .toList());
+          .toList(),
+        stream,
+        Exception.class);
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(PossibleViolationException.class);
@@ -59,11 +59,11 @@ public class FunctionFunctionsTest {
 
     // When
     ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUncoverIfCovered(
-        IOException.class,
-        stream,
         (s) -> s
           .map(Functions.coveredThrowableFunction(TestFunctionSamples::throwingCheckedFunction))
-          .toList());
+          .toList(),
+        stream,
+        IOException.class);
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(CoveredCheckedException.class)

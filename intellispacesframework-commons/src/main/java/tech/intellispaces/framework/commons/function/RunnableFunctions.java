@@ -5,7 +5,7 @@ import tech.intellispaces.framework.commons.exception.CoveredCheckedException;
 public interface RunnableFunctions {
 
   @SuppressWarnings("unchecked")
-  static <E extends Throwable> void runAndUncoverIfCovered(Class<E> e, Runnable runnable) throws E {
+  static <E extends Throwable> void runAndUncoverIfCovered(Runnable runnable, Class<E> e) throws E {
     try {
       runnable.run();
     } catch (CoveredCheckedException se) {

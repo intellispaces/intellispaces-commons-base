@@ -20,10 +20,10 @@ public class RunnableFunctionsTest {
   public void testUncover_whenRunnableAndExactMatch() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> RunnableFunctions.runAndUncoverIfCovered(
-        PossibleViolationException.class,
         () -> Stream.of("a", "", "b")
           .map(Functions.coveredThrowableFunction(TestFunctionSamples::throwingCheckedFunction))
-          .toList());
+          .toList(),
+        PossibleViolationException.class);
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(PossibleViolationException.class);
@@ -33,10 +33,10 @@ public class RunnableFunctionsTest {
   public void testUncover_whenRunnableAndBaseExceptionSpecified() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> RunnableFunctions.runAndUncoverIfCovered(
-        Exception.class,
         () -> Stream.of("a", "", "b")
           .map(Functions.coveredThrowableFunction(TestFunctionSamples::throwingCheckedFunction))
-          .toList());
+          .toList(),
+        Exception.class);
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(PossibleViolationException.class);
@@ -46,10 +46,10 @@ public class RunnableFunctionsTest {
   public void testUncover_whenRunnableAndOtherExceptionSpecified() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> RunnableFunctions.runAndUncoverIfCovered(
-        IOException.class,
         () -> Stream.of("a", "", "b")
           .map(Functions.coveredThrowableFunction(TestFunctionSamples::throwingCheckedFunction))
-          .toList());
+          .toList(),
+        IOException.class);
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(CoveredCheckedException.class)

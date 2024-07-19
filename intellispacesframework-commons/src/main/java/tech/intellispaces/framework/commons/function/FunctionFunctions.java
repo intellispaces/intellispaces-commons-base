@@ -59,7 +59,7 @@ public interface FunctionFunctions {
 
   @SuppressWarnings("unchecked")
   static <T, R, E extends Throwable> R applyAndUncoverIfCovered(
-      Class<E> e, T argument, Function<T, R> function
+      Function<T, R> function, T argument, Class<E> e
   ) throws E {
     try {
       return function.apply(argument);
