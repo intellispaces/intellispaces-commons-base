@@ -3,23 +3,23 @@
 
     <parent>
         <groupId>intellispaces</groupId>
-        <artifactId>intellispacesframework-parent-pom</artifactId>
+        <artifactId>intellispaces-parent-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispacesframework-commons-parent</artifactId>
+    <artifactId>intellispaces-commons-parent</artifactId>
     <packaging>pom</packaging>
 
 	<modules>
-        <module>intellispacesframework-commons-model</module>
-	    <module>intellispacesframework-commons</module>
+        <module>intellispaces-commons-model</module>
+	    <module>intellispaces-commons</module>
 	</modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>intellispaces</groupId>
-                <artifactId>intellispacesframework-commons-model</artifactId>
+                <artifactId>intellispaces-commons-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
