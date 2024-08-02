@@ -22,6 +22,21 @@ public class TypeFunctionsTest {
   }
 
   @Test
+  public void testGetClassOrElseThrow() {
+    assertThat(TypeFunctions.getClassOrElseThrow("java.lang.String")).isSameAs(String.class);
+    assertThatThrownBy(() -> TypeFunctions.getClassOrElseThrow("java.lang.String12345"))
+        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .hasMessage("Could not to get class by name java.lang.String12345");
+  }
+
+  @Test
+  public void testGetClassOrElseThrowWithExceptionSupplier() {
+    assertThat(TypeFunctions.getClassOrElseThrow("java.lang.String", RuntimeException::new)).isSameAs(String.class);
+    assertThatThrownBy(() -> TypeFunctions.getClassOrElseThrow("java.lang.String12345", RuntimeException::new))
+        .isExactlyInstanceOf(RuntimeException.class);
+  }
+
+  @Test
   public void testGetMethod() {
     assertThat(TypeFunctions.getMethod(String.class, "trim")).isPresent();
     assertThat(TypeFunctions.getMethod(String.class, "trim123")).isNotPresent();

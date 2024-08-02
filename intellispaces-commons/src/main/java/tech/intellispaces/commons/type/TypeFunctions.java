@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * Type and class related functions.
@@ -26,6 +27,17 @@ public class TypeFunctions {
     } catch (ClassNotFoundException e) {
       return Optional.empty();
     }
+  }
+
+  public static Class<?> getClassOrElseThrow(String className) {
+    return getClass(className).orElseThrow(() -> UnexpectedViolationException.withMessage(
+        "Could not to get class by name {}", className));
+  }
+
+  public static <E extends Throwable> Class<?> getClassOrElseThrow(
+      String className, Supplier<? extends E> exceptionSupplier
+  ) throws E {
+    return getClass(className).orElseThrow(exceptionSupplier);
   }
 
   public static Optional<Method> getMethod(Class<?> aClass, String name, Class<?>... parameterTypes) {
