@@ -68,6 +68,15 @@ public class TypeFunctionsTest {
   }
 
   @Test
+  public void testShortenName() {
+    assertThat(TypeFunctions.shortenName("Object")).isEqualTo("Object");
+    assertThat(TypeFunctions.shortenName("java.lang.Object")).isEqualTo("Object");
+    assertThat(TypeFunctions.shortenName("java.lang.Map$Entry")).isEqualTo("Entry");
+    assertThat(TypeFunctions.shortenName(TypeFunctionsTest.class.getCanonicalName())).isEqualTo(
+        TypeFunctionsTest.class.getCanonicalName());
+  }
+
+  @Test
   public void testJoinPackageAndSimpleName() {
     assertThatThrownBy(() -> TypeFunctions.joinPackageAndSimpleName("", null)).isExactlyInstanceOf(UnexpectedViolationException.class);
     assertThat(TypeFunctions.joinPackageAndSimpleName(null, "SomeClass")).isEqualTo("SomeClass");

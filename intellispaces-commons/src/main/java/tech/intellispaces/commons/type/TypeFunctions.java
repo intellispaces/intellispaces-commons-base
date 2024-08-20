@@ -108,6 +108,13 @@ public class TypeFunctions {
     return lastDot > 0 ? className.substring(0, lastDot) : "";
   }
 
+  public static String shortenName(String canonicalName) {
+    if (canonicalName.startsWith("java.lang.")) {
+      return TypeFunctions.getSimpleName(canonicalName);
+    }
+    return canonicalName;
+  }
+
   public static String joinPackageAndSimpleName(String packageName, String simpleName) {
     if (simpleName == null || simpleName.isBlank()) {
       throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
