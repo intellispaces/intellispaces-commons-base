@@ -1,10 +1,10 @@
 package intellispaces.commons.function;
 
-import org.assertj.core.api.ThrowableAssert;
-import org.junit.jupiter.api.Test;
 import intellispaces.commons.TestFunctionSamples;
 import intellispaces.commons.exception.CoveredCheckedException;
 import intellispaces.commons.exception.PossibleViolationException;
+import org.assertj.core.api.ThrowableAssert;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.stream.Stream;

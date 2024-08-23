@@ -1,7 +1,7 @@
 package intellispaces.commons.type;
 
-import org.junit.jupiter.api.Test;
 import intellispaces.commons.exception.UnexpectedViolationException;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;

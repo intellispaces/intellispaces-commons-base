@@ -1,8 +1,10 @@
 package intellispaces.commons.string;
 
+import intellispaces.commons.exception.UnexpectedViolationException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests for {@link StringFunctions}/
@@ -69,6 +71,25 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.replaceLast("aa2aa", "aa", null)).isEqualTo("aa2");
     assertThat(StringFunctions.replaceLast("aa2aa", "aa", "")).isEqualTo("aa2");
     assertThat(StringFunctions.replaceLast("aa2aa", "aa", "bbb")).isEqualTo("aa2bbb");
+  }
+
+  @Test
+  public void testReplaceEndingOrElseThrow() {
+    assertThat(StringFunctions.replaceEndingOrElseThrow("abc", "c", "d")).isEqualTo("abd");
+    assertThat(StringFunctions.replaceEndingOrElseThrow("abc", "bc", "def")).isEqualTo("adef");
+
+    assertThatThrownBy(() -> StringFunctions.replaceEndingOrElseThrow(null, "a", "b"))
+        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .hasMessage("Source string is null");
+    assertThatThrownBy(() -> StringFunctions.replaceEndingOrElseThrow("abc", null, "b"))
+        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .hasMessage("Ending string is null");
+    assertThatThrownBy(() -> StringFunctions.replaceEndingOrElseThrow("abc", "d", "e"))
+        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .hasMessage("Source string does not contain ending string");
+    assertThatThrownBy(() -> StringFunctions.replaceEndingOrElseThrow("abc", "b", "d"))
+        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .hasMessage("Source string does not contain ending string");
   }
 
   @Test

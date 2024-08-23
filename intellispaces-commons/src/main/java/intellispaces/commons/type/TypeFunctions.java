@@ -1,8 +1,8 @@
 package intellispaces.commons.type;
 
-import intellispaces.commons.exception.UnexpectedViolationException;
 import intellispaces.commons.collection.ArraysFunctions;
 import intellispaces.commons.collection.CollectionFunctions;
+import intellispaces.commons.exception.UnexpectedViolationException;
 
 import javax.lang.model.element.Element;
 import java.io.File;

@@ -1,8 +1,8 @@
 package intellispaces.commons.resource;
 
+import intellispaces.commons.exception.UnexpectedViolationException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
-import intellispaces.commons.exception.UnexpectedViolationException;
 
 import java.util.Optional;
 

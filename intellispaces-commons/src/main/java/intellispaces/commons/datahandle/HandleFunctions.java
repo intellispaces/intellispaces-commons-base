@@ -29,7 +29,11 @@ public interface HandleFunctions {
    * @param handler2 second value handler.
    * @param <T> value type.
    */
-  static <T> void handle(T value, Consumer<T> handler1, Consumer<T> handler2) {
+  static <T> void handle(
+      T value,
+      Consumer<T> handler1,
+      Consumer<T> handler2
+  ) {
     handler1.accept(value);
     handler2.accept(value);
   }
@@ -43,7 +47,12 @@ public interface HandleFunctions {
    * @param handler3 third value handler.
    * @param <T> value type.
    */
-  static <T> void handle(T value, Consumer<T> handler1, Consumer<T> handler2, Consumer<T> handler3) {
+  static <T> void handle(
+      T value,
+      Consumer<T> handler1,
+      Consumer<T> handler2,
+      Consumer<T> handler3
+  ) {
     handler1.accept(value);
     handler2.accept(value);
     handler3.accept(value);
@@ -59,7 +68,13 @@ public interface HandleFunctions {
    * @param handler4 fourth value handler.
    * @param <T> value type.
    */
-  static <T> void handle(T value, Consumer<T> handler1, Consumer<T> handler2, Consumer<T> handler3, Consumer<T> handler4) {
+  static <T> void handle(
+      T value,
+      Consumer<T> handler1,
+      Consumer<T> handler2,
+      Consumer<T> handler3,
+      Consumer<T> handler4
+  ) {
     handler1.accept(value);
     handler2.accept(value);
     handler3.accept(value);
@@ -77,7 +92,14 @@ public interface HandleFunctions {
    * @param handler5 fifth value handler.
    * @param <T> value type.
    */
-  static <T> void handle(T value, Consumer<T> handler1, Consumer<T> handler2, Consumer<T> handler3, Consumer<T> handler4, Consumer<T> handler5) {
+  static <T> void handle(
+      T value,
+      Consumer<T> handler1,
+      Consumer<T> handler2,
+      Consumer<T> handler3,
+      Consumer<T> handler4,
+      Consumer<T> handler5
+  ) {
     handler1.accept(value);
     handler2.accept(value);
     handler3.accept(value);
@@ -93,7 +115,11 @@ public interface HandleFunctions {
    * @param handler value handler.
    * @param <T> value type.
    */
-  static <T> void handleEach(T value1, T value2, Consumer<T> handler) {
+  static <T> void handleEach(
+      T value1,
+      T value2,
+      Consumer<T> handler
+  ) {
     handler.accept(value1);
     handler.accept(value2);
   }
@@ -107,7 +133,12 @@ public interface HandleFunctions {
    * @param handler value handler.
    * @param <T> value type.
    */
-  static <T> void handleEach(T value1, T value2, T value3, Consumer<T> handler) {
+  static <T> void handleEach(
+      T value1,
+      T value2,
+      T value3,
+      Consumer<T> handler
+  ) {
     handler.accept(value1);
     handler.accept(value2);
     handler.accept(value3);
@@ -123,7 +154,13 @@ public interface HandleFunctions {
    * @param handler value handler.
    * @param <T> value type.
    */
-  static <T> void handleEach(T value1, T value2, T value3, T value4, Consumer<T> handler) {
+  static <T> void handleEach(
+      T value1,
+      T value2,
+      T value3,
+      T value4,
+      Consumer<T> handler
+  ) {
     handler.accept(value1);
     handler.accept(value2);
     handler.accept(value3);
@@ -141,7 +178,14 @@ public interface HandleFunctions {
    * @param handler value handler.
    * @param <T> value type.
    */
-  static <T> void handleEach(T value1, T value2, T value3, T value4, T value5, Consumer<T> handler) {
+  static <T> void handleEach(
+      T value1,
+      T value2,
+      T value3,
+      T value4,
+      T value5,
+      Consumer<T> handler
+  ) {
     handler.accept(value1);
     handler.accept(value2);
     handler.accept(value3);

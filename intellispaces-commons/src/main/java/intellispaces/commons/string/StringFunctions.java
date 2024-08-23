@@ -1,5 +1,7 @@
 package intellispaces.commons.string;
 
+import intellispaces.commons.exception.UnexpectedViolationException;
+
 import java.util.Arrays;
 
 /**
@@ -74,6 +76,24 @@ public interface StringFunctions {
     } else {
       return string;
     }
+  }
+
+  static String replaceEndingOrElseThrow(String string, String ending, String replacement) {
+    if (string == null) {
+      throw UnexpectedViolationException.withMessage("Source string is null");
+    }
+    if (ending == null) {
+      throw UnexpectedViolationException.withMessage("Ending string is null");
+    }
+    if (replacement == null) {
+      replacement = "";
+    }
+
+    int endingOffset = string.length() - ending.length();
+    if (endingOffset < 0 || !ending.equals(string.substring(endingOffset))) {
+      throw UnexpectedViolationException.withMessage("Source string does not contain ending string");
+    }
+    return string.substring(0, endingOffset) + replacement + string.substring(endingOffset + ending.length());
   }
 
   static String createBlankString(int length) {
