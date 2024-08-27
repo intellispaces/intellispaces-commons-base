@@ -1,14 +1,17 @@
 package intellispaces.commons.type;
 
+import intellispaces.commons.collection.AdditionalCollectors;
 import intellispaces.commons.exception.UnexpectedViolationException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.InputStream;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.InstanceOfAssertFactories.stream;
 
 /**
  * Tests for {@link TypeFunctions}.
@@ -178,5 +181,26 @@ public class TypeFunctionsTest {
     assertThat(TypeFunctions.getParents(Closeable.class)).contains(AutoCloseable.class);
     assertThat(TypeFunctions.getParents(InputStream.class)).contains(Closeable.class);
     assertThat(TypeFunctions.getParents(ByteArrayInputStream.class)).contains(InputStream.class);
+  }
+
+  @Test
+  public void testNewInstance() {
+    ClassWithDefaultConstructor instance = TypeFunctions.newInstance(ClassWithDefaultConstructor.class);
+    assertThat(instance).isNotNull();
+
+    assertThatThrownBy(() -> TypeFunctions.newInstance(ClassWithoutDefaultConstructor.class))
+        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .hasMessage("Class %s does not contain default constructor without parameters",
+            ClassWithoutDefaultConstructor.class.getCanonicalName());
+  }
+
+  private static class ClassWithDefaultConstructor {
+    public ClassWithDefaultConstructor() {
+    }
+  }
+
+  private static class ClassWithoutDefaultConstructor {
+    public ClassWithoutDefaultConstructor(String string) {
+    }
   }
 }
