@@ -7,6 +7,7 @@ import intellispaces.commons.exception.UnexpectedViolationException;
 import javax.lang.model.element.Element;
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -38,6 +39,19 @@ public class TypeFunctions {
       String className, Supplier<? extends E> exceptionSupplier
   ) throws E {
     return getClass(className).orElseThrow(exceptionSupplier);
+  }
+
+  public static <T> T newInstance(Class<T> aClass) {
+    try {
+      Constructor<T> constructor = aClass.getConstructor();
+      return constructor.newInstance();
+    } catch (NoSuchMethodException e) {
+      throw UnexpectedViolationException.withCauseAndMessage(e, "Class {} does not contain default constructor " +
+          "without parameters", aClass.getCanonicalName());
+    } catch (Exception e) {
+      throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to create instance of the class {}" +
+          aClass.getCanonicalName());
+    }
   }
 
   public static Optional<Method> getMethod(Class<?> aClass, String name, Class<?>... parameterTypes) {
