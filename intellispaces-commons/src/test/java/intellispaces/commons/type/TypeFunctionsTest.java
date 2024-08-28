@@ -1,17 +1,14 @@
 package intellispaces.commons.type;
 
-import intellispaces.commons.collection.AdditionalCollectors;
 import intellispaces.commons.exception.UnexpectedViolationException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.InputStream;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.InstanceOfAssertFactories.stream;
 
 /**
  * Tests for {@link TypeFunctions}.
@@ -101,9 +98,9 @@ public class TypeFunctionsTest {
   }
 
   @Test
-  public void testAddPrefixToClassName() {
-    assertThat(TypeFunctions.addPrefixToClassName("Prefix", "Object")).isEqualTo("PrefixObject");
-    assertThat(TypeFunctions.addPrefixToClassName("Prefix", "java.lang.Object")).isEqualTo("java.lang.PrefixObject");
+  public void testAddPrefixToSimpleName() {
+    assertThat(TypeFunctions.addPrefixToSimpleName("Prefix", "Object")).isEqualTo("PrefixObject");
+    assertThat(TypeFunctions.addPrefixToSimpleName("Prefix", "java.lang.Object")).isEqualTo("java.lang.PrefixObject");
   }
 
   @Test

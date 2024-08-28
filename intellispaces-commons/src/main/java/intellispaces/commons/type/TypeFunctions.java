@@ -150,7 +150,7 @@ public class TypeFunctions {
     return joinPackageAndSimpleName(getPackageName(canonicalName), newSimpleName);
   }
 
-  public static String addPrefixToClassName(String prefix, String canonicalName) {
+  public static String addPrefixToSimpleName(String prefix, String canonicalName) {
     String packageName = getPackageName(canonicalName);
     return packageName + (packageName.isEmpty() ? "" : ".") + prefix + getSimpleName(canonicalName);
   }
