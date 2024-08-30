@@ -12,7 +12,7 @@ public class UnexpectedViolationExceptionTest {
   @Test
   public void testInstantiation() {
     Exception cause = new RuntimeException();
-    UnexpectedViolationException exception = new UnexpectedViolationException(cause, "Exception {}", "message");
+    UnexpectedViolationException exception = new UnexpectedViolationException(cause, "Exception {0}", "message");
     assertThat(exception.getCause()).isSameAs(cause);
     assertThat(exception.getMessage()).isEqualTo("Exception message");
   }

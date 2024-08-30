@@ -69,12 +69,12 @@ public class ResourceFunctions {
   public static String readResourceAsStringForce(Class<?> aClass, String name, Charset charset) {
     var is = aClass.getResourceAsStream(name);
     if (is == null) {
-      throw UnexpectedViolationException.withMessage("Resource by name {} is not found", name);
+      throw UnexpectedViolationException.withMessage("Resource by name {0} is not found", name);
     }
     try {
       return new String(is.readAllBytes(), charset);
     } catch (IOException e) {
-      throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to read resource by name {}", name);
+      throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to read resource by name {0}", name);
     }
   }
 

@@ -32,21 +32,6 @@ public class StringFunctionsTest {
   }
 
   @Test
-  public void testFormat() {
-    assertThat(StringFunctions.format("a")).isEqualTo("a");
-    assertThat(StringFunctions.format("")).isEqualTo("");
-    assertThat(StringFunctions.format(null)).isNull();
-    assertThat(StringFunctions.format("{}", "a")).isEqualTo("a");
-    assertThat(StringFunctions.format("{}b{}", "a", "c")).isEqualTo("abc");
-    assertThat(StringFunctions.format("a", null)).isEqualTo("a");
-    assertThat(StringFunctions.format("a", null, null)).isEqualTo("a");
-    assertThat(StringFunctions.format("{}")).isEqualTo("null");
-    assertThat(StringFunctions.format("{}", null)).isEqualTo("null");
-    assertThat(StringFunctions.format("{}", null, null)).isEqualTo("null");
-    assertThat(StringFunctions.format("a {} {}", "c")).isEqualTo("a c null");
-  }
-
-  @Test
   public void testCapitalizeFirstLetter() {
     assertThat(StringFunctions.capitalizeFirstLetter(null)).isNull();
     assertThat(StringFunctions.capitalizeFirstLetter("")).isEqualTo("");

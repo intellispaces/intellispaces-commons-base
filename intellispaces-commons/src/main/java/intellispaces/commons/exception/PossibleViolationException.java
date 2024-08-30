@@ -1,6 +1,6 @@
 package intellispaces.commons.exception;
 
-import intellispaces.commons.string.StringFunctions;
+import java.text.MessageFormat;
 
 /**
  * Possible violation exception.
@@ -15,11 +15,11 @@ public class PossibleViolationException extends Exception {
   }
 
   protected PossibleViolationException(String messageTemplate, Object... messageParams) {
-    super(StringFunctions.format(messageTemplate, messageParams), null);
+    super(MessageFormat.format(messageTemplate, messageParams), null);
   }
 
   protected PossibleViolationException(Throwable cause, String messageTemplate, Object... messageParams) {
-    super(StringFunctions.format(messageTemplate, messageParams), cause);
+    super(MessageFormat.format(messageTemplate, messageParams), cause);
   }
 
   public static PossibleViolationException withCause(Throwable cause) {

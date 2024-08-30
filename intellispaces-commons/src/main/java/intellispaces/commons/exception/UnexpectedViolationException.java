@@ -1,6 +1,6 @@
 package intellispaces.commons.exception;
 
-import intellispaces.commons.string.StringFunctions;
+import java.text.MessageFormat;
 
 /**
  * Unexpected violation exception.
@@ -13,11 +13,11 @@ public class UnexpectedViolationException extends RuntimeException {
   }
 
   protected UnexpectedViolationException(String messageTemplate, Object... messageParams) {
-    super(StringFunctions.format(messageTemplate, messageParams), null);
+    super(MessageFormat.format(messageTemplate, messageParams), null);
   }
 
   protected UnexpectedViolationException(Throwable cause, String messageTemplate, Object... messageParams) {
-    super(StringFunctions.format(messageTemplate, messageParams), cause);
+    super(MessageFormat.format(messageTemplate, messageParams), cause);
   }
 
   public static UnexpectedViolationException withCause(Throwable cause) {

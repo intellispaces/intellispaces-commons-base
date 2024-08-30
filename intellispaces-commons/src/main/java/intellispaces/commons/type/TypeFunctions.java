@@ -32,7 +32,7 @@ public class TypeFunctions {
 
   public static Class<?> getClassOrElseThrow(String className) {
     return getClass(className).orElseThrow(() -> UnexpectedViolationException.withMessage(
-        "Could not to get class by name {}", className));
+        "Could not to get class by name {0}", className));
   }
 
   public static <E extends Throwable> Class<?> getClassOrElseThrow(
@@ -46,10 +46,10 @@ public class TypeFunctions {
       Constructor<T> constructor = aClass.getConstructor();
       return constructor.newInstance();
     } catch (NoSuchMethodException e) {
-      throw UnexpectedViolationException.withCauseAndMessage(e, "Class {} does not contain default constructor " +
+      throw UnexpectedViolationException.withCauseAndMessage(e, "Class {0} does not contain default constructor " +
           "without parameters", aClass.getCanonicalName());
     } catch (Exception e) {
-      throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to create instance of the class {}" +
+      throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to create instance of the class {0}" +
           aClass.getCanonicalName());
     }
   }
@@ -201,7 +201,7 @@ public class TypeFunctions {
   public static Class<?> getPrimitiveWrapperClass(String primitiveType) {
     Class<?> primitiveClass = WRAPPER_CLASSES.get(primitiveType);
     if (primitiveClass == null) {
-      throw UnexpectedViolationException.withMessage("Not primitive type: {}", primitiveType);
+      throw UnexpectedViolationException.withMessage("Not primitive type: {0}", primitiveType);
     }
     return primitiveClass;
   }
