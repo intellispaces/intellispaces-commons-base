@@ -7,7 +7,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-utils-parent</artifactId>
+    <artifactId>intellispaces-common-utils</artifactId>
     <packaging>pom</packaging>
 
 	<modules>

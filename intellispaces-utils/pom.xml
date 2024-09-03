@@ -3,7 +3,7 @@
 
     <parent>
         <groupId>intellispaces-commons</groupId>
-        <artifactId>intellispaces-utils-parent</artifactId>
+        <artifactId>intellispaces-common-utils</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
