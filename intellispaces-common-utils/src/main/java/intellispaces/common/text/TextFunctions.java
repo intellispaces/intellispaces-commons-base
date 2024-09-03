@@ -7,7 +7,17 @@ import java.util.Arrays;
 /**
  * Strings processing functions.
  */
-public interface StringFunctions {
+public interface TextFunctions {
+
+  /**
+   * Tests character is gap or not. A gap character means a space or tab.
+   *
+   * @param ch the character.
+   * @return <code>true</code> if character is gap or <code>false</code> otherwise.
+   */
+  static boolean isGapChar(char ch) {
+    return ch == ' ' || ch == '\t';
+  }
 
   static boolean isNullOrBlank(String string) {
     return string == null || string.isBlank();
