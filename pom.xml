@@ -2,24 +2,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>intellispaces</groupId>
+        <groupId>intellispaces-commons</groupId>
         <artifactId>intellispaces-parent-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-common-utils-parent</artifactId>
+    <artifactId>intellispaces-utils-parent</artifactId>
     <packaging>pom</packaging>
 
 	<modules>
-        <module>intellispaces-common-utils-model</module>
-	    <module>intellispaces-common-utils</module>
+        <module>intellispaces-utils-model</module>
+	    <module>intellispaces-utils</module>
 	</modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>intellispaces</groupId>
-                <artifactId>intellispaces-common-utils-model</artifactId>
+                <groupId>intellispaces-commons</groupId>
+                <artifactId>intellispaces-utils-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>

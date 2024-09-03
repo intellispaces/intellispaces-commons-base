@@ -2,12 +2,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>intellispaces</groupId>
-        <artifactId>intellispaces-common-utils-parent</artifactId>
+        <groupId>intellispaces-commons</groupId>
+        <artifactId>intellispaces-utils-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-common-utils-model</artifactId>
+    <artifactId>intellispaces-utils-model</artifactId>
     <packaging>jar</packaging>
 	
     <build>
