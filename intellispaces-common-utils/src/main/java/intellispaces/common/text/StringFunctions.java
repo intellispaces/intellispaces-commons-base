@@ -1,4 +1,4 @@
-package intellispaces.common.string;
+package intellispaces.common.text;
 
 import intellispaces.common.exception.UnexpectedViolationException;
 
