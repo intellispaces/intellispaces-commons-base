@@ -7,19 +7,19 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-common-utils</artifactId>
+    <artifactId>intellispaces-base-parent</artifactId>
     <packaging>pom</packaging>
 
 	<modules>
-        <module>intellispaces-utils-model</module>
-	    <module>intellispaces-utils</module>
+        <module>intellispaces-base-model</module>
+	    <module>intellispaces-base</module>
 	</modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>intellispaces-common</groupId>
-                <artifactId>intellispaces-utils-model</artifactId>
+                <artifactId>intellispaces-base-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
