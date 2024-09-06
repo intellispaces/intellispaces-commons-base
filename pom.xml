@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>intellispaces-commons</groupId>
+        <groupId>intellispaces-common</groupId>
         <artifactId>intellispaces-parent-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -18,7 +18,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>intellispaces-commons</groupId>
+                <groupId>intellispaces-common</groupId>
                 <artifactId>intellispaces-utils-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
