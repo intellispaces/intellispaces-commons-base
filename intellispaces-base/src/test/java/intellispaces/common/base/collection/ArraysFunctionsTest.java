@@ -36,6 +36,16 @@ public class ArraysFunctionsTest {
   }
 
   @Test
+  public void testContainsAny() {
+    assertThat(ArraysFunctions.containsAny(null, "a", "b")).isFalse();
+    assertThat(ArraysFunctions.containsAny(new String[] {}, "a", "b")).isFalse();
+
+    assertThat(ArraysFunctions.containsAny(new String[] {"a", "b", "c"}, null, null)).isFalse();
+    assertThat(ArraysFunctions.containsAny(new String[] {"a", null, "c"}, null, "d")).isTrue();
+    assertThat(ArraysFunctions.containsAny(new String[] {"a", "b", "c"}, "c", "d")).isTrue();
+  }
+
+  @Test
   public void testContainsWithMapper() {
     assertThat(ArraysFunctions.<String, Integer> contains(null, Integer::valueOf, 1)).isFalse();
     assertThat(ArraysFunctions.contains(new String[0], Integer::valueOf, 1)).isFalse();

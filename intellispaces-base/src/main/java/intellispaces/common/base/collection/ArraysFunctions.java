@@ -39,6 +39,26 @@ public interface ArraysFunctions {
     return false;
   }
 
+  static <E> boolean containsAny(E[] array, E value1, E value2) {
+    if (array == null) {
+      return false;
+    }
+    if (value1 == null || value2 == null) {
+      for (E e : array) {
+        if (e == null) {
+          return true;
+        }
+      }
+    } else {
+      for (E e : array) {
+        if (e.equals(value1) || e.equals(value2)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   static <E, V> boolean contains(E[] array, Function<E, V> mapper, V value) {
     if (array == null) {
       return false;
