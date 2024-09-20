@@ -7,7 +7,7 @@ public interface Type<T> {
   /**
    * Base class.
    */
-  Class<T> baseClass();
+  Class<?> baseClass();
 
   /**
    * Type qualifiers.

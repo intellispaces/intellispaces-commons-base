@@ -3,26 +3,26 @@ package intellispaces.common.base.type;
 import java.util.List;
 
 class TypeImpl<T> implements Type<T> {
-  private final Class<T> aClass;
-  private final List<Type<?>> qualifiers;
+  private final Class<?> baseClass;
+  private final List<Type<?>> qualifierTypes;
 
-  TypeImpl(Class<T> aClass) {
-    this.aClass = aClass;
-    this.qualifiers = List.of();
+  TypeImpl(Class<T> baseClass) {
+    this.baseClass = baseClass;
+    this.qualifierTypes = List.of();
   }
 
-  TypeImpl(Class<T> aClass, List<Type<?>> qualifiers) {
-    this.aClass = aClass;
-    this.qualifiers = qualifiers;
+  TypeImpl(Class<?> baseClass, List<Type<?>> qualifierTypes) {
+    this.baseClass = baseClass;
+    this.qualifierTypes = qualifierTypes;
   }
 
   @Override
-  public Class<T> baseClass() {
-    return aClass;
+  public Class<?> baseClass() {
+    return baseClass;
   }
 
   @Override
   public List<Type<?>> qualifierTypes() {
-    return qualifiers;
+    return qualifierTypes;
   }
 }
