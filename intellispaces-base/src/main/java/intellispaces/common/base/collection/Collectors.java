@@ -4,13 +4,12 @@ import intellispaces.common.base.exception.UnexpectedViolationException;
 
 import java.util.Optional;
 import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-public interface AdditionalCollectors {
+public interface Collectors {
 
   static <T> Collector<T, ?, T> one() {
-    return Collectors.collectingAndThen(
-        Collectors.toList(),
+    return java.util.stream.Collectors.collectingAndThen(
+        java.util.stream.Collectors.toList(),
         list -> {
           if (list.size() != 1) {
             throw UnexpectedViolationException.withMessage("Expected stream with one element");
@@ -21,8 +20,8 @@ public interface AdditionalCollectors {
   }
 
   static <T> Collector<T, ?, Optional<T>> optional() {
-    return Collectors.collectingAndThen(
-        Collectors.toList(),
+    return java.util.stream.Collectors.collectingAndThen(
+        java.util.stream.Collectors.toList(),
         list -> {
           if (list.isEmpty()) {
             return Optional.empty();

@@ -9,30 +9,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
- * Tests for class {@link AdditionalCollectors}.
+ * Tests for class {@link Collectors}.
  */
-public class AdditionalCollectorsTest {
+public class CollectorsTest {
 
   @Test
   public void testOne() {
-    assertThatThrownBy(() -> Stream.of().collect(AdditionalCollectors.one()))
+    assertThatThrownBy(() -> Stream.of().collect(Collectors.one()))
         .isExactlyInstanceOf(UnexpectedViolationException.class)
         .hasMessage("Expected stream with one element");
 
-    assertThat(Stream.of("a").collect(AdditionalCollectors.one())).isEqualTo("a");
+    assertThat(Stream.of("a").collect(Collectors.one())).isEqualTo("a");
 
-    assertThatThrownBy(() -> Stream.of("a", "b").collect(AdditionalCollectors.one()))
+    assertThatThrownBy(() -> Stream.of("a", "b").collect(Collectors.one()))
         .isExactlyInstanceOf(UnexpectedViolationException.class)
         .hasMessage("Expected stream with one element");
   }
 
   @Test
   public void testOptional() {
-    assertThat(Stream.of().collect(AdditionalCollectors.optional())).isEmpty();
+    assertThat(Stream.of().collect(Collectors.optional())).isEmpty();
 
-    assertThat(Stream.of("a").collect(AdditionalCollectors.optional())).contains("a");
+    assertThat(Stream.of("a").collect(Collectors.optional())).contains("a");
 
-    assertThatThrownBy(() -> Stream.of("a", "b").collect(AdditionalCollectors.optional()))
+    assertThatThrownBy(() -> Stream.of("a", "b").collect(Collectors.optional()))
         .isExactlyInstanceOf(UnexpectedViolationException.class)
         .hasMessage("Expected stream with one element");
   }
