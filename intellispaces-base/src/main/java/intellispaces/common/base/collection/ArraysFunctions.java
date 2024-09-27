@@ -1,5 +1,7 @@
 package intellispaces.common.base.collection;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -113,5 +115,15 @@ public interface ArraysFunctions {
       return null;
     }
     return DoubleStream.of(elements).boxed().toArray(Double[]::new);
+  }
+
+  static InputStream arrayToInputStream(byte[] bytes) {
+    if (bytes == null) {
+      return null;
+    }
+    if (bytes.length == 0) {
+      return InputStream.nullInputStream();
+    }
+    return new ByteArrayInputStream(bytes);
   }
 }

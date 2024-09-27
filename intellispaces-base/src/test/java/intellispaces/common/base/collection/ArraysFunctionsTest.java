@@ -81,4 +81,11 @@ public class ArraysFunctionsTest {
     assertThat(ArraysFunctions.wrap(new double[] { 1.1 })).containsExactly(1.1);
     assertThat(ArraysFunctions.wrap(new double[] { 1.1, 2.2 })).containsExactly(1.1, 2.2);
   }
+
+  @Test
+  public void testArrayToInputStream_whenBytes() {
+    assertThat(ArraysFunctions.arrayToInputStream(null)).isNull();
+    assertThat(ArraysFunctions.arrayToInputStream(new byte[0])).isEmpty();
+    assertThat(ArraysFunctions.arrayToInputStream(new byte[] { 1, 2, 3 })).hasBinaryContent(new byte[] { 1, 2, 3 });
+  }
 }

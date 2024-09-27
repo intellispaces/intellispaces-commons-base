@@ -97,4 +97,11 @@ public class TextFunctionsTest {
     assertThat(TextFunctions.createBlankString(2)).isEqualTo("  ");
     assertThat(TextFunctions.createBlankString(3)).isEqualTo("   ");
   }
+
+  @Test
+  public void testStringToInputStream() {
+    assertThat(TextFunctions.stringToInputStream(null)).isNull();
+    assertThat(TextFunctions.stringToInputStream("")).isEmpty();
+    assertThat(TextFunctions.stringToInputStream("abc")).hasContent("abc");
+  }
 }

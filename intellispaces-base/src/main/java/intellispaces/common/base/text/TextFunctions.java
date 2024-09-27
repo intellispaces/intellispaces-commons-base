@@ -2,6 +2,9 @@ package intellispaces.common.base.text;
 
 import intellispaces.common.base.exception.UnexpectedViolationException;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
@@ -84,5 +87,15 @@ public interface TextFunctions {
     char[] charArray = new char[length];
     Arrays.fill(charArray, ' ');
     return new String(charArray);
+  }
+
+  static InputStream stringToInputStream(String string) {
+    if (string == null) {
+      return null;
+    }
+    if (string.isEmpty()) {
+      return InputStream.nullInputStream();
+    }
+    return new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8));
   }
 }
