@@ -2,7 +2,7 @@ package intellispaces.common.base.type;
 
 import java.util.List;
 
-class TypeImpl<T> implements Type<T> {
+class TypeImpl<T> extends AbstractType<T> {
   private final Class<?> baseClass;
   private final List<Type<?>> qualifierTypes;
 
