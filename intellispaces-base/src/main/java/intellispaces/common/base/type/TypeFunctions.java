@@ -164,6 +164,10 @@ public class TypeFunctions {
   }
 
   public static boolean isAbstractElement(Element element) {
+    return element.getModifiers().contains(javax.lang.model.element.Modifier.ABSTRACT);
+  }
+
+  public static boolean isFinalElement(Element element) {
     return element.getModifiers().contains(javax.lang.model.element.Modifier.FINAL);
   }
 
