@@ -16,6 +16,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class TypeFunctionsTest {
 
   @Test
+  public void testIsAbstractClass() {
+    assertThat(TypeFunctions.isAbstractClass(Number.class)).isTrue();
+    assertThat(TypeFunctions.isAbstractClass(Integer.class)).isFalse();
+  }
+
+  @Test
+  public void testIsFinalClass() {
+    assertThat(TypeFunctions.isFinalClass(Number.class)).isFalse();
+    assertThat(TypeFunctions.isFinalClass(Integer.class)).isTrue();
+  }
+
+  @Test
   public void testGetClass() {
     assertThat(TypeFunctions.getClass("java.lang.String")).contains(String.class);
     assertThat(TypeFunctions.getClass("java.lang.String12345")).isEmpty();

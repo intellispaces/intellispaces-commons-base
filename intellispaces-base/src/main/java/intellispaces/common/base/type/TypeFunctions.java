@@ -159,8 +159,12 @@ public class TypeFunctions {
     return Modifier.isAbstract(aClass.getModifiers());
   }
 
+  public static boolean isFinalClass(Class<?> aClass) {
+    return Modifier.isFinal(aClass.getModifiers());
+  }
+
   public static boolean isAbstractElement(Element element) {
-    return element.getModifiers().contains(javax.lang.model.element.Modifier.ABSTRACT);
+    return element.getModifiers().contains(javax.lang.model.element.Modifier.FINAL);
   }
 
   public static boolean isAbstractMethod(Method method) {
