@@ -186,6 +186,25 @@ public class TypeFunctionsTest {
   }
 
   @Test
+  public void testGetPrimitiveTypeOfWrapper() {
+    assertThat(TypeFunctions.getPrimitiveTypeOfWrapper(Boolean.class.getCanonicalName())).isEqualTo("boolean");
+    assertThat(TypeFunctions.getPrimitiveTypeOfWrapper(Character.class.getCanonicalName())).isEqualTo("char");
+    assertThat(TypeFunctions.getPrimitiveTypeOfWrapper(Byte.class.getCanonicalName())).isEqualTo("byte");
+    assertThat(TypeFunctions.getPrimitiveTypeOfWrapper(Short.class.getCanonicalName())).isEqualTo("short");
+    assertThat(TypeFunctions.getPrimitiveTypeOfWrapper(Integer.class.getCanonicalName())).isEqualTo("int");
+    assertThat(TypeFunctions.getPrimitiveTypeOfWrapper(Long.class.getCanonicalName())).isEqualTo("long");
+    assertThat(TypeFunctions.getPrimitiveTypeOfWrapper(Float.class.getCanonicalName())).isEqualTo("float");
+    assertThat(TypeFunctions.getPrimitiveTypeOfWrapper(Double.class.getCanonicalName())).isEqualTo("double");
+
+    assertThatThrownBy(() -> TypeFunctions.getPrimitiveTypeOfWrapper(Object.class.getCanonicalName()))
+        .isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> TypeFunctions.getPrimitiveTypeOfWrapper(String.class.getCanonicalName()))
+        .isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> TypeFunctions.getPrimitiveTypeOfWrapper(Number.class.getCanonicalName()))
+        .isExactlyInstanceOf(UnexpectedViolationException.class);
+  }
+
+  @Test
   public void testIsPrimitiveWrapperClass() {
     assertThat(TypeFunctions.isPrimitiveWrapperClass(Boolean.class.getCanonicalName())).isTrue();
     assertThat(TypeFunctions.isPrimitiveWrapperClass(Character.class.getCanonicalName())).isTrue();

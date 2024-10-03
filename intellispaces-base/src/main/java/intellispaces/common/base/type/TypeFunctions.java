@@ -15,9 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * Type and class related functions.
@@ -216,8 +214,16 @@ public class TypeFunctions {
     return primitiveClass;
   }
 
+  public static String getPrimitiveTypeOfWrapper(String wrapperCanonicalName) {
+    String primitiveType = WRAPPER_CLASS_TO_PRIMITIVE_MAP.get(wrapperCanonicalName);
+    if (primitiveType == null) {
+      throw UnexpectedViolationException.withMessage("Not primitive wrapper: {0}", wrapperCanonicalName);
+    }
+    return primitiveType;
+  }
+
   public static boolean isPrimitiveWrapperClass(String classCanonicalName) {
-    return PRIMITIVE_WRAPPER_CLASS_CANONICAL_NAMES.contains(classCanonicalName);
+    return WRAPPER_CLASS_TO_PRIMITIVE_MAP.containsKey(classCanonicalName);
   }
 
   public static List<Class<?>> getParents(Class<?> aClass) {
@@ -227,9 +233,11 @@ public class TypeFunctions {
     return result;
   }
 
-  private TypeFunctions() {}
+  private TypeFunctions() {
+  }
 
   private static final Map<Class<?>, Object> DEFAULT_VALUES = new HashMap<>();
+
   static {
     DEFAULT_VALUES.put(boolean.class, false);
     DEFAULT_VALUES.put(char.class, '\u0000');
@@ -261,8 +269,14 @@ public class TypeFunctions {
       "double", Double.class
   );
 
-  private final static Set<String> PRIMITIVE_WRAPPER_CLASS_CANONICAL_NAMES = PRIMITIVE_TO_WRAPPER_CLASSES_MAP.values()
-      .stream()
-      .map(Class::getCanonicalName)
-      .collect(Collectors.toSet());
+  private final static Map<String, String> WRAPPER_CLASS_TO_PRIMITIVE_MAP = Map.of(
+      Boolean.class.getCanonicalName(), "boolean",
+      Character.class.getCanonicalName(), "char",
+      Byte.class.getCanonicalName(), "byte",
+      Short.class.getCanonicalName(), "short",
+      Integer.class.getCanonicalName(), "int",
+      Long.class.getCanonicalName(), "long",
+      Float.class.getCanonicalName(), "float",
+      Double.class.getCanonicalName(), "double"
+  );
 }
