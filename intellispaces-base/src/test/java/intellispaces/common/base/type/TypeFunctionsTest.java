@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -236,6 +238,26 @@ public class TypeFunctionsTest {
         .isExactlyInstanceOf(UnexpectedViolationException.class)
         .hasMessage("Class %s does not contain default constructor without parameters",
             ClassWithoutDefaultConstructor.class.getCanonicalName());
+  }
+
+  @Test
+  public void testIsDefaultClass() {
+    assertThat(TypeFunctions.isDefaultClass(Object.class)).isTrue();
+    assertThat(TypeFunctions.isDefaultClass(String.class)).isTrue();
+    assertThat(TypeFunctions.isDefaultClass(Integer.class)).isTrue();
+
+    assertThat(TypeFunctions.isDefaultClass(Stream.class)).isFalse();
+    assertThat(TypeFunctions.isDefaultClass(Annotation.class)).isFalse();
+  }
+
+  @Test
+  public void testIsDefaultClassName() {
+    assertThat(TypeFunctions.isDefaultClassName(Object.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isDefaultClassName(String.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isDefaultClassName(Integer.class.getCanonicalName())).isTrue();
+
+    assertThat(TypeFunctions.isDefaultClassName(Stream.class.getCanonicalName())).isFalse();
+    assertThat(TypeFunctions.isDefaultClassName(Annotation.class.getCanonicalName())).isFalse();
   }
 
   private static class ClassWithDefaultConstructor {

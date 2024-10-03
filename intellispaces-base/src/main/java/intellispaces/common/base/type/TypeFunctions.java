@@ -233,6 +233,18 @@ public class TypeFunctions {
     return result;
   }
 
+  public static boolean isDefaultClass(Class<?> aClass) {
+    return isDefaultClassName(aClass.getCanonicalName());
+  }
+
+  public static boolean isDefaultClassName(String classCanonicalName) {
+    if (classCanonicalName.startsWith("java.lang.")) {
+      String substring = classCanonicalName.substring(10);
+      return !substring.isEmpty() && !substring.contains(".");
+    }
+    return false;
+  }
+
   private TypeFunctions() {
   }
 
