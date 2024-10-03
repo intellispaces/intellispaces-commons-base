@@ -176,13 +176,29 @@ public class TypeFunctionsTest {
   @Test
   public void testGetPrimitiveWrapperClass() {
     assertThat(TypeFunctions.getPrimitiveWrapperClass("boolean")).isEqualTo(Boolean.class);
+    assertThat(TypeFunctions.getPrimitiveWrapperClass("char")).isEqualTo(Character.class);
     assertThat(TypeFunctions.getPrimitiveWrapperClass("byte")).isEqualTo(Byte.class);
     assertThat(TypeFunctions.getPrimitiveWrapperClass("short")).isEqualTo(Short.class);
     assertThat(TypeFunctions.getPrimitiveWrapperClass("int")).isEqualTo(Integer.class);
     assertThat(TypeFunctions.getPrimitiveWrapperClass("long")).isEqualTo(Long.class);
     assertThat(TypeFunctions.getPrimitiveWrapperClass("float")).isEqualTo(Float.class);
     assertThat(TypeFunctions.getPrimitiveWrapperClass("double")).isEqualTo(Double.class);
-    assertThat(TypeFunctions.getPrimitiveWrapperClass("char")).isEqualTo(Character.class);
+  }
+
+  @Test
+  public void testIsPrimitiveWrapperClass() {
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Boolean.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Character.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Byte.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Short.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Integer.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Long.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Float.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Double.class.getCanonicalName())).isTrue();
+
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Object.class.getCanonicalName())).isFalse();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(String.class.getCanonicalName())).isFalse();
+    assertThat(TypeFunctions.isPrimitiveWrapperClass(Number.class.getCanonicalName())).isFalse();
   }
 
   @Test

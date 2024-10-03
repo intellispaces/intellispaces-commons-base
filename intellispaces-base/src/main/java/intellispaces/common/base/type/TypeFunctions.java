@@ -15,7 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Type and class related functions.
@@ -207,11 +209,15 @@ public class TypeFunctions {
   }
 
   public static Class<?> getPrimitiveWrapperClass(String primitiveType) {
-    Class<?> primitiveClass = WRAPPER_CLASSES.get(primitiveType);
+    Class<?> primitiveClass = PRIMITIVE_TO_WRAPPER_CLASSES_MAP.get(primitiveType);
     if (primitiveClass == null) {
       throw UnexpectedViolationException.withMessage("Not primitive type: {0}", primitiveType);
     }
     return primitiveClass;
+  }
+
+  public static boolean isPrimitiveWrapperClass(String classCanonicalName) {
+    return PRIMITIVE_WRAPPER_CLASS_CANONICAL_NAMES.contains(classCanonicalName);
   }
 
   public static List<Class<?>> getParents(Class<?> aClass) {
@@ -244,14 +250,19 @@ public class TypeFunctions {
     DEFAULT_VALUES.put(Double.class, 0.0);
   }
 
-  private final static Map<String, Class<?>> WRAPPER_CLASSES = Map.of(
+  private final static Map<String, Class<?>> PRIMITIVE_TO_WRAPPER_CLASSES_MAP = Map.of(
       "boolean", Boolean.class,
+      "char", Character.class,
       "byte", Byte.class,
       "short", Short.class,
       "int", Integer.class,
       "long", Long.class,
       "float", Float.class,
-      "double", Double.class,
-      "char", Character.class
+      "double", Double.class
   );
+
+  private final static Set<String> PRIMITIVE_WRAPPER_CLASS_CANONICAL_NAMES = PRIMITIVE_TO_WRAPPER_CLASSES_MAP.values()
+      .stream()
+      .map(Class::getCanonicalName)
+      .collect(Collectors.toSet());
 }
