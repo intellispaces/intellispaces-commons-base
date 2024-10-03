@@ -44,6 +44,22 @@ public interface TextFunctions {
     return string.substring(0, 1).toLowerCase() + string.substring(1);
   }
 
+  static int numberSubstrings(String string, String subString) {
+    if (string == null || subString == null) {
+      return 0;
+    }
+    int count = 0;
+    int lastIndex = 0;
+    while (true) {
+      lastIndex = string.indexOf(subString, lastIndex);
+      if (lastIndex == -1) {
+        return count;
+      }
+      count++;
+      lastIndex += subString.length();
+    }
+  }
+
   static String replaceLast(String string, String target, String replacement) {
     if (string == null) {
       return null;
@@ -62,22 +78,49 @@ public interface TextFunctions {
     }
   }
 
-  static String replaceEndingOrElseThrow(String string, String ending, String replacement) {
-    if (string == null) {
+  static String replaceTailOrElseThrow(String source, String substring, String replacement) {
+    if (source == null) {
       throw UnexpectedViolationException.withMessage("Source string is null");
     }
-    if (ending == null) {
-      throw UnexpectedViolationException.withMessage("Ending string is null");
+    if (substring == null) {
+      throw UnexpectedViolationException.withMessage("Substring is null");
     }
     if (replacement == null) {
       replacement = "";
     }
 
-    int endingOffset = string.length() - ending.length();
-    if (endingOffset < 0 || !ending.equals(string.substring(endingOffset))) {
-      throw UnexpectedViolationException.withMessage("Source string does not contain ending string");
+    int endingOffset = source.length() - substring.length();
+    if (endingOffset < 0 || !substring.equals(source.substring(endingOffset))) {
+      throw UnexpectedViolationException.withMessage("Source string ''{0}'' does not contain tail substring ''{1}''",
+          source, substring);
     }
-    return string.substring(0, endingOffset) + replacement + string.substring(endingOffset + ending.length());
+    return source.substring(0, endingOffset) + replacement + source.substring(endingOffset + substring.length());
+  }
+
+  static String replaceSingleOrElseThrow(String source, String substring, String replacement) {
+    if (source == null) {
+      throw UnexpectedViolationException.withMessage("Source string is null");
+    }
+    if (substring == null) {
+      throw UnexpectedViolationException.withMessage("Substring is null");
+    }
+    if (replacement == null) {
+      replacement = "";
+    }
+
+    int numSubstrings = numberSubstrings(source, substring);
+    if (numSubstrings == 0) {
+      throw UnexpectedViolationException.withMessage("Source string ''{0}'' does not contain substring ''{1}''",
+          source, substring);
+    } else if (numSubstrings > 1) {
+      throw UnexpectedViolationException.withMessage("Source string ''{0}'' contains more than one substrings ''{1}''",
+          source, substring);
+    }
+    return source.replace(substring, replacement);
+  }
+
+  static String removeTailOrElseThrow(String source, String tail) {
+    return replaceTailOrElseThrow(source, tail, "");
   }
 
   static String createBlankString(int length) {
