@@ -260,6 +260,36 @@ public class TypeFunctionsTest {
     assertThat(TypeFunctions.isDefaultClassName(Annotation.class.getCanonicalName())).isFalse();
   }
 
+  @Test
+  public void testConvertObjectToLong() {
+    assertThat(TypeFunctions.convertObjectToLong('a')).isEqualTo(97);
+    assertThat(TypeFunctions.convertObjectToLong((byte) 13)).isEqualTo(13);
+    assertThat(TypeFunctions.convertObjectToLong((short) 13)).isEqualTo(13);
+    assertThat(TypeFunctions.convertObjectToLong((13))).isEqualTo(13);
+    assertThat(TypeFunctions.convertObjectToLong(13L)).isEqualTo(13);
+
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToLong("String"))
+        .isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToLong(3.14F))
+        .isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToLong(3.14D))
+        .isExactlyInstanceOf(UnexpectedViolationException.class);
+  }
+
+  @Test
+  public void testConvertObjectToDouble() {
+    assertThat(TypeFunctions.convertObjectToDouble('a')).isEqualTo(97.0);
+    assertThat(TypeFunctions.convertObjectToDouble((byte) 13)).isEqualTo(13.0);
+    assertThat(TypeFunctions.convertObjectToDouble((short) 13)).isEqualTo(13.0);
+    assertThat(TypeFunctions.convertObjectToDouble((13))).isEqualTo(13.0);
+    assertThat(TypeFunctions.convertObjectToDouble(13L)).isEqualTo(13.0);
+    assertThat(TypeFunctions.convertObjectToDouble(13F)).isEqualTo(13.0);
+    assertThat(TypeFunctions.convertObjectToDouble(13.4D)).isEqualTo(13.4);
+
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToLong("String"))
+        .isExactlyInstanceOf(UnexpectedViolationException.class);
+  }
+
   private static class ClassWithDefaultConstructor {
     public ClassWithDefaultConstructor() {
     }

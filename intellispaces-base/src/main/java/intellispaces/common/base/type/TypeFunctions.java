@@ -245,6 +245,26 @@ public class TypeFunctions {
     return false;
   }
 
+  public static <T> long convertObjectToLong(T object) {
+    if (object instanceof Float || object instanceof Double) {
+      throw UnexpectedViolationException.withMessage("Unsupported operation");
+    } else if (object instanceof Number) {
+      return ((Number) object).longValue();
+    } else if (object instanceof Character) {
+      return (char) object;
+    }
+    throw UnexpectedViolationException.withMessage("Unsupported operation");
+  }
+
+  public static <T> double convertObjectToDouble(T object) {
+    if (object instanceof Number) {
+      return ((Number) object).doubleValue();
+    } else if (object instanceof Character) {
+      return (char) object;
+    }
+    throw UnexpectedViolationException.withMessage("Unsupported operation");
+  }
+
   private TypeFunctions() {
   }
 
