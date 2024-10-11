@@ -14,6 +14,9 @@ public class ObjectInstanceFunctionsTest {
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 1, 3)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 3, 1)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 2, 3)).isFalse();
+
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3)).isFalse();
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, null)).isTrue();
   }
 
   @Test
@@ -21,6 +24,9 @@ public class ObjectInstanceFunctionsTest {
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 1, 2, 3)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 3, 2, 1)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 2, 3, 4)).isFalse();
+
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3, 4)).isFalse();
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3, null)).isTrue();
   }
 
   @Test
@@ -28,6 +34,9 @@ public class ObjectInstanceFunctionsTest {
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 1, 2, 3, 4)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 4, 3, 2, 1)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 2, 3, 4, 5)).isFalse();
+
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3, 4, 5)).isFalse();
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3, 4, null)).isTrue();
   }
 
   @Test
@@ -35,6 +44,9 @@ public class ObjectInstanceFunctionsTest {
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 1, 2, 3, 4, 5)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 5, 4, 3, 2, 1)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 2, 3, 4, 5, 6)).isFalse();
+
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3, 4, 5, 6)).isFalse();
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3, 4, 5, null)).isTrue();
   }
 
   @Test
@@ -42,5 +54,8 @@ public class ObjectInstanceFunctionsTest {
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 1, 2, 3, 4, 5, 6)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 6, 5, 4, 3, 2, 1)).isTrue();
     assertThat(ObjectInstanceFunctions.equalsAnyOf(1, 2, 3, 4, 5, 6, 7)).isFalse();
+
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3, 4, 5, 6, 7)).isFalse();
+    assertThat(ObjectInstanceFunctions.equalsAnyOf(null, 2, 3, 4, 5, 6, null)).isTrue();
   }
 }

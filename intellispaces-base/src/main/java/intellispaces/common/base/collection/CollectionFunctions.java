@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Collection processing functions.
@@ -27,5 +28,57 @@ public interface CollectionFunctions {
       result.addAll(Arrays.stream(other).toList());
     }
     return Collections.unmodifiableCollection(result);
+  }
+
+  static <E> boolean containsAny(Collection<E> collection, E value1, E value2) {
+    Objects.requireNonNull(collection);
+    for (E e : collection) {
+      if (Objects.equals(e, value1) || Objects.equals(e, value2)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static <E> boolean containsAny(Collection<E> collection, E value1, E value2, E value3) {
+    Objects.requireNonNull(collection);
+    for (E e : collection) {
+      if (Objects.equals(e, value1) || Objects.equals(e, value2) || Objects.equals(e, value3)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static <E> boolean containsAny(Collection<E> collection, E value1, E value2, E value3, E value4) {
+    Objects.requireNonNull(collection);
+    for (E e : collection) {
+      if (Objects.equals(e, value1) || Objects.equals(e, value2) || Objects.equals(e, value3) || Objects.equals(e, value4)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static <E> boolean containsAny(Collection<E> collection, E value1, E value2, E value3, E value4, E value5) {
+    Objects.requireNonNull(collection);
+    for (E e : collection) {
+      if (Objects.equals(e, value1) || Objects.equals(e, value2) || Objects.equals(e, value3) || Objects.equals(e, value4) || Objects.equals(e, value5)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static <E> boolean containsAny(Collection<E> collection, E... values) {
+    Objects.requireNonNull(collection);
+    for (E e : collection) {
+      for (E v : values) {
+        if (Objects.equals(e, v)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
