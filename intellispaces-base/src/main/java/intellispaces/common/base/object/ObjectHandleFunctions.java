@@ -1,4 +1,4 @@
-package intellispaces.common.base.datahandle;
+package intellispaces.common.base.object;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -6,9 +6,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Data handle functions.
+ * Object handle functions.
  */
-public interface HandleFunctions {
+public interface ObjectHandleFunctions {
 
   /**
    * Processes the value with the given handler.

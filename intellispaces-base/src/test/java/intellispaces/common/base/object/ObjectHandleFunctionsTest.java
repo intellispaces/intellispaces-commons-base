@@ -1,4 +1,4 @@
-package intellispaces.common.base.datahandle;
+package intellispaces.common.base.object;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,9 +8,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link HandleFunctions}.
+ * Tests for {@link ObjectHandleFunctions}.
  */
-public class HandleFunctionsTest {
+public class ObjectHandleFunctionsTest {
 
   @Test
   public void testHandle_whenOneHandler() {
@@ -18,7 +18,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handle("abc", list::add);
+    ObjectHandleFunctions.handle("abc", list::add);
 
     // Then
     assertThat(list).containsExactly("abc");
@@ -30,7 +30,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handle("abc", list::add, list::add);
+    ObjectHandleFunctions.handle("abc", list::add, list::add);
 
     // Then
     assertThat(list).containsExactly("abc", "abc");
@@ -42,7 +42,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handle("abc", list::add, list::add, list::add);
+    ObjectHandleFunctions.handle("abc", list::add, list::add, list::add);
 
     // Then
     assertThat(list).containsExactly("abc", "abc", "abc");
@@ -54,7 +54,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handle("abc", list::add, list::add, list::add, list::add);
+    ObjectHandleFunctions.handle("abc", list::add, list::add, list::add, list::add);
 
     // Then
     assertThat(list).containsExactly("abc", "abc", "abc", "abc");
@@ -66,7 +66,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handle("abc", list::add, list::add, list::add, list::add, list::add);
+    ObjectHandleFunctions.handle("abc", list::add, list::add, list::add, list::add, list::add);
 
     // Then
     assertThat(list).containsExactly("abc", "abc", "abc", "abc", "abc");
@@ -78,7 +78,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handleEach("a", "b", list::add);
+    ObjectHandleFunctions.handleEach("a", "b", list::add);
 
     // Then
     assertThat(list).containsExactly("a", "b");
@@ -90,7 +90,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handleEach("a", "b", "c", list::add);
+    ObjectHandleFunctions.handleEach("a", "b", "c", list::add);
 
     // Then
     assertThat(list).containsExactly("a", "b", "c");
@@ -102,7 +102,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handleEach("a", "b", "c", "d", list::add);
+    ObjectHandleFunctions.handleEach("a", "b", "c", "d", list::add);
 
     // Then
     assertThat(list).containsExactly("a", "b", "c", "d");
@@ -114,7 +114,7 @@ public class HandleFunctionsTest {
     List<String> list = new ArrayList<>();
 
     // When
-    HandleFunctions.handleEach("a", "b", "c", "d", "e", list::add);
+    ObjectHandleFunctions.handleEach("a", "b", "c", "d", "e", list::add);
 
     // Then
     assertThat(list).containsExactly("a", "b", "c", "d", "e");
@@ -122,17 +122,17 @@ public class HandleFunctionsTest {
 
   @Test
   public void testCoalesce_whenSuppliers() {
-    assertThat(HandleFunctions.coalesce(() -> "a", () -> "b")).isEqualTo("a");
-    assertThat(HandleFunctions.coalesce(() -> null, () -> "b")).isEqualTo("b");
-    assertThat(HandleFunctions.coalesce(() -> "a", () -> null)).isEqualTo("a");
-    assertThat(HandleFunctions.coalesce(() -> null, () -> (String) null)).isNull();
+    assertThat(ObjectHandleFunctions.coalesce(() -> "a", () -> "b")).isEqualTo("a");
+    assertThat(ObjectHandleFunctions.coalesce(() -> null, () -> "b")).isEqualTo("b");
+    assertThat(ObjectHandleFunctions.coalesce(() -> "a", () -> null)).isEqualTo("a");
+    assertThat(ObjectHandleFunctions.coalesce(() -> null, () -> (String) null)).isNull();
   }
 
   @Test
   public void testCoalesce_whenFunctions() {
-    assertThat((String) HandleFunctions.coalesce(1, n -> "a", n -> "b")).isEqualTo("a");
-    assertThat((String) HandleFunctions.coalesce(1, n -> null, n -> "b")).isEqualTo("b");
-    assertThat((String) HandleFunctions.coalesce(1, n -> "a", n -> null)).isEqualTo("a");
-    assertThat((String) HandleFunctions.coalesce(1, n -> null, n -> null)).isNull();
+    assertThat((String) ObjectHandleFunctions.coalesce(1, n -> "a", n -> "b")).isEqualTo("a");
+    assertThat((String) ObjectHandleFunctions.coalesce(1, n -> null, n -> "b")).isEqualTo("b");
+    assertThat((String) ObjectHandleFunctions.coalesce(1, n -> "a", n -> null)).isEqualTo("a");
+    assertThat((String) ObjectHandleFunctions.coalesce(1, n -> null, n -> null)).isNull();
   }
 }
