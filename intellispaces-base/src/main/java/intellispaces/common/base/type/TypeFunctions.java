@@ -226,6 +226,16 @@ public class TypeFunctions {
     return WRAPPER_CLASS_TO_PRIMITIVE_MAP.containsKey(classCanonicalName);
   }
 
+  public static boolean isBooleanClass(String classCanonicalName) {
+    return Boolean.class.getCanonicalName().equals(classCanonicalName)
+        || boolean.class.getCanonicalName().equals(classCanonicalName);
+  }
+
+  public static boolean isDoubleClass(String classCanonicalName) {
+    return Double.class.getCanonicalName().equals(classCanonicalName)
+        || double.class.getCanonicalName().equals(classCanonicalName);
+  }
+
   public static List<Class<?>> getParents(Class<?> aClass) {
     var result = new ArrayList<Class<?>>();
     ArraysFunctions.foreach(aClass.getInterfaces(), result::add);

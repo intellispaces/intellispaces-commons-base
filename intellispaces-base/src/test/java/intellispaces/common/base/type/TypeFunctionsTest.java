@@ -223,6 +223,20 @@ public class TypeFunctionsTest {
   }
 
   @Test
+  public void testIsBooleanClass() {
+    assertThat(TypeFunctions.isBooleanClass(Boolean.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isBooleanClass(boolean.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isBooleanClass(String.class.getCanonicalName())).isFalse();
+  }
+
+  @Test
+  public void testIsDoubleClass() {
+    assertThat(TypeFunctions.isDoubleClass(Double.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isDoubleClass(double.class.getCanonicalName())).isTrue();
+    assertThat(TypeFunctions.isDoubleClass(String.class.getCanonicalName())).isFalse();
+  }
+
+  @Test
   public void testGetParents() {
     assertThat(TypeFunctions.getParents(Closeable.class)).contains(AutoCloseable.class);
     assertThat(TypeFunctions.getParents(InputStream.class)).contains(Closeable.class);
