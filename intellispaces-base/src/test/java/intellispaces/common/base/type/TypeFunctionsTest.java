@@ -207,6 +207,29 @@ public class TypeFunctionsTest {
   }
 
   @Test
+  public void testPrimitiveByWrapperClassName() {
+    assertThat(TypeFunctions.primitiveByWrapperClassName(Boolean.class.getCanonicalName())).contains(Primitives.Boolean);
+    assertThat(TypeFunctions.primitiveByWrapperClassName(Character.class.getCanonicalName())).contains(Primitives.Char);
+    assertThat(TypeFunctions.primitiveByWrapperClassName(Byte.class.getCanonicalName())).contains(Primitives.Byte);
+    assertThat(TypeFunctions.primitiveByWrapperClassName(Short.class.getCanonicalName())).contains(Primitives.Short);
+    assertThat(TypeFunctions.primitiveByWrapperClassName(Integer.class.getCanonicalName())).contains(Primitives.Int);
+    assertThat(TypeFunctions.primitiveByWrapperClassName(Long.class.getCanonicalName())).contains(Primitives.Long);
+    assertThat(TypeFunctions.primitiveByWrapperClassName(Float.class.getCanonicalName())).contains(Primitives.Float);
+    assertThat(TypeFunctions.primitiveByWrapperClassName(Double.class.getCanonicalName())).contains(Primitives.Double);
+
+    assertThat(TypeFunctions.primitiveByWrapperClassName(boolean.class.getCanonicalName())).isEmpty();
+    assertThat(TypeFunctions.primitiveByWrapperClassName(char.class.getCanonicalName())).isEmpty();
+    assertThat(TypeFunctions.primitiveByWrapperClassName(byte.class.getCanonicalName())).isEmpty();
+    assertThat(TypeFunctions.primitiveByWrapperClassName(short.class.getCanonicalName())).isEmpty();
+    assertThat(TypeFunctions.primitiveByWrapperClassName(int.class.getCanonicalName())).isEmpty();
+    assertThat(TypeFunctions.primitiveByWrapperClassName(long.class.getCanonicalName())).isEmpty();
+    assertThat(TypeFunctions.primitiveByWrapperClassName(float.class.getCanonicalName())).isEmpty();
+    assertThat(TypeFunctions.primitiveByWrapperClassName(double.class.getCanonicalName())).isEmpty();
+
+    assertThat(TypeFunctions.primitiveByWrapperClassName(String.class.getCanonicalName())).isEmpty();
+  }
+
+  @Test
   public void testIsPrimitiveWrapperClass() {
     assertThat(TypeFunctions.isPrimitiveWrapperClass(Boolean.class.getCanonicalName())).isTrue();
     assertThat(TypeFunctions.isPrimitiveWrapperClass(Character.class.getCanonicalName())).isTrue();
@@ -275,18 +298,19 @@ public class TypeFunctionsTest {
   }
 
   @Test
-  public void testConvertObjectToLong() {
-    assertThat(TypeFunctions.convertObjectToLong('a')).isEqualTo(97);
-    assertThat(TypeFunctions.convertObjectToLong((byte) 13)).isEqualTo(13);
-    assertThat(TypeFunctions.convertObjectToLong((short) 13)).isEqualTo(13);
-    assertThat(TypeFunctions.convertObjectToLong((13))).isEqualTo(13);
-    assertThat(TypeFunctions.convertObjectToLong(13L)).isEqualTo(13);
+  public void testConvertObjectToInt() {
+    assertThat(TypeFunctions.convertObjectToInt('a')).isEqualTo(97);
+    assertThat(TypeFunctions.convertObjectToInt((byte) 13)).isEqualTo(13);
+    assertThat(TypeFunctions.convertObjectToInt((short) 13)).isEqualTo(13);
+    assertThat(TypeFunctions.convertObjectToInt((13))).isEqualTo(13);
 
-    assertThatThrownBy(() -> TypeFunctions.convertObjectToLong("String"))
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToInt(13L))
         .isExactlyInstanceOf(UnexpectedViolationException.class);
-    assertThatThrownBy(() -> TypeFunctions.convertObjectToLong(3.14F))
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToInt(3.14F))
         .isExactlyInstanceOf(UnexpectedViolationException.class);
-    assertThatThrownBy(() -> TypeFunctions.convertObjectToLong(3.14D))
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToInt(3.14D))
+        .isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToInt("String"))
         .isExactlyInstanceOf(UnexpectedViolationException.class);
   }
 
@@ -300,7 +324,7 @@ public class TypeFunctionsTest {
     assertThat(TypeFunctions.convertObjectToDouble(13F)).isEqualTo(13.0);
     assertThat(TypeFunctions.convertObjectToDouble(13.4D)).isEqualTo(13.4);
 
-    assertThatThrownBy(() -> TypeFunctions.convertObjectToLong("String"))
+    assertThatThrownBy(() -> TypeFunctions.convertObjectToInt("String"))
         .isExactlyInstanceOf(UnexpectedViolationException.class);
   }
 

@@ -222,6 +222,17 @@ public class TypeFunctions {
     return primitiveType;
   }
 
+  public static Optional<Primitive> primitiveByWrapperClassName(String canonicalName) {
+    Primitive primitive = null;
+    for (Primitive p : Primitives.values()) {
+      if (p.wrapperClass().getCanonicalName().equals(canonicalName)) {
+        primitive = p;
+        break;
+      }
+    }
+    return Optional.ofNullable(primitive);
+  }
+
   public static boolean isPrimitiveWrapperClass(String classCanonicalName) {
     return WRAPPER_CLASS_TO_PRIMITIVE_MAP.containsKey(classCanonicalName);
   }
@@ -255,11 +266,11 @@ public class TypeFunctions {
     return false;
   }
 
-  public static <T> long convertObjectToLong(T object) {
-    if (object instanceof Float || object instanceof Double) {
+  public static <T> int convertObjectToInt(T object) {
+    if (object instanceof Long || object instanceof Float || object instanceof Double) {
       throw UnexpectedViolationException.withMessage("Unsupported operation");
     } else if (object instanceof Number) {
-      return ((Number) object).longValue();
+      return ((Number) object).intValue();
     } else if (object instanceof Character) {
       return (char) object;
     }
