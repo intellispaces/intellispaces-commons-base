@@ -1,7 +1,7 @@
 package intellispaces.common.base.function.primitive;
 
 @FunctionalInterface
-public interface ObjectToLongFunction<T> {
+public interface ObjectToIntFunction<T> {
 
-  long apply(T arg);
+  int apply(T arg);
 }
