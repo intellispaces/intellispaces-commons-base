@@ -3,6 +3,7 @@ package intellispaces.common.base.collection;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.DoubleStream;
@@ -12,6 +13,26 @@ import java.util.stream.IntStream;
  * Arrays processing functions.
  */
 public interface ArraysFunctions {
+
+  static byte[] toByteArray(List<Byte> bytes) {
+    if (bytes == null) {
+      return null;
+    }
+
+    byte[] arr = new byte[bytes.size()];
+    int ind = 0;
+    for (byte b : bytes) {
+      arr[ind++] = b;
+    }
+    return arr;
+  }
+
+  static List<Byte> toByteList(byte[] bytes) {
+    if (bytes == null) {
+      return null;
+    }
+    return IntStream.range(0, bytes.length).mapToObj(i -> bytes[i]).toList();
+  }
 
   static <T> void foreach(T[] array, Consumer<T> consumer) {
     if (array != null) {

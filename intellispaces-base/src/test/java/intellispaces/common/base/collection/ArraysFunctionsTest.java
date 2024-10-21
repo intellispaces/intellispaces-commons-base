@@ -13,6 +13,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ArraysFunctionsTest {
 
   @Test
+  public void testToByteArray() {
+    assertThat(ArraysFunctions.toByteArray(null)).isNull();
+    assertThat(ArraysFunctions.toByteArray(List.of((byte) 1))).contains(1);
+    assertThat(ArraysFunctions.toByteArray(List.of((byte) 1, (byte) 2))).contains(1, 2);
+  }
+
+  @Test
+  public void testToByteList() {
+    assertThat(ArraysFunctions.toByteList(null)).isNull();
+    assertThat(ArraysFunctions.toByteList(new byte[] { 1 })).contains((byte) 1);
+    assertThat(ArraysFunctions.toByteList(new byte[] { 1, 2 })).contains((byte) 1, (byte) 2);
+  }
+
+  @Test
   public void testForeach() {
     // Given
     List<String> list = new ArrayList<>();
