@@ -175,6 +175,14 @@ public class TypeFunctions {
     return Modifier.isAbstract(method.getModifiers());
   }
 
+  public static boolean isPublicMethod(Method method) {
+    return Modifier.isPublic(method.getModifiers());
+  }
+
+  public static boolean isStaticMethod(Method method) {
+    return Modifier.isStatic(method.getModifiers());
+  }
+
   public static Class<?> getObjectClass(Class<?> aClass) {
     if (!aClass.isPrimitive()) {
       return aClass;

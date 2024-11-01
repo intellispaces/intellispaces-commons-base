@@ -7,6 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,6 +29,24 @@ public class TypeFunctionsTest {
   public void testIsFinalClass() {
     assertThat(TypeFunctions.isFinalClass(Number.class)).isFalse();
     assertThat(TypeFunctions.isFinalClass(Integer.class)).isTrue();
+  }
+
+  @Test
+  public void testIsAbstractMethod() throws Exception {
+    assertThat(TypeFunctions.isAbstractMethod(Number.class.getDeclaredMethod("intValue"))).isTrue();
+    assertThat(TypeFunctions.isAbstractMethod(Integer.class.getDeclaredMethod("intValue"))).isFalse();
+  }
+
+  @Test
+  public void testIsPublicMethod() throws Exception {
+    assertThat(TypeFunctions.isPublicMethod(Object.class.getDeclaredMethod("clone"))).isFalse();
+    assertThat(TypeFunctions.isPublicMethod(ArrayList.class.getDeclaredMethod("clone"))).isTrue();
+  }
+
+  @Test
+  public void testIsStaticMethod() throws Exception {
+    assertThat(TypeFunctions.isStaticMethod(List.class.getDeclaredMethod("of"))).isTrue();
+    assertThat(TypeFunctions.isStaticMethod(ArrayList.class.getDeclaredMethod("get", int.class))).isFalse();
   }
 
   @Test
