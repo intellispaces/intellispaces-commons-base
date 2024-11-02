@@ -1,5 +1,10 @@
 package intellispaces.common.base.type;
 
+import intellispaces.common.base.exception.UnexpectedViolationException;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Primitives implements Primitive {
 
   Boolean("boolean", java.lang.Boolean.class),
@@ -20,6 +25,14 @@ public enum Primitives implements Primitive {
 
   private final String typename;
   private final Class<?> wrapperClass;
+
+  public static Primitive get(String typename) {
+    Primitive primitive = CACHE.get(typename);
+    if (primitive == null) {
+      throw UnexpectedViolationException.withMessage("Not primitive: {}", typename);
+    }
+    return primitive;
+  }
 
   Primitives(String typename, Class<?> wrapperClass) {
     this.typename = typename;
@@ -76,5 +89,15 @@ public enum Primitives implements Primitive {
     return wrapperClass;
   }
 
-
+  private static final Map<String, Primitive> CACHE = new HashMap<>();
+  static {
+    CACHE.put("boolean", Boolean);
+    CACHE.put("char", Char);
+    CACHE.put("byte", Byte);
+    CACHE.put("short", Short);
+    CACHE.put("long", Long);
+    CACHE.put("int", Int);
+    CACHE.put("float", Float);
+    CACHE.put("double", Double);
+  }
 }
