@@ -55,4 +55,8 @@ public interface Types {
   ) {
     return of(baseClass, Types.of(qualifierClass1), Types.of(qualifierClass2), Types.of(qualifierClass3));
   }
+
+  static <E> Type<List<E>> ofList(Class<E> elementClass) {
+    return of(List.class, Types.of(elementClass));
+  }
 }
