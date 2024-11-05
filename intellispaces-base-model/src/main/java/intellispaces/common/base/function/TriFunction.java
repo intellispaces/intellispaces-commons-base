@@ -1,7 +1,7 @@
 package intellispaces.common.base.function;
 
 /**
- * Function with three arguments.
+ * Function that accepts three arguments
  *
  * @param <T1> the first argument type.
  * @param <T2> the second argument type.

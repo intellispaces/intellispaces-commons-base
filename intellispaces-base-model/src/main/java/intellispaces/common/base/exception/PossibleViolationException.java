@@ -3,11 +3,12 @@ package intellispaces.common.base.exception;
 import java.text.MessageFormat;
 
 /**
- * Possible violation exception.
+ * Possible violation exception.</p>
  *
- * <p>This is the parent class for any exceptions related to <b>possible and expected violations of assumptions</b> imposed on a particular method.
+ * This is the parent class for any exceptions related to <b>possible and expected violations of assumptions</b>
+ * imposed on a particular method.</p>
  *
- * <p>Typical sample of expected exception are any business exceptions.
+ * Typical sample of expected exception are any business exceptions.
  */
 public class PossibleViolationException extends Exception {
 

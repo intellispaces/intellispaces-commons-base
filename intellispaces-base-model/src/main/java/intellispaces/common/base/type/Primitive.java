@@ -1,5 +1,8 @@
 package intellispaces.common.base.type;
 
+/**
+ * Primitive type.
+ */
 public interface Primitive {
 
   boolean isChar();

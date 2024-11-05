@@ -1,7 +1,7 @@
 package intellispaces.common.base.function;
 
 /**
- * The function with five arguments.
+ * Function that accepts five arguments.
  *
  * @param <T1> the first argument type.
  * @param <T2> the second argument type.

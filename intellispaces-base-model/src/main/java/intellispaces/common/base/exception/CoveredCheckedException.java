@@ -1,7 +1,7 @@
 package intellispaces.common.base.exception;
 
 /**
- * The unchecked exception covering the other checked exception.
+ * The unchecked exception covering the checked exception.
  */
 public class CoveredCheckedException extends RuntimeException {
 

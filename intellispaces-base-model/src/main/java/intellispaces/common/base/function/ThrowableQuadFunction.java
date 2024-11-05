@@ -1,7 +1,7 @@
 package intellispaces.common.base.function;
 
 /**
- * The function with four arguments throws exception.
+ * Function that accepts four arguments and can throw exception.
  *
  * @param <T1> the first argument type.
  * @param <T2> the second argument type.
@@ -21,7 +21,7 @@ public interface ThrowableQuadFunction<T1, T2, T3, T4, R, E extends Throwable> {
    * @param arg3 the third argument.
    * @param arg4 the fourth argument.
    * @return the function result.
-   * @throws E the exception.
+   * @throws E the exception type.
    */
   R apply(T1 arg1, T2 arg2, T3 arg3, T4 arg4) throws E;
 }

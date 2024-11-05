@@ -3,9 +3,9 @@ package intellispaces.common.base.exception;
 import java.text.MessageFormat;
 
 /**
- * Unexpected violation exception.
+ * Unexpected violation exception.<p/>
  *
- * <p>This is the parent class for any exceptions related to <b>unexpected violations of assumptions</b> imposed on a particular method.
+ * This is the parent class for any exceptions related to <b>unexpected violations of assumptions</b> imposed on a particular method.
  */
 public class UnexpectedViolationException extends RuntimeException {
 

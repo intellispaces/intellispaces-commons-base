@@ -1,7 +1,7 @@
 package intellispaces.common.base.function;
 
 /**
- * Function with three arguments throws exception.
+ * Function that accepts three arguments and can throw exception.
  *
  * @param <T1> the first argument type.
  * @param <T2> the second argument type.
@@ -19,7 +19,7 @@ public interface ThrowableTriFunction<T1, T2, T3, R, E extends Throwable> {
    * @param t2 the second argument.
    * @param t3 the third argument.
    * @return the function result.
-   * @throws E the exception.
+   * @throws E the exception type.
    */
   R apply(T1 t1, T2 t2, T3 t3) throws E;
 }
