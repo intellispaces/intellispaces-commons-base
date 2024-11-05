@@ -27,9 +27,9 @@ public enum Primitives implements Primitive {
   private final Class<?> wrapperClass;
 
   public static Primitive get(String typename) {
-    Primitive primitive = CACHE.get(typename);
+    Primitive primitive = VALUES.get(typename);
     if (primitive == null) {
-      throw UnexpectedViolationException.withMessage("Not primitive: {}", typename);
+      throw UnexpectedViolationException.withMessage("Not primitive typename: {}", typename);
     }
     return primitive;
   }
@@ -89,15 +89,15 @@ public enum Primitives implements Primitive {
     return wrapperClass;
   }
 
-  private static final Map<String, Primitive> CACHE = new HashMap<>();
+  private static final Map<String, Primitive> VALUES = new HashMap<>();
   static {
-    CACHE.put("boolean", Boolean);
-    CACHE.put("char", Char);
-    CACHE.put("byte", Byte);
-    CACHE.put("short", Short);
-    CACHE.put("long", Long);
-    CACHE.put("int", Int);
-    CACHE.put("float", Float);
-    CACHE.put("double", Double);
+    VALUES.put("boolean", Boolean);
+    VALUES.put("char", Char);
+    VALUES.put("byte", Byte);
+    VALUES.put("short", Short);
+    VALUES.put("long", Long);
+    VALUES.put("int", Int);
+    VALUES.put("float", Float);
+    VALUES.put("double", Double);
   }
 }
