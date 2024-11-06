@@ -4,6 +4,7 @@ import intellispaces.common.base.exception.UnexpectedViolationException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
+import java.io.InputStream;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,6 +14,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * Tests for {@link ResourceFunctions}.
  */
 public class ResourceFunctionsTest {
+
+  @Test
+  public void testReadResourceAsStream() throws Exception {
+    try (InputStream is = ResourceFunctions.readResourceAsStream(ResourceFunctionsTest.class, "/resource.txt")) {
+      assertThat(is).isNotNull();
+    }
+  }
 
   @Test
   public void testReadResourceAsString_whenResourceExists() throws Exception {
@@ -40,7 +48,7 @@ public class ResourceFunctionsTest {
       ResourceFunctions.readResourceAsStringForce(ResourceFunctionsTest.class, "/nonExistentResource.txt");
     };
     assertThatThrownBy(action).isExactlyInstanceOf(UnexpectedViolationException.class)
-        .hasMessage("Resource by name /nonExistentResource.txt is not found");
+        .hasMessage("Failed to read resource by name /nonExistentResource.txt");
   }
 
   @Test

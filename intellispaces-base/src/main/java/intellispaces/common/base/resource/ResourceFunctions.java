@@ -1,10 +1,12 @@
 package intellispaces.common.base.resource;
 
 import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.stream.StreamFunctions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -29,6 +31,17 @@ public class ResourceFunctions {
   }
 
   /**
+   * Read resource as stream.
+   *
+   * @param aClass class associated with resource.
+   * @param name resource name.
+   * @return resource stream.
+   */
+  public static InputStream readResourceAsStream(Class<?> aClass, String name) {
+    return aClass.getResourceAsStream(name);
+  }
+
+  /**
    * Read resource as string.
    *
    * @param aClass class associated with resource.
@@ -37,12 +50,15 @@ public class ResourceFunctions {
    * @return string or empty optional if no resource with given name is found.
    * @throws IOException throws if any I/O error occurs.
    */
-  public static Optional<String> readResourceAsString(Class<?> aClass, String name, Charset charset) throws IOException {
-    var is = aClass.getResourceAsStream(name);
-    if (is == null) {
-      return Optional.empty();
+  public static Optional<String> readResourceAsString(
+      Class<?> aClass, String name, Charset charset
+  ) throws IOException {
+    try (InputStream is = readResourceAsStream(aClass, name)) {
+      if (is == null) {
+        return Optional.empty();
+      }
+      return Optional.of(new String(is.readAllBytes(), charset));
     }
-    return Optional.of(new String(is.readAllBytes(), charset));
   }
 
   /**
@@ -67,13 +83,12 @@ public class ResourceFunctions {
    * @throws UnexpectedViolationException throws if no resource with given name is found or resource can't be loaded.
    */
   public static String readResourceAsStringForce(Class<?> aClass, String name, Charset charset) {
-    var is = aClass.getResourceAsStream(name);
-    if (is == null) {
-      throw UnexpectedViolationException.withMessage("Resource by name {0} is not found", name);
-    }
-    try {
-      return new String(is.readAllBytes(), charset);
-    } catch (IOException e) {
+    try (InputStream is = readResourceAsStream(aClass, name)) {
+      if (is == null) {
+        throw UnexpectedViolationException.withMessage("Resource by name {0} is not found", name);
+      }
+      return StreamFunctions.readStreamAsStringForce(is, charset);
+    } catch (Exception e) {
       throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to read resource by name {0}", name);
     }
   }
@@ -99,9 +114,9 @@ public class ResourceFunctions {
    */
   public static Optional<String> readResourceAsStringSilently(Class<?> aClass, String name, Charset charset) {
     try {
-      return readResourceAsString(aClass, name, charset);
-    } catch (IOException e) {
-      LOG.error("Error reading resource by name " + name , e);
+      return Optional.of(readResourceAsStringForce(aClass, name, charset));
+    } catch (Exception e) {
+      LOG.error("Error reading resource by name {}", name, e);
       return Optional.empty();
     }
   }

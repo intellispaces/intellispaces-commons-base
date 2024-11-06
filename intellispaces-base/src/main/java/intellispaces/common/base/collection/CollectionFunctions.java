@@ -18,6 +18,14 @@ public interface CollectionFunctions {
     }
   }
 
+  /**
+   * Creates collection that contain given collection and additional values.
+   *
+   * @param collection the source collection.
+   * @param other additional value.
+   * @return result collection.
+   * @param <T> collection element type.
+   */
   static <T> Collection<T> join(Collection<T> collection, T... other) {
     if (collection == null) {
       collection = List.of();
@@ -30,7 +38,7 @@ public interface CollectionFunctions {
     return Collections.unmodifiableCollection(result);
   }
 
-  static <E> boolean containsAny(Collection<E> collection, E value1, E value2) {
+  static <E> boolean containsAnyOf(Collection<E> collection, E value1, E value2) {
     Objects.requireNonNull(collection);
     for (E e : collection) {
       if (Objects.equals(e, value1) || Objects.equals(e, value2)) {
@@ -40,37 +48,49 @@ public interface CollectionFunctions {
     return false;
   }
 
-  static <E> boolean containsAny(Collection<E> collection, E value1, E value2, E value3) {
+  static <E> boolean containsAnyOf(Collection<E> collection, E value1, E value2, E value3) {
     Objects.requireNonNull(collection);
     for (E e : collection) {
-      if (Objects.equals(e, value1) || Objects.equals(e, value2) || Objects.equals(e, value3)) {
+      if (Objects.equals(e, value1)
+          || Objects.equals(e, value2)
+          || Objects.equals(e, value3)) {
         return true;
       }
     }
     return false;
   }
 
-  static <E> boolean containsAny(Collection<E> collection, E value1, E value2, E value3, E value4) {
+  static <E> boolean containsAnyOf(Collection<E> collection, E value1, E value2, E value3, E value4) {
     Objects.requireNonNull(collection);
     for (E e : collection) {
-      if (Objects.equals(e, value1) || Objects.equals(e, value2) || Objects.equals(e, value3) || Objects.equals(e, value4)) {
+      if (Objects.equals(e, value1)
+          || Objects.equals(e, value2)
+          || Objects.equals(e, value3)
+          || Objects.equals(e, value4)
+      ) {
         return true;
       }
     }
     return false;
   }
 
-  static <E> boolean containsAny(Collection<E> collection, E value1, E value2, E value3, E value4, E value5) {
+  static <E> boolean containsAnyOf(Collection<E> collection, E value1, E value2, E value3, E value4, E value5) {
     Objects.requireNonNull(collection);
     for (E e : collection) {
-      if (Objects.equals(e, value1) || Objects.equals(e, value2) || Objects.equals(e, value3) || Objects.equals(e, value4) || Objects.equals(e, value5)) {
+      if (Objects.equals(e, value1)
+          || Objects.equals(e, value2)
+          || Objects.equals(e, value3)
+          || Objects.equals(e, value4)
+          || Objects.equals(e, value5)
+      ) {
         return true;
       }
     }
     return false;
   }
 
-  static <E> boolean containsAny(Collection<E> collection, E... values) {
+  @SafeVarargs
+  static <E> boolean containsAnyOf(Collection<E> collection, E... values) {
     Objects.requireNonNull(collection);
     for (E e : collection) {
       for (E v : values) {

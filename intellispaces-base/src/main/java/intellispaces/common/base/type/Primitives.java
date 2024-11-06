@@ -5,6 +5,9 @@ import intellispaces.common.base.exception.UnexpectedViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Primitive type provider.
+ */
 public enum Primitives implements Primitive {
 
   Boolean("boolean", java.lang.Boolean.class),
@@ -15,9 +18,9 @@ public enum Primitives implements Primitive {
 
   Short("short", java.lang.Short.class),
 
-  Long("long", java.lang.Long.class),
-
   Int("int", java.lang.Integer.class),
+
+  Long("long", java.lang.Long.class),
 
   Float("float", java.lang.Float.class),
 
@@ -29,7 +32,7 @@ public enum Primitives implements Primitive {
   public static Primitive get(String typename) {
     Primitive primitive = VALUES.get(typename);
     if (primitive == null) {
-      throw UnexpectedViolationException.withMessage("Not primitive typename: {}", typename);
+      throw UnexpectedViolationException.withMessage("Not primitive typename: {0}", typename);
     }
     return primitive;
   }

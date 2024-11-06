@@ -13,7 +13,8 @@ public abstract class AbstractType<T> implements Type<T> {
       return false;
     }
     Type<?> type = (Type<?>) o;
-    return Objects.equals(baseClass(), type.baseClass()) && Objects.equals(qualifierTypes(), type.qualifierTypes());
+    return Objects.equals(baseClass(), type.baseClass())
+        && Objects.equals(qualifierTypes(), type.qualifierTypes());
   }
 
   @Override

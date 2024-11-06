@@ -1,35 +1,36 @@
 package intellispaces.common.base.function;
 
-import intellispaces.common.base.exception.CoveredCheckedException;
+import intellispaces.common.base.exception.CoveredException;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * Consumer provider.
+ */
 public final class Consumers {
 
-  private Consumers() {}
-
-  public static <T, E extends Throwable> Consumer<T> coveredThrowableConsumer(
-      ThrowableConsumer<T, E> consumer
+  public static <T, E extends Throwable> Consumer<T> coveredConsumer(
+      ThrowingConsumer<T, E> consumer
   ) {
     return t -> {
       try {
-        consumer.accept(t);
+        consumer.acceptThrows(t);
       } catch (RuntimeException e) {
         throw e;
       } catch (Throwable e) {
-        throw new CoveredCheckedException(e);
+        throw new CoveredException(e);
       }
     };
   }
 
   @SuppressWarnings("unchecked")
-  public static <T, E extends Throwable, E2 extends RuntimeException> Consumer<T> coveredThrowableConsumer(
-      ThrowableConsumer<T, E> consumer, Function<E, E2> exceptionFactory
+  public static <T, E extends Throwable, E2 extends RuntimeException> Consumer<T> coveredConsumer(
+      ThrowingConsumer<T, E> consumer, Function<E, E2> exceptionFactory
   ) {
     return t -> {
       try {
-        consumer.accept(t);
+        consumer.acceptThrows(t);
       } catch (RuntimeException e) {
         throw e;
       } catch (Throwable e) {
@@ -42,6 +43,12 @@ public final class Consumers {
   public static <T> Consumer<T> idle() {
     return (Consumer<T>) IDLE_CONSUMER;
   }
+
+  public static <T> Consumer<T> idle(Class<T> valueClass) {
+    return idle();
+  }
+
+  private Consumers() {}
 
   private static final Consumer<?> IDLE_CONSUMER = v -> {};
 }
