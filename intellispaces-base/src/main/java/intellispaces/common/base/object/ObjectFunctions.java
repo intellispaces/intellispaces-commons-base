@@ -1,6 +1,6 @@
 package intellispaces.common.base.object;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -20,23 +20,23 @@ public interface ObjectFunctions {
       Constructor<T> constructor = aClass.getConstructor();
       return constructor.newInstance();
     } catch (NoSuchMethodException e) {
-      throw UnexpectedViolationException.withCauseAndMessage(e, "Class {0} does not contain default constructor " +
+      throw UnexpectedExceptions.withCauseAndMessage(e, "Class {0} does not contain default constructor " +
           "without parameters", aClass.getCanonicalName());
     } catch (Exception e) {
-      throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to create instance of the class {0}",
+      throw UnexpectedExceptions.withCauseAndMessage(e, "Failed to create instance of the class {0}",
           aClass.getCanonicalName());
     }
   }
 
   static <T> int convertToInt(T object) {
     if (object instanceof Long || object instanceof Float || object instanceof Double) {
-      throw UnexpectedViolationException.withMessage("Unsupported operation");
+      throw UnexpectedExceptions.withMessage("Unsupported operation");
     } else if (object instanceof Number) {
       return ((Number) object).intValue();
     } else if (object instanceof Character) {
       return (char) object;
     }
-    throw UnexpectedViolationException.withMessage("Unsupported operation");
+    throw UnexpectedExceptions.withMessage("Unsupported operation");
   }
 
   static <T> double convertToDouble(T object) {
@@ -45,7 +45,7 @@ public interface ObjectFunctions {
     } else if (object instanceof Character) {
       return (char) object;
     }
-    throw UnexpectedViolationException.withMessage("Unsupported operation");
+    throw UnexpectedExceptions.withMessage("Unsupported operation");
   }
 
   static <E> boolean equalsAnyOf(E object, E object1, E object2) {

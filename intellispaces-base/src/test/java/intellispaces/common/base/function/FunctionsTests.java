@@ -1,7 +1,7 @@
 package intellispaces.common.base.function;
 
-import intellispaces.common.base.exception.CoveredException;
-import intellispaces.common.base.exception.PossibleViolationException;
+import intellispaces.common.base.exception.AssumptionViolationException;
+import intellispaces.common.base.exception.WrappedCheckedException;
 import intellispaces.common.base.sample.ThrowingFunctions;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
@@ -23,8 +23,8 @@ public class FunctionsTests {
         .toList();
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedCheckedException.class)
+        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test
@@ -47,7 +47,7 @@ public class FunctionsTests {
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(IllegalArgumentException.class)
-        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
+        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test

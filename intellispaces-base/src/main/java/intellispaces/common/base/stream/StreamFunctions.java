@@ -1,6 +1,6 @@
 package intellispaces.common.base.stream;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +15,7 @@ public interface StreamFunctions {
     try {
       return new String(is.readAllBytes(), charset);
     } catch (IOException e) {
-      throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to read stream as string");
+      throw UnexpectedExceptions.withCauseAndMessage(e, "Failed to read stream as string");
     }
   }
 }

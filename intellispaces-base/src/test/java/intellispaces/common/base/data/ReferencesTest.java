@@ -1,6 +1,6 @@
 package intellispaces.common.base.data;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,11 +23,11 @@ public class ReferencesTest {
     assertThat(reference.get()).isEqualTo(target);
 
     assertThatThrownBy(reference::asOrdinal)
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("This reference cannot be represented as an ordinal value");
 
     assertThatThrownBy(reference::asKey)
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("This reference cannot be represented as an string key");
   }
 }

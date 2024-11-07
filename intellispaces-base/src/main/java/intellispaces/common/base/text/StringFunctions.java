@@ -1,6 +1,6 @@
 package intellispaces.common.base.text;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -70,10 +70,10 @@ public interface StringFunctions {
 
   static String replaceTailOrElseThrow(String source, String tail, String replacement) {
     if (source == null) {
-      throw UnexpectedViolationException.withMessage("Source string is null");
+      throw UnexpectedExceptions.withMessage("Source string is null");
     }
     if (tail == null) {
-      throw UnexpectedViolationException.withMessage("Substring is null");
+      throw UnexpectedExceptions.withMessage("Substring is null");
     }
     if (replacement == null) {
       replacement = "";
@@ -81,7 +81,7 @@ public interface StringFunctions {
 
     int endingOffset = source.length() - tail.length();
     if (endingOffset < 0 || !tail.equals(source.substring(endingOffset))) {
-      throw UnexpectedViolationException.withMessage("Source string ''{0}'' does not contain tail ''{1}''",
+      throw UnexpectedExceptions.withMessage("Source string '{0}' does not contain tail '{1}'",
           source, tail);
     }
     return source.substring(0, endingOffset) + replacement + source.substring(endingOffset + tail.length());
@@ -89,10 +89,10 @@ public interface StringFunctions {
 
   static String replaceSingleOrElseThrow(String source, String substring, String replacement) {
     if (source == null) {
-      throw UnexpectedViolationException.withMessage("Source string is null");
+      throw UnexpectedExceptions.withMessage("Source string is null");
     }
     if (substring == null) {
-      throw UnexpectedViolationException.withMessage("Substring is null");
+      throw UnexpectedExceptions.withMessage("Substring is null");
     }
     if (replacement == null) {
       replacement = "";
@@ -100,10 +100,10 @@ public interface StringFunctions {
 
     int numSubstrings = numberSubstrings(source, substring);
     if (numSubstrings == 0) {
-      throw UnexpectedViolationException.withMessage("Source string ''{0}'' does not contain substring ''{1}''",
+      throw UnexpectedExceptions.withMessage("Source string '{0}' does not contain substring '{1}'",
           source, substring);
     } else if (numSubstrings > 1) {
-      throw UnexpectedViolationException.withMessage("Source string ''{0}'' contains more than one substrings ''{1}''",
+      throw UnexpectedExceptions.withMessage("Source string '{0}' contains more than one substrings '{1}'",
           source, substring);
     }
     return source.replace(substring, replacement);
@@ -130,5 +130,52 @@ public interface StringFunctions {
       return InputStream.nullInputStream();
     }
     return new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8));
+  }
+
+  static String resolveTemplate(String template, Object... params) {
+    if (template == null) {
+      return null;
+    }
+
+    var sb = new StringBuilder();
+    char[] chars = template.toCharArray();
+    boolean openBrace = false;
+    for (int ind = 0; ind < chars.length; ind++) {
+      char ch = chars[ind];
+      if (ch != '{') {
+        sb.append(ch);
+      } else {
+        openBrace = true;
+        int beginInd = ind;
+        while (ind < chars.length) {
+          ch = chars[ind];
+          if (ch == '}') {
+            openBrace = false;
+            String value = template.substring(beginInd + 1, ind);
+            try {
+              int paramInd = Integer.parseInt(value);
+              if (paramInd >= 0 && paramInd < params.length) {
+                sb.append(params[paramInd]);
+              } else {
+                throw UnexpectedExceptions.withMessage(
+                    "Could not resolve string template. Parameter index {0} is out of range", value
+                );
+              }
+            } catch (NumberFormatException e) {
+              throw UnexpectedExceptions.withCauseAndMessage(
+                  e, "Could not resolve string template. Invalid parameter index '{0}'", value);
+            }
+            break;
+          }
+          ind++;
+        }
+      }
+      if (openBrace) {
+        throw UnexpectedExceptions.withMessage(
+            "Could not resolve string template. There is no paired closing curly brace"
+        );
+      }
+    }
+    return sb.toString();
   }
 }

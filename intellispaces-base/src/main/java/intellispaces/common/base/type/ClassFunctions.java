@@ -2,7 +2,7 @@ package intellispaces.common.base.type;
 
 import intellispaces.common.base.collection.ArraysFunctions;
 import intellispaces.common.base.collection.CollectionFunctions;
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +49,7 @@ public class ClassFunctions {
   }
 
   public static Class<?> getClassOrElseThrow(String className) {
-    return getClass(className).orElseThrow(() -> UnexpectedViolationException.withMessage(
+    return getClass(className).orElseThrow(() -> UnexpectedExceptions.withMessage(
         "Could not to get class by name {0}", className));
   }
 
@@ -125,7 +125,7 @@ public class ClassFunctions {
   public static Class<?> getPrimitiveWrapperClass(String primitiveType) {
     Class<?> primitiveClass = PRIMITIVE_TO_WRAPPER_CLASSES_MAP.get(primitiveType);
     if (primitiveClass == null) {
-      throw UnexpectedViolationException.withMessage("Not primitive typename: {0}", primitiveType);
+      throw UnexpectedExceptions.withMessage("Not primitive typename: {0}", primitiveType);
     }
     return primitiveClass;
   }
@@ -162,7 +162,7 @@ public class ClassFunctions {
   public static String getPrimitiveTypeOfWrapper(String wrapperCanonicalName) {
     String primitiveType = WRAPPER_CLASS_TO_PRIMITIVE_MAP.get(wrapperCanonicalName);
     if (primitiveType == null) {
-      throw UnexpectedViolationException.withMessage("Not primitive wrapper: {0}", wrapperCanonicalName);
+      throw UnexpectedExceptions.withMessage("Not primitive wrapper: {0}", wrapperCanonicalName);
     }
     return primitiveType;
   }

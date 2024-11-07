@@ -1,6 +1,6 @@
 package intellispaces.common.base.stream;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +43,7 @@ public class StreamFunctionsTest {
     ThrowableAssert.ThrowingCallable action = () -> StreamFunctions.readStreamAsStringForce(is, StandardCharsets.UTF_8);
 
     // Then
-    assertThatThrownBy(action).isExactlyInstanceOf(UnexpectedViolationException.class)
+    assertThatThrownBy(action).isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Failed to read stream as string");
   }
 }

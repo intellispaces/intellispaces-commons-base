@@ -1,7 +1,7 @@
 package intellispaces.common.base.stream;
 
 import intellispaces.common.base.collection.CollectionFunctions;
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +19,13 @@ public class CollectorsTest {
   @Test
   public void testOne() {
     assertThatThrownBy(() -> Stream.of().collect(Collectors.one()))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Expected stream with one element");
 
     assertThat(Stream.of("a").collect(Collectors.one())).isEqualTo("a");
 
     assertThatThrownBy(() -> Stream.of("a", "b").collect(Collectors.one()))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Expected stream with one element");
   }
 
@@ -36,7 +36,7 @@ public class CollectorsTest {
     assertThat(Stream.of("a").collect(Collectors.optional())).contains("a");
 
     assertThatThrownBy(() -> Stream.of("a", "b").collect(Collectors.optional()))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Expected stream with one element");
   }
 

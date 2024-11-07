@@ -1,7 +1,5 @@
 package intellispaces.common.base.data;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
-
 /**
  * Reference to something.
  *
@@ -17,14 +15,10 @@ public interface Reference<T> {
   /**
    * Ordinal representation of the reference.
    */
-  default int asOrdinal() {
-    throw UnexpectedViolationException.withMessage("This reference cannot be represented as an ordinal value");
-  }
+  int asOrdinal();
 
   /**
    * String key representation of the reference.
    */
-  default String asKey() {
-    throw UnexpectedViolationException.withMessage("This reference cannot be represented as an string key");
-  }
+  String asKey();
 }

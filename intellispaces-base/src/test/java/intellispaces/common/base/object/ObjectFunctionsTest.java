@@ -1,6 +1,6 @@
 package intellispaces.common.base.object;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import intellispaces.common.base.sample.ClassWithDefaultConstructor;
 import intellispaces.common.base.sample.ClassWithDefaultConstructorThatThrowException;
 import intellispaces.common.base.sample.ClassWithoutDefaultConstructor;
@@ -26,7 +26,7 @@ public class ObjectFunctionsTest {
   @Test
   public void testNewInstance_whenHasNotDefaultConstructor() {
     assertThatThrownBy(() -> ObjectFunctions.newInstance(ClassWithoutDefaultConstructor.class))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Class %s does not contain default constructor without parameters",
             ClassWithoutDefaultConstructor.class.getCanonicalName());
   }
@@ -34,30 +34,30 @@ public class ObjectFunctionsTest {
   @Test
   public void testNewInstance_whenHasDefaultConstructorThatThrowException() {
     assertThatThrownBy(() -> ObjectFunctions.newInstance(ClassWithDefaultConstructorThatThrowException.class))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Failed to create instance of the class %s",
             ClassWithDefaultConstructorThatThrowException.class.getCanonicalName());
   }
 
   @Test
-  public void testConvertObjectToInt() {
+  public void testConvertToInt() {
     assertThat(ObjectFunctions.convertToInt('a')).isEqualTo(97);
     assertThat(ObjectFunctions.convertToInt((byte) 13)).isEqualTo(13);
     assertThat(ObjectFunctions.convertToInt((short) 13)).isEqualTo(13);
     assertThat(ObjectFunctions.convertToInt((13))).isEqualTo(13);
 
     assertThatThrownBy(() -> ObjectFunctions.convertToInt(13L))
-        .isExactlyInstanceOf(UnexpectedViolationException.class);
+        .isExactlyInstanceOf(UnexpectedException.class);
     assertThatThrownBy(() -> ObjectFunctions.convertToInt(3.14F))
-        .isExactlyInstanceOf(UnexpectedViolationException.class);
+        .isExactlyInstanceOf(UnexpectedException.class);
     assertThatThrownBy(() -> ObjectFunctions.convertToInt(3.14D))
-        .isExactlyInstanceOf(UnexpectedViolationException.class);
+        .isExactlyInstanceOf(UnexpectedException.class);
     assertThatThrownBy(() -> ObjectFunctions.convertToInt("String"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class);
+        .isExactlyInstanceOf(UnexpectedException.class);
   }
 
   @Test
-  public void testConvertObjectToDouble() {
+  public void testConvertToDouble() {
     assertThat(ObjectFunctions.convertToDouble('a')).isEqualTo(97.0);
     assertThat(ObjectFunctions.convertToDouble((byte) 13)).isEqualTo(13.0);
     assertThat(ObjectFunctions.convertToDouble((short) 13)).isEqualTo(13.0);
@@ -67,7 +67,7 @@ public class ObjectFunctionsTest {
     assertThat(ObjectFunctions.convertToDouble(13.4D)).isEqualTo(13.4);
 
     assertThatThrownBy(() -> ObjectFunctions.convertToDouble("String"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class);
+        .isExactlyInstanceOf(UnexpectedException.class);
   }
 
   @Test

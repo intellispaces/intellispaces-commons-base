@@ -1,6 +1,6 @@
 package intellispaces.common.base.type;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +14,7 @@ public class ClassNameFunctionsTest {
   @Test
   public void testGetSimpleName() {
     assertThatThrownBy(() -> ClassNameFunctions.getSimpleName(null)).isExactlyInstanceOf(NullPointerException.class);
-    assertThatThrownBy(() -> ClassNameFunctions.getSimpleName("")).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> ClassNameFunctions.getSimpleName("")).isExactlyInstanceOf(UnexpectedException.class);
 
     assertThat(ClassNameFunctions.getSimpleName("Object")).isEqualTo("Object");
     assertThat(ClassNameFunctions.getSimpleName("java.lang.Object")).isEqualTo("Object");
@@ -25,7 +25,7 @@ public class ClassNameFunctionsTest {
   @Test
   public void testGetPackageName() {
     assertThatThrownBy(() -> ClassNameFunctions.getPackageName(null)).isExactlyInstanceOf(NullPointerException.class);
-    assertThatThrownBy(() -> ClassNameFunctions.getPackageName("")).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> ClassNameFunctions.getPackageName("")).isExactlyInstanceOf(UnexpectedException.class);
     assertThat(ClassNameFunctions.getPackageName("Object")).isEqualTo("");
     assertThat(ClassNameFunctions.getPackageName("java.lang.Object")).isEqualTo("java.lang");
     assertThat(ClassNameFunctions.getPackageName("java.lang.Map$Entry")).isEqualTo("java.lang");
@@ -42,7 +42,7 @@ public class ClassNameFunctionsTest {
 
   @Test
   public void testJoinPackageAndSimpleName() {
-    assertThatThrownBy(() -> ClassNameFunctions.joinPackageAndSimpleName("", null)).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> ClassNameFunctions.joinPackageAndSimpleName("", null)).isExactlyInstanceOf(UnexpectedException.class);
     assertThat(ClassNameFunctions.joinPackageAndSimpleName(null, "SomeClass")).isEqualTo("SomeClass");
     assertThat(ClassNameFunctions.joinPackageAndSimpleName("", "SomeClass")).isEqualTo("SomeClass");
     assertThat(ClassNameFunctions.joinPackageAndSimpleName("a", "SomeClass")).isEqualTo("a.SomeClass");
@@ -52,10 +52,10 @@ public class ClassNameFunctionsTest {
 
   @Test
   public void testReplaceSimpleName() {
-    assertThatThrownBy(() -> ClassNameFunctions.replaceSimpleName(null, "New")).isExactlyInstanceOf(UnexpectedViolationException.class);
-    assertThatThrownBy(() -> ClassNameFunctions.replaceSimpleName("", "New")).isExactlyInstanceOf(UnexpectedViolationException.class);
-    assertThatThrownBy(() -> ClassNameFunctions.replaceSimpleName("com", null)).isExactlyInstanceOf(UnexpectedViolationException.class);
-    assertThatThrownBy(() -> ClassNameFunctions.replaceSimpleName("com", "")).isExactlyInstanceOf(UnexpectedViolationException.class);
+    assertThatThrownBy(() -> ClassNameFunctions.replaceSimpleName(null, "New")).isExactlyInstanceOf(UnexpectedException.class);
+    assertThatThrownBy(() -> ClassNameFunctions.replaceSimpleName("", "New")).isExactlyInstanceOf(UnexpectedException.class);
+    assertThatThrownBy(() -> ClassNameFunctions.replaceSimpleName("com", null)).isExactlyInstanceOf(UnexpectedException.class);
+    assertThatThrownBy(() -> ClassNameFunctions.replaceSimpleName("com", "")).isExactlyInstanceOf(UnexpectedException.class);
     assertThat(ClassNameFunctions.replaceSimpleName("com", "New")).isEqualTo("New");
     assertThat(ClassNameFunctions.replaceSimpleName("com.Old", "New")).isEqualTo("com.New");
     assertThat(ClassNameFunctions.replaceSimpleName("com.app.Old", "New")).isEqualTo("com.app.New");

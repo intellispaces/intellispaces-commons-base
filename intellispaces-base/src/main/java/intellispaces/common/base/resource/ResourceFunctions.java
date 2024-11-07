@@ -1,6 +1,7 @@
 package intellispaces.common.base.resource;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 import intellispaces.common.base.stream.StreamFunctions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,7 @@ public class ResourceFunctions {
    * @param aClass class associated with resource.
    * @param name resource name.
    * @return resource string representation.
-   * @throws UnexpectedViolationException throws if no resource with given name is found or resource can't be loaded.
+   * @throws UnexpectedException throws if no resource with given name is found or resource can't be loaded.
    */
   public static String readResourceAsStringForce(Class<?> aClass, String name) {
     return readResourceAsStringForce(aClass, name, StandardCharsets.UTF_8);
@@ -80,16 +81,16 @@ public class ResourceFunctions {
    * @param name resource name.
    * @param charset string charset.
    * @return resource string representation.
-   * @throws UnexpectedViolationException throws if no resource with given name is found or resource can't be loaded.
+   * @throws UnexpectedException throws if no resource with given name is found or resource can't be loaded.
    */
   public static String readResourceAsStringForce(Class<?> aClass, String name, Charset charset) {
     try (InputStream is = readResourceAsStream(aClass, name)) {
       if (is == null) {
-        throw UnexpectedViolationException.withMessage("Resource by name {0} is not found", name);
+        throw UnexpectedExceptions.withMessage("Resource by name {0} is not found", name);
       }
       return StreamFunctions.readStreamAsStringForce(is, charset);
     } catch (Exception e) {
-      throw UnexpectedViolationException.withCauseAndMessage(e, "Failed to read resource by name {0}", name);
+      throw UnexpectedExceptions.withCauseAndMessage(e, "Failed to read resource by name {0}", name);
     }
   }
 

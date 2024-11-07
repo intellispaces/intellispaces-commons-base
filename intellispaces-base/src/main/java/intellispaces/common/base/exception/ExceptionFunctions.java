@@ -5,11 +5,11 @@ package intellispaces.common.base.exception;
  */
 public interface ExceptionFunctions {
 
-  static RuntimeException coverIfChecked(Throwable e) {
+  static RuntimeException wrapIfChecked(Throwable e) {
     if (e instanceof RuntimeException) {
       return (RuntimeException) e;
     } else {
-      return new CoveredException(e);
+      return new WrappedCheckedException(e);
     }
   }
 }

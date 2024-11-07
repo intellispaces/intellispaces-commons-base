@@ -1,6 +1,6 @@
 package intellispaces.common.base.stream;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 
 import java.util.Optional;
 import java.util.stream.Collector;
@@ -15,7 +15,7 @@ public interface Collectors {
         java.util.stream.Collectors.toList(),
         list -> {
           if (list.size() != 1) {
-            throw UnexpectedViolationException.withMessage("Expected stream with one element");
+            throw UnexpectedExceptions.withMessage("Expected stream with one element");
           }
           return list.get(0);
         }
@@ -31,7 +31,7 @@ public interface Collectors {
           } else if (list.size() == 1) {
             return Optional.of(list.get(0));
           } else {
-            throw UnexpectedViolationException.withMessage("Expected stream with one element");
+            throw UnexpectedExceptions.withMessage("Expected stream with one element");
           }
         }
     );

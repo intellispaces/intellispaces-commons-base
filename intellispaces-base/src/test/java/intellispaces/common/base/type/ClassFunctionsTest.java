@@ -1,6 +1,6 @@
 package intellispaces.common.base.type;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import intellispaces.common.base.sample.StringToStringFunctionImpl2;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +40,7 @@ public class ClassFunctionsTest {
   public void testGetClassOrElseThrow() {
     assertThat(ClassFunctions.getClassOrElseThrow("java.lang.String")).isSameAs(String.class);
     assertThatThrownBy(() -> ClassFunctions.getClassOrElseThrow("java.lang.String12345"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Could not to get class by name java.lang.String12345");
   }
 
@@ -135,7 +135,7 @@ public class ClassFunctionsTest {
     assertThat(ClassFunctions.getPrimitiveWrapperClass("double")).isEqualTo(Double.class);
 
     assertThatThrownBy(() -> ClassFunctions.getPrimitiveWrapperClass("String"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Not primitive typename: String");
   }
 
@@ -151,11 +151,11 @@ public class ClassFunctionsTest {
     assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Double.class.getCanonicalName())).isEqualTo("double");
 
     assertThatThrownBy(() -> ClassFunctions.getPrimitiveTypeOfWrapper(Object.class.getCanonicalName()))
-        .isExactlyInstanceOf(UnexpectedViolationException.class);
+        .isExactlyInstanceOf(UnexpectedException.class);
     assertThatThrownBy(() -> ClassFunctions.getPrimitiveTypeOfWrapper(String.class.getCanonicalName()))
-        .isExactlyInstanceOf(UnexpectedViolationException.class);
+        .isExactlyInstanceOf(UnexpectedException.class);
     assertThatThrownBy(() -> ClassFunctions.getPrimitiveTypeOfWrapper(Number.class.getCanonicalName()))
-        .isExactlyInstanceOf(UnexpectedViolationException.class);
+        .isExactlyInstanceOf(UnexpectedException.class);
   }
 
   @Test

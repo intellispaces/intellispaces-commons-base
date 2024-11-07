@@ -1,6 +1,6 @@
 package intellispaces.common.base.type;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 
 /**
  * Class name related functions.
@@ -15,7 +15,7 @@ public interface ClassNameFunctions {
    */
   static String getSimpleName(String name) {
     if (name.isEmpty()) {
-      throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
+      throw UnexpectedExceptions.withMessage("Class canonical name should be not empty");
     }
     int lastDot = name.lastIndexOf('.');
     int lastDollar = name.lastIndexOf('$');
@@ -30,7 +30,7 @@ public interface ClassNameFunctions {
    */
   static String getPackageName(String className) {
     if (className.isEmpty()) {
-      throw UnexpectedViolationException.withMessage("Class name should be not empty");
+      throw UnexpectedExceptions.withMessage("Class name should be not empty");
     }
     int lastDot = className.lastIndexOf('.');
     return lastDot > 0 ? className.substring(0, lastDot) : "";
@@ -45,7 +45,7 @@ public interface ClassNameFunctions {
 
   static String joinPackageAndSimpleName(String packageName, String simpleName) {
     if (simpleName == null || simpleName.isBlank()) {
-      throw UnexpectedViolationException.withMessage("Class simple name should be not empty");
+      throw UnexpectedExceptions.withMessage("Class simple name should be not empty");
     }
     if (packageName == null || packageName.isEmpty()) {
       return simpleName;
@@ -56,10 +56,10 @@ public interface ClassNameFunctions {
 
   static String replaceSimpleName(String canonicalName, String newSimpleName) {
     if (canonicalName == null || canonicalName.isBlank()) {
-      throw UnexpectedViolationException.withMessage("Class canonical name should be not empty");
+      throw UnexpectedExceptions.withMessage("Class canonical name should be not empty");
     }
     if (newSimpleName == null || newSimpleName.isBlank()) {
-      throw UnexpectedViolationException.withMessage("Class simple name should be not empty");
+      throw UnexpectedExceptions.withMessage("Class simple name should be not empty");
     }
     return joinPackageAndSimpleName(getPackageName(canonicalName), newSimpleName);
   }

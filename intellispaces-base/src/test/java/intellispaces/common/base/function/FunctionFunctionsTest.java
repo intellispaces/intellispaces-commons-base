@@ -1,8 +1,8 @@
 package intellispaces.common.base.function;
 
-import intellispaces.common.base.exception.CoveredException;
-import intellispaces.common.base.exception.PossibleViolationException;
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.AssumptionViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
+import intellispaces.common.base.exception.WrappedCheckedException;
 import intellispaces.common.base.sample.ThrowingFunctions;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
@@ -29,10 +29,10 @@ public class FunctionFunctionsTest {
           .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
           .toList(),
         stream,
-        PossibleViolationException.class);
+        AssumptionViolationException.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(PossibleViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test
@@ -49,7 +49,7 @@ public class FunctionFunctionsTest {
         Exception.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(PossibleViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test
@@ -66,91 +66,91 @@ public class FunctionFunctionsTest {
         IOException.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedCheckedException.class)
+        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test
   public void testApplyAndCover_whenFunction() {
     // Given
-    ThrowingFunction<String, Integer, PossibleViolationException> function1 = s -> 1;
-    ThrowingFunction<String, Integer, PossibleViolationException> function2 = s -> {
-      throw new PossibleViolationException();
+    ThrowingFunction<String, Integer, AssumptionViolationException> function1 = s -> 1;
+    ThrowingFunction<String, Integer, AssumptionViolationException> function2 = s -> {
+      throw new AssumptionViolationException();
     };
-    ThrowingFunction<String, Integer, PossibleViolationException> function3 = s -> {
-      throw new UnexpectedViolationException();
+    ThrowingFunction<String, Integer, AssumptionViolationException> function3 = s -> {
+      throw new UnexpectedException("Something went wrong");
     };
 
     // Then
     assertThat(FunctionFunctions.applyAndCover(function1, "")).isEqualTo(1);
     assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function2, ""))
-        .isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
+        .isExactlyInstanceOf(WrappedCheckedException.class)
+        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
     assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function3, ""))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
   }
 
   @Test
   public void testApplyAndCover_whenBiFunction() {
     // Given
-    ThrowingBiFunction<String, String, Integer, PossibleViolationException> function1 = (s1, s2) -> 1;
-    ThrowingBiFunction<String, String, Integer, PossibleViolationException> function2 = (s1, s2) -> {
-      throw new PossibleViolationException();
+    ThrowingBiFunction<String, String, Integer, AssumptionViolationException> function1 = (s1, s2) -> 1;
+    ThrowingBiFunction<String, String, Integer, AssumptionViolationException> function2 = (s1, s2) -> {
+      throw new AssumptionViolationException();
     };
-    ThrowingBiFunction<String, String, Integer, PossibleViolationException> function3 = (s1, s2) -> {
-      throw new UnexpectedViolationException();
+    ThrowingBiFunction<String, String, Integer, AssumptionViolationException> function3 = (s1, s2) -> {
+      throw new UnexpectedException("Something went wrong");
     };
 
     // Then
     assertThat(FunctionFunctions.applyAndCover(function1, "", "")).isEqualTo(1);
     assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function2, "", ""))
-        .isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
+        .isExactlyInstanceOf(WrappedCheckedException.class)
+        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
     assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function3, "", ""))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
   }
 
   @Test
   public void testApplyAndCover_whenTriFunction() {
     // Given
-    ThrowingTriFunction<String, String, String, Integer, PossibleViolationException> function1 = (s1, s2, s3) -> 1;
-    ThrowingTriFunction<String, String, String, Integer, PossibleViolationException> function2 = (s1, s2, s3) -> {
-      throw new PossibleViolationException();
+    ThrowingTriFunction<String, String, String, Integer, AssumptionViolationException> function1 = (s1, s2, s3) -> 1;
+    ThrowingTriFunction<String, String, String, Integer, AssumptionViolationException> function2 = (s1, s2, s3) -> {
+      throw new AssumptionViolationException();
     };
-    ThrowingTriFunction<String, String, String, Integer, PossibleViolationException> function3 = (s1, s2, s3) -> {
-      throw new UnexpectedViolationException();
+    ThrowingTriFunction<String, String, String, Integer, AssumptionViolationException> function3 = (s1, s2, s3) -> {
+      throw new UnexpectedException("Something went wrong");
     };
 
     // Then
     assertThat(FunctionFunctions.applyAndCover(function1, "", "", "")).isEqualTo(1);
     assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function2, "", "", ""))
-        .isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
+        .isExactlyInstanceOf(WrappedCheckedException.class)
+        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
     assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function3, "", "", ""))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
   }
 
   @Test
   public void testApplyAndCover_whenQuadFunction() {
     // Given
-    ThrowingQuadFunction<String, String, String, String, Integer, PossibleViolationException> function1 = (s1, s2, s3, s4) -> 1;
-    ThrowingQuadFunction<String, String, String, String, Integer, PossibleViolationException> function2 = (s1, s2, s3, s4) -> {
-      throw new PossibleViolationException();
+    ThrowingQuadFunction<String, String, String, String, Integer, AssumptionViolationException> function1 = (s1, s2, s3, s4) -> 1;
+    ThrowingQuadFunction<String, String, String, String, Integer, AssumptionViolationException> function2 = (s1, s2, s3, s4) -> {
+      throw new AssumptionViolationException();
     };
-    ThrowingQuadFunction<String, String, String, String, Integer, PossibleViolationException> function3 = (s1, s2, s3, s4) -> {
-      throw new UnexpectedViolationException();
+    ThrowingQuadFunction<String, String, String, String, Integer, AssumptionViolationException> function3 = (s1, s2, s3, s4) -> {
+      throw new UnexpectedException("Something went wrong");
     };
 
     // Then
     assertThat(FunctionFunctions.applyAndCover(function1, "", "", "", "")).isEqualTo(1);
     assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function2, "", "", "", ""))
-        .isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
+        .isExactlyInstanceOf(WrappedCheckedException.class)
+        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
     assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function3, "", "", "", ""))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
   }
 
@@ -161,10 +161,10 @@ public class FunctionFunctionsTest {
         () -> Stream.of("a", "", "b")
             .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
             .toList(),
-        PossibleViolationException.class);
+        AssumptionViolationException.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(PossibleViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test
@@ -177,7 +177,7 @@ public class FunctionFunctionsTest {
         Exception.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(PossibleViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test
@@ -190,7 +190,7 @@ public class FunctionFunctionsTest {
         IOException.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(CoveredException.class)
-        .hasCauseExactlyInstanceOf(PossibleViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedCheckedException.class)
+        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
   }
 }

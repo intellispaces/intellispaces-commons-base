@@ -1,19 +1,20 @@
 package intellispaces.common.base.sample;
 
-import intellispaces.common.base.exception.PossibleViolationException;
+import intellispaces.common.base.exception.AssumptionViolationException;
+import intellispaces.common.base.exception.AssumptionViolationExceptions;
 
 public interface ThrowingFunctions {
 
-  static Character throwingCheckedFunction(String string) throws PossibleViolationException {
+  static Character throwingCheckedFunction(String string) throws AssumptionViolationException {
     if (string.isEmpty()) {
-      throw PossibleViolationException.withMessage("Empty string");
+      throw AssumptionViolationExceptions.withMessage("Empty string");
     }
     return string.charAt(0);
   }
 
-  static void throwingCheckedConsumer(String string) throws PossibleViolationException {
+  static void throwingCheckedConsumer(String string) throws AssumptionViolationException {
     if (string.isEmpty()) {
-      throw PossibleViolationException.withMessage("Empty string");
+      throw AssumptionViolationExceptions.withMessage("Empty string");
     }
   }
 

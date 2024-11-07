@@ -10,14 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ExceptionFunctionsTest {
 
   @Test
-  public void testCoverIfChecked() {
-    assertThat(ExceptionFunctions.coverIfChecked(new RuntimeException("message")))
+  public void testWrapIfChecked() {
+    assertThat(ExceptionFunctions.wrapIfChecked(new RuntimeException("message")))
         .isExactlyInstanceOf(RuntimeException.class)
         .hasMessage("message")
         .hasNoCause();
 
-    assertThat(ExceptionFunctions.coverIfChecked(new Exception("message")))
-        .isExactlyInstanceOf(CoveredException.class)
+    assertThat(ExceptionFunctions.wrapIfChecked(new Exception("message")))
+        .isExactlyInstanceOf(WrappedCheckedException.class)
         .cause()
         .isExactlyInstanceOf(Exception.class)
         .hasMessage("message");

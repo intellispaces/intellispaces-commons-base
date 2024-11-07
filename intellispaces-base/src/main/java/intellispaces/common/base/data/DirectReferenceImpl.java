@@ -1,5 +1,7 @@
 package intellispaces.common.base.data;
 
+import intellispaces.common.base.exception.UnexpectedExceptions;
+
 class DirectReferenceImpl<T> implements Reference<T> {
   private final T target;
 
@@ -10,5 +12,15 @@ class DirectReferenceImpl<T> implements Reference<T> {
   @Override
   public T get() {
     return target;
+  }
+
+  @Override
+  public int asOrdinal() {
+    throw UnexpectedExceptions.withMessage("This reference cannot be represented as an ordinal value");
+  }
+
+  @Override
+  public String asKey() {
+    throw UnexpectedExceptions.withMessage("This reference cannot be represented as an string key");
   }
 }

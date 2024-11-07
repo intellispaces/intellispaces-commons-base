@@ -1,6 +1,6 @@
 package intellispaces.common.base.function;
 
-import intellispaces.common.base.exception.CoveredException;
+import intellispaces.common.base.exception.WrappedCheckedException;
 
 import java.util.function.Function;
 
@@ -18,7 +18,7 @@ public interface Functions {
       } catch (RuntimeException e) {
         throw e;
       } catch (Throwable e) {
-        throw new CoveredException(e);
+        throw new WrappedCheckedException(e);
       }
     };
   }

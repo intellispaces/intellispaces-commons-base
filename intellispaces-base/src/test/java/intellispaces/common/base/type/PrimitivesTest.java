@@ -1,6 +1,6 @@
 package intellispaces.common.base.type;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +23,7 @@ public class PrimitivesTest {
     assertThat(Primitives.get("double")).isSameAs(Primitives.Double);
 
     assertThatThrownBy(() -> Primitives.get("String"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Not primitive typename: String");
   }
 

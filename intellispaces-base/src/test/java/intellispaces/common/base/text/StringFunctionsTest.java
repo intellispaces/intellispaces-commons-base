@@ -1,6 +1,6 @@
 package intellispaces.common.base.text;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,16 +77,16 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.replaceTailOrElseThrow("abc", "bc", null)).isEqualTo("a");
 
     assertThatThrownBy(() -> StringFunctions.replaceTailOrElseThrow(null, "a", "b"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string is null");
     assertThatThrownBy(() -> StringFunctions.replaceTailOrElseThrow("abc", null, "b"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Substring is null");
     assertThatThrownBy(() -> StringFunctions.replaceTailOrElseThrow("abc", "d", "e"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string 'abc' does not contain tail 'd'");
     assertThatThrownBy(() -> StringFunctions.replaceTailOrElseThrow("abc", "b", "d"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string 'abc' does not contain tail 'b'");
   }
 
@@ -99,16 +99,16 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.replaceSingleOrElseThrow("abc", "bc", "def")).isEqualTo("adef");
 
     assertThatThrownBy(() -> StringFunctions.replaceSingleOrElseThrow(null, "a", "b"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string is null");
     assertThatThrownBy(() -> StringFunctions.replaceSingleOrElseThrow("abc", null, "b"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Substring is null");
     assertThatThrownBy(() -> StringFunctions.replaceSingleOrElseThrow("abc", "d", "e"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string 'abc' does not contain substring 'd'");
     assertThatThrownBy(() -> StringFunctions.replaceSingleOrElseThrow("abcb", "b", "d"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string 'abcb' contains more than one substrings 'b'");
   }
 
@@ -119,13 +119,13 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.removeTailOrElseThrow("abc", "abc")).isEqualTo("");
 
     assertThatThrownBy(() -> StringFunctions.removeTailOrElseThrow(null, "a"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string is null");
     assertThatThrownBy(() -> StringFunctions.removeTailOrElseThrow("abc", null))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Substring is null");
     assertThatThrownBy(() -> StringFunctions.removeTailOrElseThrow("abc", "d"))
-        .isExactlyInstanceOf(UnexpectedViolationException.class)
+        .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string 'abc' does not contain tail 'd'");
   }
 
@@ -143,5 +143,36 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.stringToInputStream(null)).isNull();
     assertThat(StringFunctions.stringToInputStream("")).isEmpty();
     assertThat(StringFunctions.stringToInputStream("abc")).hasContent("abc");
+  }
+
+  @Test
+  public void testResolveTemplate() {
+    assertThat(StringFunctions.resolveTemplate(null)).isNull();
+
+    assertThat(StringFunctions.resolveTemplate("")).isEmpty();
+    assertThat(StringFunctions.resolveTemplate("", 1)).isEmpty();
+
+    assertThat(StringFunctions.resolveTemplate("{0}", 1)).isEqualTo("1");
+    assertThat(StringFunctions.resolveTemplate("{0}{1}", 1, 2)).isEqualTo("12");
+    assertThat(StringFunctions.resolveTemplate("{0}a{1}", 1, 2)).isEqualTo("1a2");
+    assertThat(StringFunctions.resolveTemplate("a{0}b{1}c", 1, 2)).isEqualTo("a1b2c");
+
+    assertThat(StringFunctions.resolveTemplate("a'{0}'", "b")).isEqualTo("a'b'");
+
+    assertThatThrownBy(() -> StringFunctions.resolveTemplate("{0}"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Could not resolve string template. Parameter index 0 is out of range");
+    assertThatThrownBy(() -> StringFunctions.resolveTemplate("{-1}"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Could not resolve string template. Parameter index -1 is out of range");
+    assertThatThrownBy(() -> StringFunctions.resolveTemplate("{a}", 1))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Could not resolve string template. Invalid parameter index 'a'");
+    assertThatThrownBy(() -> StringFunctions.resolveTemplate("{", 1))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Could not resolve string template. There is no paired closing curly brace");
+    assertThatThrownBy(() -> StringFunctions.resolveTemplate("{0}{abc", 1))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Could not resolve string template. There is no paired closing curly brace");
   }
 }

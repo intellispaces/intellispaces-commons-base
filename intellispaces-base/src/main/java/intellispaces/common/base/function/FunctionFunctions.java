@@ -1,6 +1,6 @@
 package intellispaces.common.base.function;
 
-import intellispaces.common.base.exception.CoveredException;
+import intellispaces.common.base.exception.WrappedCheckedException;
 
 import java.util.function.Function;
 
@@ -17,7 +17,7 @@ public interface FunctionFunctions {
     } catch (RuntimeException e) {
       throw e;
     } catch (Throwable e) {
-      throw new CoveredException(e);
+      throw new WrappedCheckedException(e);
     }
   }
 
@@ -29,7 +29,7 @@ public interface FunctionFunctions {
     } catch (RuntimeException e) {
       throw e;
     } catch (Throwable e) {
-      throw new CoveredException(e);
+      throw new WrappedCheckedException(e);
     }
   }
 
@@ -41,7 +41,7 @@ public interface FunctionFunctions {
     } catch (RuntimeException e) {
       throw e;
     } catch (Throwable e) {
-      throw new CoveredException(e);
+      throw new WrappedCheckedException(e);
     }
   }
 
@@ -53,7 +53,7 @@ public interface FunctionFunctions {
     } catch (RuntimeException e) {
       throw e;
     } catch (Throwable e) {
-      throw new CoveredException(e);
+      throw new WrappedCheckedException(e);
     }
   }
 
@@ -63,7 +63,7 @@ public interface FunctionFunctions {
   ) throws E {
     try {
       return function.apply(argument);
-    } catch (CoveredException se) {
+    } catch (WrappedCheckedException se) {
       if (e.isInstance(se.getCause())) {
         throw (E) se.getCause();
       } else {
@@ -76,7 +76,7 @@ public interface FunctionFunctions {
   static <E extends Throwable> void runAndUncover(Runnable runnable, Class<E> e) throws E {
     try {
       runnable.run();
-    } catch (CoveredException ce) {
+    } catch (WrappedCheckedException ce) {
       if (e.isInstance(ce.getCause())) {
         throw (E) ce.getCause();
       } else {

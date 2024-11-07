@@ -1,6 +1,6 @@
 package intellispaces.common.base.resource;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +47,7 @@ public class ResourceFunctionsTest {
     ThrowableAssert.ThrowingCallable action = () -> {
       ResourceFunctions.readResourceAsStringForce(ResourceFunctionsTest.class, "/nonExistentResource.txt");
     };
-    assertThatThrownBy(action).isExactlyInstanceOf(UnexpectedViolationException.class)
+    assertThatThrownBy(action).isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Failed to read resource by name /nonExistentResource.txt");
   }
 

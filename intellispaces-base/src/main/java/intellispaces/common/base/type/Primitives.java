@@ -1,6 +1,6 @@
 package intellispaces.common.base.type;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public enum Primitives implements Primitive {
   public static Primitive get(String typename) {
     Primitive primitive = VALUES.get(typename);
     if (primitive == null) {
-      throw UnexpectedViolationException.withMessage("Not primitive typename: {0}", typename);
+      throw UnexpectedExceptions.withMessage("Not primitive typename: {0}", typename);
     }
     return primitive;
   }
