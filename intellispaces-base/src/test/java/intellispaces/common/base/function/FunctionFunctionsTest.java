@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class FunctionFunctionsTest {
 
   @Test
-  public void testApplyAndUnwrapIfCovered_whenFunctionAndExactMatch() {
+  public void testWrapThrowingFunction_whenFunctionAndExactMatch() {
     // Given
     Stream<String> stream = Stream.of("a", "", "b");
 
@@ -36,7 +36,7 @@ public class FunctionFunctionsTest {
   }
 
   @Test
-  public void testApplyAndUnwrapIfCovered_whenFunctionAndBaseExceptionSpecified() {
+  public void testWrapThrowingFunction_whenFunctionAndBaseExceptionSpecified() {
     // Given
     Stream<String> stream = Stream.of("a", "", "b");
 
@@ -53,7 +53,7 @@ public class FunctionFunctionsTest {
   }
 
   @Test
-  public void testApplyAndUnwrapIfCovered_whenFunctionAndOtherExceptionSpecified() {
+  public void testWrapThrowingFunction_whenFunctionAndOtherExceptionSpecified() {
     // Given
     Stream<String> stream = Stream.of("a", "", "b");
 

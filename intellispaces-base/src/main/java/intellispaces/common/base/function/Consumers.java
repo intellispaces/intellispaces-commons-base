@@ -10,7 +10,7 @@ import java.util.function.Function;
  */
 public final class Consumers {
 
-  public static <T, E extends Throwable> Consumer<T> coveredConsumer(
+  public static <T, E extends Throwable> Consumer<T> wrappedConsumer(
       ThrowingConsumer<T, E> consumer
   ) {
     return t -> {
@@ -25,7 +25,7 @@ public final class Consumers {
   }
 
   @SuppressWarnings("unchecked")
-  public static <T, E extends Throwable, E2 extends RuntimeException> Consumer<T> coveredConsumer(
+  public static <T, E extends Throwable, E2 extends RuntimeException> Consumer<T> wrappedConsumer(
       ThrowingConsumer<T, E> consumer, Function<E, E2> exceptionFactory
   ) {
     return t -> {

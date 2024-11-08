@@ -16,10 +16,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class ConsumersTest {
 
   @Test
-  public void testCoveredConsumer_whenCheckedException() {
+  public void testWrappedConsumer_whenCheckedException() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> Stream.of("a", "", "b")
-        .peek(Consumers.coveredConsumer(ThrowingFunctions::throwingCheckedConsumer))
+        .peek(Consumers.wrappedConsumer(ThrowingFunctions::throwingCheckedConsumer))
         .toList();
 
     // Then
@@ -28,10 +28,10 @@ public class ConsumersTest {
   }
 
   @Test
-  public void testCoveredConsumer_whenUncheckedException() {
+  public void testWrappedConsumer_whenUncheckedException() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> Stream.of("a", "", "b")
-        .peek(Consumers.coveredConsumer(ThrowingFunctions::throwingUncheckedConsumer))
+        .peek(Consumers.wrappedConsumer(ThrowingFunctions::throwingUncheckedConsumer))
         .toList();
 
     // Then
@@ -39,10 +39,10 @@ public class ConsumersTest {
   }
 
   @Test
-  public void testCoveredConsumer_whenCheckedExceptionAndExceptionFactory() {
+  public void testWrappedConsumer_whenCheckedExceptionAndExceptionFactory() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> Stream.of("a", "", "b")
-        .peek(Consumers.coveredConsumer(ThrowingFunctions::throwingCheckedConsumer, IllegalArgumentException::new))
+        .peek(Consumers.wrappedConsumer(ThrowingFunctions::throwingCheckedConsumer, IllegalArgumentException::new))
         .toList();
 
     // Then
@@ -51,10 +51,10 @@ public class ConsumersTest {
   }
 
   @Test
-  public void testCoveredConsumer_whenUncheckedExceptionAndExceptionFactory() {
+  public void testWrappedConsumer_whenUncheckedExceptionAndExceptionFactory() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> Stream.of("a", "", "b")
-        .peek(Consumers.coveredConsumer(ThrowingFunctions::throwingUncheckedConsumer, IllegalArgumentException::new))
+        .peek(Consumers.wrappedConsumer(ThrowingFunctions::throwingUncheckedConsumer, IllegalArgumentException::new))
         .toList();
 
     // Then
