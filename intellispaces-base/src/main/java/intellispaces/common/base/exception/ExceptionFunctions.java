@@ -9,7 +9,7 @@ public interface ExceptionFunctions {
     if (e instanceof RuntimeException) {
       return (RuntimeException) e;
     } else {
-      return new WrappedCheckedException(e);
+      return new WrappedException(e);
     }
   }
 }

@@ -1,7 +1,7 @@
 package intellispaces.common.base.function;
 
 import intellispaces.common.base.exception.AssumptionViolationException;
-import intellispaces.common.base.exception.WrappedCheckedException;
+import intellispaces.common.base.exception.WrappedException;
 import intellispaces.common.base.sample.ThrowingFunctions;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
@@ -16,22 +16,22 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class FunctionsTests {
 
   @Test
-  public void testCoveredFunction_whenCheckedException() {
+  public void testWrapThrowingFunction_whenCheckedException() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> Stream.of("a", "", "b")
-        .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
+        .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
         .toList();
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedException.class)
         .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test
-  public void testCoveredFunction_whenUncheckedException() {
+  public void testWrapThrowingFunction_whenUncheckedException() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> Stream.of("a", "", "b")
-        .map(Functions.coveredFunction(ThrowingFunctions::throwingUncheckedFunction))
+        .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingUncheckedFunction))
         .toList();
 
     // Then
@@ -39,10 +39,10 @@ public class FunctionsTests {
   }
 
   @Test
-  public void testCoveredFunction_whenCheckedExceptionAndExceptionFactory() {
+  public void testWrapThrowingFunction_whenCheckedExceptionAndExceptionFactory() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> Stream.of("a", "", "b")
-        .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction, IllegalArgumentException::new))
+        .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction, IllegalArgumentException::new))
         .toList();
 
     // Then
@@ -51,10 +51,10 @@ public class FunctionsTests {
   }
 
   @Test
-  public void testCoveredFunctionn_whenUncheckedExceptionAndExceptionFactory() {
+  public void testWrapThrowingFunctionn_whenUncheckedExceptionAndExceptionFactory() {
     // When
     ThrowableAssert.ThrowingCallable callable = () -> Stream.of("a", "", "b")
-        .map(Functions.coveredFunction(ThrowingFunctions::throwingUncheckedFunction, IllegalArgumentException::new))
+        .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingUncheckedFunction, IllegalArgumentException::new))
         .toList();
 
     // Then

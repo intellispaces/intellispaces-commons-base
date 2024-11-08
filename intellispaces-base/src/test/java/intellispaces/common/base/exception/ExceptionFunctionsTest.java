@@ -17,7 +17,7 @@ public class ExceptionFunctionsTest {
         .hasNoCause();
 
     assertThat(ExceptionFunctions.wrapIfChecked(new Exception("message")))
-        .isExactlyInstanceOf(WrappedCheckedException.class)
+        .isExactlyInstanceOf(WrappedException.class)
         .cause()
         .isExactlyInstanceOf(Exception.class)
         .hasMessage("message");

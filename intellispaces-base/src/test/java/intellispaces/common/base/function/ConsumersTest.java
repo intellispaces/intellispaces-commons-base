@@ -1,7 +1,7 @@
 package intellispaces.common.base.function;
 
 import intellispaces.common.base.exception.AssumptionViolationException;
-import intellispaces.common.base.exception.WrappedCheckedException;
+import intellispaces.common.base.exception.WrappedException;
 import intellispaces.common.base.sample.ThrowingFunctions;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class ConsumersTest {
         .toList();
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedException.class)
         .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
   }
 

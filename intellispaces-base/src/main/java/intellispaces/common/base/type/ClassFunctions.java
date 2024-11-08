@@ -138,10 +138,10 @@ public class ClassFunctions {
   }
 
   public static boolean isStandardClass(Class<?> aClass) {
-    return isStandardClassName(aClass.getCanonicalName());
+    return isStandardClass(aClass.getCanonicalName());
   }
 
-  public static boolean isStandardClassName(String classCanonicalName) {
+  public static boolean isStandardClass(String classCanonicalName) {
     if (classCanonicalName.startsWith("java.lang.")) {
       String substring = classCanonicalName.substring(10);
       return !substring.isEmpty() && !substring.contains(".");

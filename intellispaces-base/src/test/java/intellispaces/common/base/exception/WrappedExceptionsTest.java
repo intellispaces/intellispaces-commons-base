@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link WrappedCheckedExceptions} class.
+ * Tests for {@link WrappedExceptions} class.
  */
-public class WrappedCheckedExceptionsTest {
+public class WrappedExceptionsTest {
 
   @Test
-  public void testWithCause() {
+  public void testOfChecked() {
     var cause = new RuntimeException();
-    assertThat(WrappedCheckedExceptions.withCause(cause))
-        .isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThat(WrappedExceptions.ofChecked(cause))
+        .isExactlyInstanceOf(WrappedException.class)
         .hasCause(cause)
         .hasMessage(null);
   }

@@ -2,7 +2,7 @@ package intellispaces.common.base.function;
 
 import intellispaces.common.base.exception.AssumptionViolationException;
 import intellispaces.common.base.exception.UnexpectedException;
-import intellispaces.common.base.exception.WrappedCheckedException;
+import intellispaces.common.base.exception.WrappedException;
 import intellispaces.common.base.sample.ThrowingFunctions;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
@@ -19,16 +19,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class FunctionFunctionsTest {
 
   @Test
-  public void testApplyAndUncoverIfCovered_whenFunctionAndExactMatch() {
+  public void testApplyAndUnwrapIfCovered_whenFunctionAndExactMatch() {
     // Given
     Stream<String> stream = Stream.of("a", "", "b");
 
     // When
-    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUncover(
-        (s) -> s
-          .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
-          .toList(),
+    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUnwrap(
         stream,
+        (s) -> s
+          .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
+          .toList(),
         AssumptionViolationException.class);
 
     // Then
@@ -36,16 +36,16 @@ public class FunctionFunctionsTest {
   }
 
   @Test
-  public void testApplyAndUncoverIfCovered_whenFunctionAndBaseExceptionSpecified() {
+  public void testApplyAndUnwrapIfCovered_whenFunctionAndBaseExceptionSpecified() {
     // Given
     Stream<String> stream = Stream.of("a", "", "b");
 
     // When
-    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUncover(
-        (s) -> s
-          .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
-          .toList(),
+    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUnwrap(
         stream,
+        (s) -> s
+          .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
+          .toList(),
         Exception.class);
 
     // Then
@@ -53,25 +53,25 @@ public class FunctionFunctionsTest {
   }
 
   @Test
-  public void testApplyAndUncoverIfCovered_whenFunctionAndOtherExceptionSpecified() {
+  public void testApplyAndUnwrapIfCovered_whenFunctionAndOtherExceptionSpecified() {
     // Given
     Stream<String> stream = Stream.of("a", "", "b");
 
     // When
-    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUncover(
-        (s) -> s
-          .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
-          .toList(),
+    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.applyAndUnwrap(
         stream,
+        (s) -> s
+          .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
+          .toList(),
         IOException.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedException.class)
         .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
   }
 
   @Test
-  public void testApplyAndCover_whenFunction() {
+  public void testApplyAndWrap_whenFunction() {
     // Given
     ThrowingFunction<String, Integer, AssumptionViolationException> function1 = s -> 1;
     ThrowingFunction<String, Integer, AssumptionViolationException> function2 = s -> {
@@ -82,17 +82,17 @@ public class FunctionFunctionsTest {
     };
 
     // Then
-    assertThat(FunctionFunctions.applyAndCover(function1, "")).isEqualTo(1);
-    assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function2, ""))
-        .isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThat(FunctionFunctions.applyAndWrap("", function1)).isEqualTo(1);
+    assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", function2))
+        .isExactlyInstanceOf(WrappedException.class)
         .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
-    assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function3, ""))
+    assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", function3))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
   }
 
   @Test
-  public void testApplyAndCover_whenBiFunction() {
+  public void testApplyAndWrap_whenBiFunction() {
     // Given
     ThrowingBiFunction<String, String, Integer, AssumptionViolationException> function1 = (s1, s2) -> 1;
     ThrowingBiFunction<String, String, Integer, AssumptionViolationException> function2 = (s1, s2) -> {
@@ -103,17 +103,17 @@ public class FunctionFunctionsTest {
     };
 
     // Then
-    assertThat(FunctionFunctions.applyAndCover(function1, "", "")).isEqualTo(1);
-    assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function2, "", ""))
-        .isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThat(FunctionFunctions.applyAndWrap("", "", function1)).isEqualTo(1);
+    assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", function2))
+        .isExactlyInstanceOf(WrappedException.class)
         .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
-    assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function3, "", ""))
+    assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", function3))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
   }
 
   @Test
-  public void testApplyAndCover_whenTriFunction() {
+  public void testApplyAndWrap_whenTriFunction() {
     // Given
     ThrowingTriFunction<String, String, String, Integer, AssumptionViolationException> function1 = (s1, s2, s3) -> 1;
     ThrowingTriFunction<String, String, String, Integer, AssumptionViolationException> function2 = (s1, s2, s3) -> {
@@ -124,17 +124,17 @@ public class FunctionFunctionsTest {
     };
 
     // Then
-    assertThat(FunctionFunctions.applyAndCover(function1, "", "", "")).isEqualTo(1);
-    assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function2, "", "", ""))
-        .isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThat(FunctionFunctions.applyAndWrap("", "", "", function1)).isEqualTo(1);
+    assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", "", function2))
+        .isExactlyInstanceOf(WrappedException.class)
         .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
-    assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function3, "", "", ""))
+    assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", "", function3))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
   }
 
   @Test
-  public void testApplyAndCover_whenQuadFunction() {
+  public void testApplyAndWrap_whenQuadFunction() {
     // Given
     ThrowingQuadFunction<String, String, String, String, Integer, AssumptionViolationException> function1 = (s1, s2, s3, s4) -> 1;
     ThrowingQuadFunction<String, String, String, String, Integer, AssumptionViolationException> function2 = (s1, s2, s3, s4) -> {
@@ -145,21 +145,21 @@ public class FunctionFunctionsTest {
     };
 
     // Then
-    assertThat(FunctionFunctions.applyAndCover(function1, "", "", "", "")).isEqualTo(1);
-    assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function2, "", "", "", ""))
-        .isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThat(FunctionFunctions.applyAndWrap("", "", "", "", function1)).isEqualTo(1);
+    assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", "", "", function2))
+        .isExactlyInstanceOf(WrappedException.class)
         .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
-    assertThatThrownBy(() -> FunctionFunctions.applyAndCover(function3, "", "", "", ""))
+    assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", "", "", function3))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
   }
 
   @Test
-  public void testUncover_whenRunnableAndExactMatch() {
+  public void testUnwrap_whenRunnableAndExactMatch() {
     // When
-    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.runAndUncover(
+    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.runAndUnwrap(
         () -> Stream.of("a", "", "b")
-            .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
+            .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
             .toList(),
         AssumptionViolationException.class);
 
@@ -168,11 +168,11 @@ public class FunctionFunctionsTest {
   }
 
   @Test
-  public void testUncover_whenRunnableAndBaseExceptionSpecified() {
+  public void testUnwrap_whenRunnableAndBaseExceptionSpecified() {
     // When
-    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.runAndUncover(
+    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.runAndUnwrap(
         () -> Stream.of("a", "", "b")
-            .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
+            .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
             .toList(),
         Exception.class);
 
@@ -181,16 +181,16 @@ public class FunctionFunctionsTest {
   }
 
   @Test
-  public void testUncover_whenRunnableAndOtherExceptionSpecified() {
+  public void testUnwrap_whenRunnableAndOtherExceptionSpecified() {
     // When
-    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.runAndUncover(
+    ThrowableAssert.ThrowingCallable callable = () -> FunctionFunctions.runAndUnwrap(
         () -> Stream.of("a", "", "b")
-            .map(Functions.coveredFunction(ThrowingFunctions::throwingCheckedFunction))
+            .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
             .toList(),
         IOException.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedCheckedException.class)
+    assertThatThrownBy(callable).isExactlyInstanceOf(WrappedException.class)
         .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
   }
 }

@@ -229,12 +229,12 @@ public class ClassFunctionsTest {
   }
 
   @Test
-  public void testIsStandardClassName() {
-    assertThat(ClassFunctions.isStandardClassName(Object.class.getCanonicalName())).isTrue();
-    assertThat(ClassFunctions.isStandardClassName(String.class.getCanonicalName())).isTrue();
-    assertThat(ClassFunctions.isStandardClassName(Integer.class.getCanonicalName())).isTrue();
+  public void testIsStandardClassByClassName() {
+    assertThat(ClassFunctions.isStandardClass(Object.class.getCanonicalName())).isTrue();
+    assertThat(ClassFunctions.isStandardClass(String.class.getCanonicalName())).isTrue();
+    assertThat(ClassFunctions.isStandardClass(Integer.class.getCanonicalName())).isTrue();
 
-    assertThat(ClassFunctions.isStandardClassName(Stream.class.getCanonicalName())).isFalse();
-    assertThat(ClassFunctions.isStandardClassName(Annotation.class.getCanonicalName())).isFalse();
+    assertThat(ClassFunctions.isStandardClass(Stream.class.getCanonicalName())).isFalse();
+    assertThat(ClassFunctions.isStandardClass(Annotation.class.getCanonicalName())).isFalse();
   }
 }

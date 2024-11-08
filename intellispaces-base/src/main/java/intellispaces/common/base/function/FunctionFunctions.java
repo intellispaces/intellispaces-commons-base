@@ -1,6 +1,6 @@
 package intellispaces.common.base.function;
 
-import intellispaces.common.base.exception.WrappedCheckedException;
+import intellispaces.common.base.exception.WrappedException;
 
 import java.util.function.Function;
 
@@ -9,61 +9,61 @@ import java.util.function.Function;
  */
 public interface FunctionFunctions {
 
-  static <T, R, E extends Throwable> R applyAndCover(
-      ThrowingFunction<T, R, E> function, T t
+  static <T, R, E extends Throwable> R applyAndWrap(
+      T value, ThrowingFunction<T, R, E> function
   ) {
     try {
-      return function.applyThrows(t);
+      return function.applyThrows(value);
     } catch (RuntimeException e) {
       throw e;
     } catch (Throwable e) {
-      throw new WrappedCheckedException(e);
+      throw new WrappedException(e);
     }
   }
 
-  static <T1, T2, R, E extends Throwable> R applyAndCover(
-      ThrowingBiFunction<T1, T2, R, E> function, T1 t1, T2 t2
+  static <T1, T2, R, E extends Throwable> R applyAndWrap(
+      T1 value1, T2 value2, ThrowingBiFunction<T1, T2, R, E> function
   ) {
     try {
-      return function.applyThrows(t1, t2);
+      return function.applyThrows(value1, value2);
     } catch (RuntimeException e) {
       throw e;
     } catch (Throwable e) {
-      throw new WrappedCheckedException(e);
+      throw new WrappedException(e);
     }
   }
 
-  static <T1, T2, T3, R, E extends Throwable> R applyAndCover(
-      ThrowingTriFunction<T1, T2, T3, R, E> function, T1 t1, T2 t2, T3 t3
+  static <T1, T2, T3, R, E extends Throwable> R applyAndWrap(
+      T1 value1, T2 value2, T3 value3, ThrowingTriFunction<T1, T2, T3, R, E> function
   ) {
     try {
-      return function.applyThrows(t1, t2, t3);
+      return function.applyThrows(value1, value2, value3);
     } catch (RuntimeException e) {
       throw e;
     } catch (Throwable e) {
-      throw new WrappedCheckedException(e);
+      throw new WrappedException(e);
     }
   }
 
-  static <T1, T2, T3, T4, R, E extends Throwable> R applyAndCover(
-      ThrowingQuadFunction<T1, T2, T3, T4, R, E> function, T1 t1, T2 t2, T3 t3, T4 t4
+  static <T1, T2, T3, T4, R, E extends Throwable> R applyAndWrap(
+      T1 value1, T2 value2, T3 value3, T4 value4, ThrowingQuadFunction<T1, T2, T3, T4, R, E> function
   ) {
     try {
-      return function.applyThrows(t1, t2, t3, t4);
+      return function.applyThrows(value1, value2, value3, value4);
     } catch (RuntimeException e) {
       throw e;
     } catch (Throwable e) {
-      throw new WrappedCheckedException(e);
+      throw new WrappedException(e);
     }
   }
 
   @SuppressWarnings("unchecked")
-  static <T, R, E extends Throwable> R applyAndUncover(
-      Function<T, R> function, T argument, Class<E> e
+  static <T, R, E extends Throwable> R applyAndUnwrap(
+      T value, Function<T, R> function, Class<E> e
   ) throws E {
     try {
-      return function.apply(argument);
-    } catch (WrappedCheckedException se) {
+      return function.apply(value);
+    } catch (WrappedException se) {
       if (e.isInstance(se.getCause())) {
         throw (E) se.getCause();
       } else {
@@ -73,10 +73,10 @@ public interface FunctionFunctions {
   }
 
   @SuppressWarnings("unchecked")
-  static <E extends Throwable> void runAndUncover(Runnable runnable, Class<E> e) throws E {
+  static <E extends Throwable> void runAndUnwrap(Runnable runnable, Class<E> e) throws E {
     try {
       runnable.run();
-    } catch (WrappedCheckedException ce) {
+    } catch (WrappedException ce) {
       if (e.isInstance(ce.getCause())) {
         throw (E) ce.getCause();
       } else {

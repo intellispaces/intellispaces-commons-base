@@ -1,6 +1,6 @@
 package intellispaces.common.base.function;
 
-import intellispaces.common.base.exception.WrappedCheckedException;
+import intellispaces.common.base.exception.WrappedException;
 
 import java.util.function.Function;
 
@@ -9,7 +9,7 @@ import java.util.function.Function;
  */
 public interface Functions {
 
-  static <T, R, E extends Throwable> Function<T, R> coveredFunction(
+  static <T, R, E extends Throwable> Function<T, R> wrapThrowingFunction(
       ThrowingFunction<T, R, E> function
   ) {
     return t -> {
@@ -18,13 +18,13 @@ public interface Functions {
       } catch (RuntimeException e) {
         throw e;
       } catch (Throwable e) {
-        throw new WrappedCheckedException(e);
+        throw new WrappedException(e);
       }
     };
   }
 
   @SuppressWarnings("unchecked")
-  static <T, R, E extends Throwable, E2 extends RuntimeException> Function<T, R> coveredFunction(
+  static <T, R, E extends Throwable, E2 extends RuntimeException> Function<T, R> wrapThrowingFunction(
       ThrowingFunction<T, R, E> function, Function<E, E2> exceptionFactory
   ) {
     return t -> {

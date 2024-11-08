@@ -1,6 +1,6 @@
 package intellispaces.common.base.function;
 
-import intellispaces.common.base.exception.WrappedCheckedException;
+import intellispaces.common.base.exception.WrappedException;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -19,7 +19,7 @@ public final class Consumers {
       } catch (RuntimeException e) {
         throw e;
       } catch (Throwable e) {
-        throw new WrappedCheckedException(e);
+        throw new WrappedException(e);
       }
     };
   }

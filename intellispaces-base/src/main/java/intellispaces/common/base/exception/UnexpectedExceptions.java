@@ -5,7 +5,7 @@ import intellispaces.common.base.text.StringFunctions;
 import java.text.MessageFormat;
 
 /**
- * Exception provider.
+ * Provider of the exception {@link UnexpectedException}.
  */
 public interface UnexpectedExceptions {
 
