@@ -10,7 +10,7 @@ import java.util.function.Function;
  */
 public final class Consumers {
 
-  public static <T, E extends Throwable> Consumer<T> wrappedConsumer(
+  public static <T, E extends Exception> Consumer<T> wrappedConsumer(
       ThrowingConsumer<T, E> consumer
   ) {
     return t -> {
@@ -18,14 +18,14 @@ public final class Consumers {
         consumer.acceptThrows(t);
       } catch (RuntimeException e) {
         throw e;
-      } catch (Throwable e) {
+      } catch (Exception e) {
         throw new WrappedException(e);
       }
     };
   }
 
   @SuppressWarnings("unchecked")
-  public static <T, E extends Throwable, E2 extends RuntimeException> Consumer<T> wrappedConsumer(
+  public static <T, E extends Exception, E2 extends RuntimeException> Consumer<T> wrappedConsumer(
       ThrowingConsumer<T, E> consumer, Function<E, E2> exceptionFactory
   ) {
     return t -> {
@@ -33,7 +33,7 @@ public final class Consumers {
         consumer.acceptThrows(t);
       } catch (RuntimeException e) {
         throw e;
-      } catch (Throwable e) {
+      } catch (Exception e) {
         throw exceptionFactory.apply((E) e);
       }
     };

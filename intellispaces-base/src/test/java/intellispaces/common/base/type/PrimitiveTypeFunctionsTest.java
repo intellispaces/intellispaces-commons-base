@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Tests for {@link PrimitiveFunctions} class.
  */
-public class PrimitiveFunctionsTest {
+public class PrimitiveTypeFunctionsTest {
 
   @Test
   public void testBooleanToInt() {

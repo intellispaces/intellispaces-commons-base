@@ -7,7 +7,7 @@ package intellispaces.common.base.function;
  * @param <E> the exception type.
  */
 @FunctionalInterface
-public interface ThrowingConsumer<T, E extends Throwable> {
+public interface ThrowingConsumer<T, E extends Exception> {
 
   /**
    * Applies consumer.

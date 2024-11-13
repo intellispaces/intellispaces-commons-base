@@ -1,4 +1,4 @@
-package intellispaces.common.base.reflection;
+package intellispaces.common.base.type;
 
 class ClassSample {
   private static Boolean FIELD1 = true;

@@ -40,4 +40,9 @@ public class ObjectsTest {
     objectFunctions.verify(() -> ObjectFunctions.newInstance(aClass));
     assertThat(result).isSameAs(instance);
   }
+
+  @Test
+  public void testGetVoid() {
+    assertThat(Objects.getVoid()).isNull();
+  }
 }

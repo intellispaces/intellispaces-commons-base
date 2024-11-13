@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Primitive type provider.
  */
-public enum Primitives implements Primitive {
+public enum PrimitiveTypes implements PrimitiveType {
 
   Boolean("boolean", java.lang.Boolean.class),
 
@@ -29,57 +29,57 @@ public enum Primitives implements Primitive {
   private final String typename;
   private final Class<?> wrapperClass;
 
-  public static Primitive get(String typename) {
-    Primitive primitive = VALUES.get(typename);
-    if (primitive == null) {
+  public static PrimitiveType get(String typename) {
+    PrimitiveType primitiveType = VALUES.get(typename);
+    if (primitiveType == null) {
       throw UnexpectedExceptions.withMessage("Not primitive typename: {0}", typename);
     }
-    return primitive;
+    return primitiveType;
   }
 
-  Primitives(String typename, Class<?> wrapperClass) {
+  PrimitiveTypes(String typename, Class<?> wrapperClass) {
     this.typename = typename;
     this.wrapperClass = wrapperClass;
   }
 
   @Override
   public boolean isChar() {
-    return this == Primitives.Char;
+    return this == PrimitiveTypes.Char;
   }
 
   @Override
   public boolean isBoolean() {
-    return this == Primitives.Boolean;
+    return this == PrimitiveTypes.Boolean;
   }
 
   @Override
   public boolean isByte() {
-    return this == Primitives.Byte;
+    return this == PrimitiveTypes.Byte;
   }
 
   @Override
   public boolean isShort() {
-    return this == Primitives.Short;
+    return this == PrimitiveTypes.Short;
   }
 
   @Override
   public boolean isInt() {
-    return this == Primitives.Int;
+    return this == PrimitiveTypes.Int;
   }
 
   @Override
   public boolean isLong() {
-    return this == Primitives.Long;
+    return this == PrimitiveTypes.Long;
   }
 
   @Override
   public boolean isFloat() {
-    return this == Primitives.Float;
+    return this == PrimitiveTypes.Float;
   }
 
   @Override
   public boolean isDouble() {
-    return this == Primitives.Double;
+    return this == PrimitiveTypes.Double;
   }
 
   @Override
@@ -92,7 +92,7 @@ public enum Primitives implements Primitive {
     return wrapperClass;
   }
 
-  private static final Map<String, Primitive> VALUES = new HashMap<>();
+  private static final Map<String, PrimitiveType> VALUES = new HashMap<>();
   static {
     VALUES.put("boolean", Boolean);
     VALUES.put("char", Char);

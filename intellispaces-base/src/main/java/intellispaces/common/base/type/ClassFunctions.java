@@ -53,7 +53,7 @@ public class ClassFunctions {
         "Could not to get class by name {0}", className));
   }
 
-  public static <E extends Throwable> Class<?> getClassOrElseThrow(
+  public static <E extends Exception> Class<?> getClassOrElseThrow(
       String className, Supplier<? extends E> exceptionSupplier
   ) throws E {
     return getClass(className).orElseThrow(exceptionSupplier);
@@ -167,15 +167,15 @@ public class ClassFunctions {
     return primitiveType;
   }
 
-  public static Optional<Primitive> primitiveByWrapperClassName(String canonicalName) {
-    Primitive primitive = null;
-    for (Primitive p : Primitives.values()) {
+  public static Optional<PrimitiveType> primitiveByWrapperClassName(String canonicalName) {
+    PrimitiveType primitiveType = null;
+    for (PrimitiveType p : PrimitiveTypes.values()) {
       if (p.wrapperClass().getCanonicalName().equals(canonicalName)) {
-        primitive = p;
+        primitiveType = p;
         break;
       }
     }
-    return Optional.ofNullable(primitive);
+    return Optional.ofNullable(primitiveType);
   }
 
   public static boolean isPrimitiveWrapperClass(String classCanonicalName) {

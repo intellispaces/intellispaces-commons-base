@@ -160,14 +160,14 @@ public class ClassFunctionsTest {
 
   @Test
   public void testPrimitiveByWrapperClassName() {
-    assertThat(ClassFunctions.primitiveByWrapperClassName(Boolean.class.getCanonicalName())).contains(Primitives.Boolean);
-    assertThat(ClassFunctions.primitiveByWrapperClassName(Character.class.getCanonicalName())).contains(Primitives.Char);
-    assertThat(ClassFunctions.primitiveByWrapperClassName(Byte.class.getCanonicalName())).contains(Primitives.Byte);
-    assertThat(ClassFunctions.primitiveByWrapperClassName(Short.class.getCanonicalName())).contains(Primitives.Short);
-    assertThat(ClassFunctions.primitiveByWrapperClassName(Integer.class.getCanonicalName())).contains(Primitives.Int);
-    assertThat(ClassFunctions.primitiveByWrapperClassName(Long.class.getCanonicalName())).contains(Primitives.Long);
-    assertThat(ClassFunctions.primitiveByWrapperClassName(Float.class.getCanonicalName())).contains(Primitives.Float);
-    assertThat(ClassFunctions.primitiveByWrapperClassName(Double.class.getCanonicalName())).contains(Primitives.Double);
+    assertThat(ClassFunctions.primitiveByWrapperClassName(Boolean.class.getCanonicalName())).contains(PrimitiveTypes.Boolean);
+    assertThat(ClassFunctions.primitiveByWrapperClassName(Character.class.getCanonicalName())).contains(PrimitiveTypes.Char);
+    assertThat(ClassFunctions.primitiveByWrapperClassName(Byte.class.getCanonicalName())).contains(PrimitiveTypes.Byte);
+    assertThat(ClassFunctions.primitiveByWrapperClassName(Short.class.getCanonicalName())).contains(PrimitiveTypes.Short);
+    assertThat(ClassFunctions.primitiveByWrapperClassName(Integer.class.getCanonicalName())).contains(PrimitiveTypes.Int);
+    assertThat(ClassFunctions.primitiveByWrapperClassName(Long.class.getCanonicalName())).contains(PrimitiveTypes.Long);
+    assertThat(ClassFunctions.primitiveByWrapperClassName(Float.class.getCanonicalName())).contains(PrimitiveTypes.Float);
+    assertThat(ClassFunctions.primitiveByWrapperClassName(Double.class.getCanonicalName())).contains(PrimitiveTypes.Double);
 
     assertThat(ClassFunctions.primitiveByWrapperClassName(boolean.class.getCanonicalName())).isEmpty();
     assertThat(ClassFunctions.primitiveByWrapperClassName(char.class.getCanonicalName())).isEmpty();
@@ -236,5 +236,35 @@ public class ClassFunctionsTest {
 
     assertThat(ClassFunctions.isStandardClass(Stream.class.getCanonicalName())).isFalse();
     assertThat(ClassFunctions.isStandardClass(Annotation.class.getCanonicalName())).isFalse();
+  }
+
+  @Test
+  public void testGetStaticField_whenPrivate() throws Exception {
+    // When
+    Boolean answer1 = ClassFunctions.getStaticField(ClassSample.class, "FIELD1", Boolean.class);
+    boolean answer2 = ClassFunctions.getStaticField(ClassSample.class, "FIELD2", boolean.class);
+
+    // Then
+    assertThat(answer1).isTrue();
+    assertThat(answer2).isFalse();
+  }
+
+  @Test
+  public void testSetStaticField_whenPrivate() throws Exception {
+    // When
+    ClassFunctions.setStaticField(ClassSample.class, "FIELD1", false);
+    ClassFunctions.setStaticField(ClassSample.class, "FIELD2", true);
+
+    // Then
+    assertThat(ClassSample.getField1()).isFalse();
+    assertThat(ClassSample.getField2()).isTrue();
+
+    // When
+    ClassFunctions.setStaticField(ClassSample.class, "FIELD1", true);
+    ClassFunctions.setStaticField(ClassSample.class, "FIELD2", false);
+
+    // Then
+    assertThat(ClassSample.getField1()).isTrue();
+    assertThat(ClassSample.getField2()).isFalse();
   }
 }

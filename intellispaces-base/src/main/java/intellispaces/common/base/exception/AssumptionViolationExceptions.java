@@ -9,7 +9,7 @@ import java.text.MessageFormat;
  */
 public interface AssumptionViolationExceptions {
 
-  static AssumptionViolationException withCause(Throwable cause) {
+  static AssumptionViolationException withCause(Exception cause) {
     return new AssumptionViolationException(null, cause);
   }
 
@@ -17,7 +17,7 @@ public interface AssumptionViolationExceptions {
     return new AssumptionViolationException(message);
   }
 
-  static AssumptionViolationException withCauseAndMessage(Throwable cause, String message) {
+  static AssumptionViolationException withCauseAndMessage(Exception cause, String message) {
     return new AssumptionViolationException(message, cause);
   }
 
@@ -26,7 +26,7 @@ public interface AssumptionViolationExceptions {
   }
 
   static AssumptionViolationException withCauseAndMessage(
-      Throwable cause, String template, Object... params
+      Exception cause, String template, Object... params
   ) {
     return new AssumptionViolationException(StringFunctions.resolveTemplate(template, params), cause);
   }
@@ -36,7 +36,7 @@ public interface AssumptionViolationExceptions {
   }
 
   static AssumptionViolationException withCauseAndFormattedMessage(
-      Throwable cause, String template, Object... params
+      Exception cause, String template, Object... params
   ) {
     return new AssumptionViolationException(MessageFormat.format(template, params), cause);
   }

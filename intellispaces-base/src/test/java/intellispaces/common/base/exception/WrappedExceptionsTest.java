@@ -1,6 +1,5 @@
 package intellispaces.common.base.exception;
 
-
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,11 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WrappedExceptionsTest {
 
   @Test
-  public void testOfChecked() {
-    var cause = new RuntimeException();
-    assertThat(WrappedExceptions.ofChecked(cause))
+  public void testOf() {
+    var checkedException = new Exception();
+    assertThat(WrappedExceptions.of(checkedException))
         .isExactlyInstanceOf(WrappedException.class)
-        .hasCause(cause)
-        .hasMessage(null);
+        .hasCause(checkedException)
+        .hasMessage("Wrapped checked exception");
   }
 }

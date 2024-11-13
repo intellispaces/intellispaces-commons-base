@@ -5,7 +5,7 @@ package intellispaces.common.base.exception;
  */
 public interface ExceptionFunctions {
 
-  static RuntimeException wrapIfChecked(Throwable e) {
+  static RuntimeException wrapIfChecked(Exception e) {
     if (e instanceof RuntimeException) {
       return (RuntimeException) e;
     } else {

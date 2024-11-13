@@ -3,7 +3,7 @@ package intellispaces.common.base.type;
 /**
  * Primitive type.
  */
-public interface Primitive {
+public interface PrimitiveType {
 
   boolean isChar();
 

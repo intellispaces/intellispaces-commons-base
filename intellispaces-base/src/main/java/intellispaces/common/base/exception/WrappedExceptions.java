@@ -5,7 +5,7 @@ package intellispaces.common.base.exception;
  */
 public interface WrappedExceptions {
 
-  static WrappedException ofChecked(Exception checkedException) {
+  static WrappedException of(Exception checkedException) {
     return new WrappedException(checkedException);
   }
 }

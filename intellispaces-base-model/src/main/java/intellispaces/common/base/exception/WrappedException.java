@@ -5,7 +5,7 @@ package intellispaces.common.base.exception;
  */
 public class WrappedException extends RuntimeException {
 
-  public WrappedException(Throwable cause) {
-    super(null, cause);
+  public WrappedException(Exception checkedException) {
+    super("Wrapped checked exception", checkedException);
   }
 }

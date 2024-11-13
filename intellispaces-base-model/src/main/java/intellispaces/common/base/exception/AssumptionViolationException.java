@@ -14,11 +14,11 @@ public class AssumptionViolationException extends Exception {
     super(message);
   }
 
-  public AssumptionViolationException(Throwable cause) {
+  public AssumptionViolationException(Exception cause) {
     super(cause);
   }
 
-  public AssumptionViolationException(String message, Throwable cause) {
+  public AssumptionViolationException(String message, Exception cause) {
     super(message, cause);
   }
 }
