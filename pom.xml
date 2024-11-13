@@ -1,29 +1,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <description>Common data models and processing functions</description>
+    <description>Common entity models, implementations providers and processing functions</description>
 
     <parent>
-        <groupId>intellispaces-parent</groupId>
+        <groupId>tech.intellispaces.parent</groupId>
         <artifactId>intellispaces-base-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>intellispaces-common</groupId>
-    <artifactId>intellispaces-base-parent</artifactId>
+    <groupId>tech.intellispaces.common</groupId>
+    <artifactId>intellispaces-entities-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
 	<modules>
-        <module>intellispaces-base-model</module>
-	    <module>intellispaces-base</module>
+        <module>intellispaces-entities-model</module>
+	    <module>intellispaces-entities</module>
 	</modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>intellispaces-common</groupId>
-                <artifactId>intellispaces-base-model</artifactId>
+                <groupId>tech.intellispaces.common</groupId>
+                <artifactId>intellispaces-entities-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
