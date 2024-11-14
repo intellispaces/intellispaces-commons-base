@@ -46,7 +46,7 @@ public interface FunctionFunctions {
   }
 
   static <T1, T2, T3, T4, R, E extends Exception> R applyAndWrap(
-      T1 value1, T2 value2, T3 value3, T4 value4, ThrowingQuadFunction<T1, T2, T3, T4, R, E> function
+      T1 value1, T2 value2, T3 value3, T4 value4, ThrowingQuadriFunction<T1, T2, T3, T4, R, E> function
   ) {
     try {
       return function.applyThrows(value1, value2, value3, value4);

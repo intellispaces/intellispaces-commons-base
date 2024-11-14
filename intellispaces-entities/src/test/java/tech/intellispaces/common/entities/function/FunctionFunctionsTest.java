@@ -134,13 +134,13 @@ public class FunctionFunctionsTest {
   }
 
   @Test
-  public void testApplyAndWrap_whenQuadFunction() {
+  public void testApplyAndWrap_whenQuadriFunction() {
     // Given
-    ThrowingQuadFunction<String, String, String, String, Integer, AssumptionViolationException> function1 = (s1, s2, s3, s4) -> 1;
-    ThrowingQuadFunction<String, String, String, String, Integer, AssumptionViolationException> function2 = (s1, s2, s3, s4) -> {
+    ThrowingQuadriFunction<String, String, String, String, Integer, AssumptionViolationException> function1 = (s1, s2, s3, s4) -> 1;
+    ThrowingQuadriFunction<String, String, String, String, Integer, AssumptionViolationException> function2 = (s1, s2, s3, s4) -> {
       throw new AssumptionViolationException();
     };
-    ThrowingQuadFunction<String, String, String, String, Integer, AssumptionViolationException> function3 = (s1, s2, s3, s4) -> {
+    ThrowingQuadriFunction<String, String, String, String, Integer, AssumptionViolationException> function3 = (s1, s2, s3, s4) -> {
       throw new UnexpectedException("Something went wrong");
     };
 
