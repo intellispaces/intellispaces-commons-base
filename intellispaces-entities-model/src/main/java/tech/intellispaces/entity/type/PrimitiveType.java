@@ -3,7 +3,18 @@ package tech.intellispaces.entity.type;
 /**
  * Primitive type.
  */
-public interface PrimitiveType {
+@SuppressWarnings("rawtypes")
+public interface PrimitiveType extends Type {
+
+  /**
+   * The primitive typename.
+   */
+  String typename();
+
+  /**
+   * The wrapper class.
+   */
+  Class<?> wrapperClass();
 
   boolean isChar();
 
@@ -20,8 +31,4 @@ public interface PrimitiveType {
   boolean isFloat();
 
   boolean isDouble();
-
-  String typename();
-
-  Class<?> wrapperClass();
 }

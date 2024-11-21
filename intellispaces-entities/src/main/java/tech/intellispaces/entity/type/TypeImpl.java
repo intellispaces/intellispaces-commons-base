@@ -2,16 +2,16 @@ package tech.intellispaces.entity.type;
 
 import java.util.List;
 
-class TypeImpl<T> extends AbstractType<T> {
-  private final Class<?> baseClass;
+class TypeImpl<T, B> extends AbstractType<T> {
+  private final Class<B> baseClass;
   private final List<Type<?>> qualifierTypes;
 
-  TypeImpl(Class<T> baseClass) {
+  TypeImpl(Class<B> baseClass) {
     this.baseClass = baseClass;
     this.qualifierTypes = List.of();
   }
 
-  TypeImpl(Class<?> baseClass, List<Type<?>> qualifierTypes) {
+  TypeImpl(Class<B> baseClass, List<Type<?>> qualifierTypes) {
     this.baseClass = baseClass;
     this.qualifierTypes = qualifierTypes;
   }

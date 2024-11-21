@@ -3,14 +3,14 @@ package tech.intellispaces.entity.type;
 import java.util.List;
 
 /**
- * This interface represents a type.
+ * The actual describable type of data or entity.
  *
  * @param <T> associated type.
  */
 public interface Type<T> {
 
   /**
-   * Base class of the type.
+   * Base class.
    */
   Class<?> baseClass();
 

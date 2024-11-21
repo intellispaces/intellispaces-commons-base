@@ -3,6 +3,7 @@ package tech.intellispaces.entity.type;
 import tech.intellispaces.entity.exception.UnexpectedExceptions;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,23 +11,24 @@ import java.util.Map;
  */
 public enum PrimitiveTypes implements PrimitiveType {
 
-  Boolean("boolean", java.lang.Boolean.class),
+  Boolean("boolean", boolean.class, java.lang.Boolean.class),
 
-  Char("char", java.lang.Character.class),
+  Char("char", char.class, java.lang.Character.class),
 
-  Byte("byte", java.lang.Byte.class),
+  Byte("byte", byte.class, java.lang.Byte.class),
 
-  Short("short", java.lang.Short.class),
+  Short("short", short.class, java.lang.Short.class),
 
-  Int("int", java.lang.Integer.class),
+  Int("int", int.class, java.lang.Integer.class),
 
-  Long("long", java.lang.Long.class),
+  Long("long", long.class, java.lang.Long.class),
 
-  Float("float", java.lang.Float.class),
+  Float("float", float.class, java.lang.Float.class),
 
-  Double("double", java.lang.Double.class);
+  Double("double", double.class, java.lang.Double.class);
 
   private final String typename;
+  private final Class<?> baseClass;
   private final Class<?> wrapperClass;
 
   public static PrimitiveType get(String typename) {
@@ -37,9 +39,30 @@ public enum PrimitiveTypes implements PrimitiveType {
     return primitiveType;
   }
 
-  PrimitiveTypes(String typename, Class<?> wrapperClass) {
+  PrimitiveTypes(String typename, Class<?> baseClass, Class<?> wrapperClass) {
     this.typename = typename;
+    this.baseClass = baseClass;
     this.wrapperClass = wrapperClass;
+  }
+
+  @Override
+  public String typename() {
+    return typename;
+  }
+
+  @Override
+  public Class<?> wrapperClass() {
+    return wrapperClass;
+  }
+
+  @Override
+  public Class<?> baseClass() {
+    return baseClass;
+  }
+
+  @Override
+  public List<Type<?>> qualifierTypes() {
+    return List.of();
   }
 
   @Override
@@ -80,16 +103,6 @@ public enum PrimitiveTypes implements PrimitiveType {
   @Override
   public boolean isDouble() {
     return this == PrimitiveTypes.Double;
-  }
-
-  @Override
-  public String typename() {
-    return typename;
-  }
-
-  @Override
-  public Class<?> wrapperClass() {
-    return wrapperClass;
   }
 
   private static final Map<String, PrimitiveType> VALUES = new HashMap<>();

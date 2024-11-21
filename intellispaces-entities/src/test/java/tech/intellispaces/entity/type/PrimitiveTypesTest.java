@@ -134,4 +134,40 @@ public class PrimitiveTypesTest {
     assertThat(PrimitiveTypes.Float.typename()).isEqualTo("float");
     assertThat(PrimitiveTypes.Double.typename()).isEqualTo("double");
   }
+
+  @Test
+  public void testWrapperClass() {
+    assertThat(PrimitiveTypes.Boolean.wrapperClass()).isSameAs(Boolean.class);
+    assertThat(PrimitiveTypes.Char.wrapperClass()).isSameAs(Character.class);
+    assertThat(PrimitiveTypes.Byte.wrapperClass()).isSameAs(Byte.class);
+    assertThat(PrimitiveTypes.Short.wrapperClass()).isSameAs(Short.class);
+    assertThat(PrimitiveTypes.Int.wrapperClass()).isSameAs(Integer.class);
+    assertThat(PrimitiveTypes.Long.wrapperClass()).isSameAs(Long.class);
+    assertThat(PrimitiveTypes.Float.wrapperClass()).isSameAs(Float.class);
+    assertThat(PrimitiveTypes.Double.wrapperClass()).isSameAs(Double.class);
+  }
+
+  @Test
+  public void testBaseClass() {
+    assertThat(PrimitiveTypes.Boolean.baseClass()).isSameAs(boolean.class);
+    assertThat(PrimitiveTypes.Char.baseClass()).isSameAs(char.class);
+    assertThat(PrimitiveTypes.Byte.baseClass()).isSameAs(byte.class);
+    assertThat(PrimitiveTypes.Short.baseClass()).isSameAs(short.class);
+    assertThat(PrimitiveTypes.Int.baseClass()).isSameAs(int.class);
+    assertThat(PrimitiveTypes.Long.baseClass()).isSameAs(long.class);
+    assertThat(PrimitiveTypes.Float.baseClass()).isSameAs(float.class);
+    assertThat(PrimitiveTypes.Double.baseClass()).isSameAs(double.class);
+  }
+
+  @Test
+  public void testQualifierTypes() {
+    assertThat(PrimitiveTypes.Boolean.qualifierTypes()).isEmpty();
+    assertThat(PrimitiveTypes.Char.qualifierTypes()).isEmpty();
+    assertThat(PrimitiveTypes.Byte.qualifierTypes()).isEmpty();
+    assertThat(PrimitiveTypes.Short.qualifierTypes()).isEmpty();
+    assertThat(PrimitiveTypes.Int.qualifierTypes()).isEmpty();
+    assertThat(PrimitiveTypes.Long.qualifierTypes()).isEmpty();
+    assertThat(PrimitiveTypes.Float.qualifierTypes()).isEmpty();
+    assertThat(PrimitiveTypes.Double.qualifierTypes()).isEmpty();
+  }
 }
