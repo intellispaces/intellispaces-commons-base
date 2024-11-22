@@ -11,7 +11,7 @@ package tech.intellispaces.entity.function;
  * @param <R> the function result type.
  */
 @FunctionalInterface
-public interface QuinFunction<T1, T2, T3, T4, T5, R> {
+public interface QuintiFunction<T1, T2, T3, T4, T5, R> {
 
   /**
    * Applies function.

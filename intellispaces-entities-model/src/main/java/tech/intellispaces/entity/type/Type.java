@@ -3,7 +3,7 @@ package tech.intellispaces.entity.type;
 import java.util.List;
 
 /**
- * The actual describable type of data or entity.
+ * The abstract class-based type of data or entity.
  *
  * @param <T> associated type.
  */
