@@ -17,6 +17,10 @@ public interface PrimitiveFunctions {
     return value ? 1.0 : 0.0;
   }
 
+  static String booleanToString(boolean value) {
+    return value ? "true" : "false";
+  }
+
   static boolean longToBoolean(long value) {
     return value != 0L;
   }

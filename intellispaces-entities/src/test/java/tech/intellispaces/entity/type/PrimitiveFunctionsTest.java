@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Tests for {@link PrimitiveFunctions} class.
  */
-public class PrimitiveTypeFunctionsTest {
+public class PrimitiveFunctionsTest {
 
   @Test
   public void testBooleanToInt() {
@@ -25,6 +25,12 @@ public class PrimitiveTypeFunctionsTest {
   public void testBooleanToDouble() {
     assertThat(PrimitiveFunctions.booleanToDouble(true)).isEqualTo(1.0);
     assertThat(PrimitiveFunctions.booleanToDouble(false)).isEqualTo(0.0);
+  }
+
+  @Test
+  public void testBooleanToString() {
+    assertThat(PrimitiveFunctions.booleanToString(true)).isEqualTo("true");
+    assertThat(PrimitiveFunctions.booleanToString(false)).isEqualTo("false");
   }
 
   @Test
