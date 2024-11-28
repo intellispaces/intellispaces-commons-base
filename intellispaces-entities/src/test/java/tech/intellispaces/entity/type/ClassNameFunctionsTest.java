@@ -20,6 +20,9 @@ public class ClassNameFunctionsTest {
     assertThat(ClassNameFunctions.getSimpleName("java.lang.Object")).isEqualTo("Object");
     assertThat(ClassNameFunctions.getSimpleName("java.util.Map.Entry")).isEqualTo("Entry");
     assertThat(ClassNameFunctions.getSimpleName("java.util.Map$Entry")).isEqualTo("Entry");
+
+    assertThat(ClassNameFunctions.getSimpleName("java.util.List<String>")).isEqualTo("List");
+    assertThat(ClassNameFunctions.getSimpleName("java.util.Map<String, List<Integer>>")).isEqualTo("Map");
   }
 
   @Test

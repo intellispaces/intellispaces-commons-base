@@ -15,11 +15,17 @@ public interface ClassNameFunctions {
    */
   static String getSimpleName(String name) {
     if (name.isEmpty()) {
-      throw UnexpectedExceptions.withMessage("Class canonical name should be not empty");
+      throw UnexpectedExceptions.withMessage("Expected not empty class name");
     }
     int lastDot = name.lastIndexOf('.');
     int lastDollar = name.lastIndexOf('$');
-    return name.substring(Math.max(lastDot, lastDollar) + 1);
+    String simpleName = name.substring(Math.max(lastDot, lastDollar) + 1);;
+
+    int firstBracket = simpleName.indexOf("<");
+    if (firstBracket > 0) {
+      simpleName = simpleName.substring(0, firstBracket);
+    }
+    return simpleName;
   }
 
   /**
