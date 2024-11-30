@@ -28,6 +28,118 @@ public class PrimitiveTypesTest {
   }
 
   @Test
+  public void testIs_whenBoolean() {
+    assertThat(PrimitiveTypes.Boolean.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is("")).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is("Boolean")).isTrue();
+    assertThat(PrimitiveTypes.Boolean.is("Char")).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is("Byte")).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is("Short")).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is("Int")).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is("Long")).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is("Float")).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is("Double")).isFalse();
+  }
+
+  @Test
+  public void testIs_whenChar() {
+    assertThat(PrimitiveTypes.Char.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Char.is("")).isFalse();
+    assertThat(PrimitiveTypes.Char.is("Boolean")).isFalse();
+    assertThat(PrimitiveTypes.Char.is("Char")).isTrue();
+    assertThat(PrimitiveTypes.Char.is("Byte")).isFalse();
+    assertThat(PrimitiveTypes.Char.is("Short")).isFalse();
+    assertThat(PrimitiveTypes.Char.is("Int")).isFalse();
+    assertThat(PrimitiveTypes.Char.is("Long")).isFalse();
+    assertThat(PrimitiveTypes.Char.is("Float")).isFalse();
+    assertThat(PrimitiveTypes.Char.is("Double")).isFalse();
+  }
+
+  @Test
+  public void testIs_whenByte() {
+    assertThat(PrimitiveTypes.Byte.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Byte.is("")).isFalse();
+    assertThat(PrimitiveTypes.Byte.is("Boolean")).isFalse();
+    assertThat(PrimitiveTypes.Byte.is("Char")).isFalse();
+    assertThat(PrimitiveTypes.Byte.is("Byte")).isTrue();
+    assertThat(PrimitiveTypes.Byte.is("Short")).isFalse();
+    assertThat(PrimitiveTypes.Byte.is("Int")).isFalse();
+    assertThat(PrimitiveTypes.Byte.is("Long")).isFalse();
+    assertThat(PrimitiveTypes.Byte.is("Float")).isFalse();
+    assertThat(PrimitiveTypes.Byte.is("Double")).isFalse();
+  }
+
+  @Test
+  public void testIs_whenShort() {
+    assertThat(PrimitiveTypes.Short.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Short.is("")).isFalse();
+    assertThat(PrimitiveTypes.Short.is("Boolean")).isFalse();
+    assertThat(PrimitiveTypes.Short.is("Char")).isFalse();
+    assertThat(PrimitiveTypes.Short.is("Byte")).isFalse();
+    assertThat(PrimitiveTypes.Short.is("Short")).isTrue();
+    assertThat(PrimitiveTypes.Short.is("Int")).isFalse();
+    assertThat(PrimitiveTypes.Short.is("Long")).isFalse();
+    assertThat(PrimitiveTypes.Short.is("Float")).isFalse();
+    assertThat(PrimitiveTypes.Short.is("Double")).isFalse();
+  }
+
+  @Test
+  public void testIs_whenInt() {
+    assertThat(PrimitiveTypes.Int.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Int.is("")).isFalse();
+    assertThat(PrimitiveTypes.Int.is("Boolean")).isFalse();
+    assertThat(PrimitiveTypes.Int.is("Char")).isFalse();
+    assertThat(PrimitiveTypes.Int.is("Byte")).isFalse();
+    assertThat(PrimitiveTypes.Int.is("Short")).isFalse();
+    assertThat(PrimitiveTypes.Int.is("Int")).isTrue();
+    assertThat(PrimitiveTypes.Int.is("Long")).isFalse();
+    assertThat(PrimitiveTypes.Int.is("Float")).isFalse();
+    assertThat(PrimitiveTypes.Int.is("Double")).isFalse();
+  }
+
+  @Test
+  public void testIs_whenLong() {
+    assertThat(PrimitiveTypes.Long.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Long.is("")).isFalse();
+    assertThat(PrimitiveTypes.Long.is("Boolean")).isFalse();
+    assertThat(PrimitiveTypes.Long.is("Char")).isFalse();
+    assertThat(PrimitiveTypes.Long.is("Byte")).isFalse();
+    assertThat(PrimitiveTypes.Long.is("Short")).isFalse();
+    assertThat(PrimitiveTypes.Long.is("Int")).isFalse();
+    assertThat(PrimitiveTypes.Long.is("Long")).isTrue();
+    assertThat(PrimitiveTypes.Long.is("Float")).isFalse();
+    assertThat(PrimitiveTypes.Long.is("Double")).isFalse();
+  }
+
+  @Test
+  public void testIs_whenFloat() {
+    assertThat(PrimitiveTypes.Float.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Float.is("")).isFalse();
+    assertThat(PrimitiveTypes.Float.is("Boolean")).isFalse();
+    assertThat(PrimitiveTypes.Float.is("Char")).isFalse();
+    assertThat(PrimitiveTypes.Float.is("Byte")).isFalse();
+    assertThat(PrimitiveTypes.Float.is("Short")).isFalse();
+    assertThat(PrimitiveTypes.Float.is("Int")).isFalse();
+    assertThat(PrimitiveTypes.Float.is("Long")).isFalse();
+    assertThat(PrimitiveTypes.Float.is("Float")).isTrue();
+    assertThat(PrimitiveTypes.Float.is("Double")).isFalse();
+  }
+
+  @Test
+  public void testIs_whenDouble() {
+    assertThat(PrimitiveTypes.Double.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Double.is("")).isFalse();
+    assertThat(PrimitiveTypes.Double.is("Boolean")).isFalse();
+    assertThat(PrimitiveTypes.Double.is("Char")).isFalse();
+    assertThat(PrimitiveTypes.Double.is("Byte")).isFalse();
+    assertThat(PrimitiveTypes.Double.is("Short")).isFalse();
+    assertThat(PrimitiveTypes.Double.is("Int")).isFalse();
+    assertThat(PrimitiveTypes.Double.is("Long")).isFalse();
+    assertThat(PrimitiveTypes.Double.is("Float")).isFalse();
+    assertThat(PrimitiveTypes.Double.is("Double")).isTrue();
+  }
+
+  @Test
   public void testIsBoolean() {
     assertThat(PrimitiveTypes.Boolean.isBoolean()).isTrue();
     assertThat(PrimitiveTypes.Char.isBoolean()).isFalse();

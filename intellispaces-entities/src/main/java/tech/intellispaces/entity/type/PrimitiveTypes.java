@@ -66,6 +66,11 @@ public enum PrimitiveTypes implements PrimitiveType {
   }
 
   @Override
+  public boolean is(String name) {
+    return this.name().equals(name);
+  }
+
+  @Override
   public boolean isChar() {
     return this == PrimitiveTypes.Char;
   }

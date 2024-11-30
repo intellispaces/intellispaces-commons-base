@@ -3,7 +3,7 @@ package tech.intellispaces.entity.type;
 import java.util.List;
 
 /**
- * The abstract class-based type of data or entity.
+ * The abstract class-based type of entity.
  *
  * @param <T> associated type.
  */

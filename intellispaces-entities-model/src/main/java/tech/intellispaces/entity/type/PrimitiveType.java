@@ -16,6 +16,8 @@ public interface PrimitiveType extends Type {
    */
   Class<?> wrapperClass();
 
+  boolean is(String name);
+
   boolean isChar();
 
   boolean isBoolean();
