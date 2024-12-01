@@ -2,7 +2,17 @@ package tech.intellispaces.entity.type;
 
 import java.util.Objects;
 
-public abstract class AbstractType<T> implements Type<T> {
+public abstract class AbstractClassType<T> implements ClassType<T> {
+
+  @Override
+  public Type<?> baseType() {
+    return Types.get(baseClass());
+  }
+
+  @Override
+  public ClassType<T> asClassType() {
+    return this;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -12,7 +22,7 @@ public abstract class AbstractType<T> implements Type<T> {
     if (o == null || !Type.class.isAssignableFrom(o.getClass())) {
       return false;
     }
-    Type<?> type = (Type<?>) o;
+    var type = (ClassType<?>) o;
     return Objects.equals(baseClass(), type.baseClass())
         && Objects.equals(qualifierTypes(), type.qualifierTypes());
   }

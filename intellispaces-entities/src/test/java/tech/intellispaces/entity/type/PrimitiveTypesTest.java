@@ -356,15 +356,27 @@ public class PrimitiveTypesTest {
   }
 
   @Test
+  public void testBaseType() {
+    assertThat(PrimitiveTypes.Boolean.baseType().asClassType().baseClass()).isSameAs(boolean.class);
+    assertThat(PrimitiveTypes.Char.baseType().asClassType().baseClass()).isSameAs(char.class);
+    assertThat(PrimitiveTypes.Byte.baseType().asClassType().baseClass()).isSameAs(byte.class);
+    assertThat(PrimitiveTypes.Short.baseType().asClassType().baseClass()).isSameAs(short.class);
+    assertThat(PrimitiveTypes.Int.baseType().asClassType().baseClass()).isSameAs(int.class);
+    assertThat(PrimitiveTypes.Long.baseType().asClassType().baseClass()).isSameAs(long.class);
+    assertThat(PrimitiveTypes.Float.baseType().asClassType().baseClass()).isSameAs(float.class);
+    assertThat(PrimitiveTypes.Double.baseType().asClassType().baseClass()).isSameAs(double.class);
+  }
+
+  @Test
   public void testBaseClass() {
-    assertThat(PrimitiveTypes.Boolean.baseClass()).isSameAs(boolean.class);
-    assertThat(PrimitiveTypes.Char.baseClass()).isSameAs(char.class);
-    assertThat(PrimitiveTypes.Byte.baseClass()).isSameAs(byte.class);
-    assertThat(PrimitiveTypes.Short.baseClass()).isSameAs(short.class);
-    assertThat(PrimitiveTypes.Int.baseClass()).isSameAs(int.class);
-    assertThat(PrimitiveTypes.Long.baseClass()).isSameAs(long.class);
-    assertThat(PrimitiveTypes.Float.baseClass()).isSameAs(float.class);
-    assertThat(PrimitiveTypes.Double.baseClass()).isSameAs(double.class);
+    assertThat(PrimitiveTypes.Boolean.asClassType().baseClass()).isSameAs(boolean.class);
+    assertThat(PrimitiveTypes.Char.asClassType().baseClass()).isSameAs(char.class);
+    assertThat(PrimitiveTypes.Byte.asClassType().baseClass()).isSameAs(byte.class);
+    assertThat(PrimitiveTypes.Short.asClassType().baseClass()).isSameAs(short.class);
+    assertThat(PrimitiveTypes.Int.asClassType().baseClass()).isSameAs(int.class);
+    assertThat(PrimitiveTypes.Long.asClassType().baseClass()).isSameAs(long.class);
+    assertThat(PrimitiveTypes.Float.asClassType().baseClass()).isSameAs(float.class);
+    assertThat(PrimitiveTypes.Double.asClassType().baseClass()).isSameAs(double.class);
   }
 
   @Test

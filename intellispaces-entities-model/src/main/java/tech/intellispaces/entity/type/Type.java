@@ -3,19 +3,26 @@ package tech.intellispaces.entity.type;
 import java.util.List;
 
 /**
- * The abstract class-based type of entity.
+ * The abstract type of entity.
  *
  * @param <T> associated type.
  */
 public interface Type<T> {
 
   /**
-   * Base class.
+   * The base type.
    */
-  Class<?> baseClass();
+  Type<?> baseType();
 
   /**
    * Type qualifiers.
    */
   List<Type<?>> qualifierTypes();
+
+  /**
+   * Returns class-based representation of the type or <code>null</code>.
+   * <p>
+   * Not every type can have a class-based type associated with it.
+   */
+  ClassType<T> asClassType();
 }

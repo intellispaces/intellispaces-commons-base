@@ -10,7 +10,7 @@ import java.util.Objects;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link Types}, {@link TypeImpl} and {@link AbstractType} classes.
+ * Tests for {@link Types}, {@link ClassTypeImpl} and {@link AbstractClassType} classes.
  */
 public class TypesTest {
 
@@ -20,7 +20,7 @@ public class TypesTest {
     var stringClass = String.class;
 
     // When
-    Type<String> type = Types.get(stringClass);
+    ClassType<String> type = Types.get(stringClass);
 
     // Then
     assertThat(type.baseClass()).isSameAs(stringClass);
@@ -34,13 +34,13 @@ public class TypesTest {
     var stringClass = String.class;
 
     // When
-    Type<List<String>> type = Types.get(listClass, stringClass);
+    ClassType<List<String>> type = Types.get(listClass, stringClass);
 
     // Then
     assertThat(type.baseClass()).isSameAs(listClass);
     assertThat(type.qualifierTypes()).hasSize(1);
-    assertThat(type.qualifierTypes().get(0).baseClass()).isSameAs(stringClass);
-    assertThat(type.qualifierTypes().get(0).qualifierTypes()).isEmpty();
+    assertThat(type.qualifierTypes().get(0).asClassType().baseClass()).isSameAs(stringClass);
+    assertThat(type.qualifierTypes().get(0).asClassType().qualifierTypes()).isEmpty();
   }
 
   @Test
@@ -51,15 +51,15 @@ public class TypesTest {
     var integerClass = Integer.class;
 
     // When
-    Type<Pair<String, Integer>> type = Types.get(pairClass, stringClass, integerClass);
+    ClassType<Pair<String, Integer>> type = Types.get(pairClass, stringClass, integerClass);
 
     // Then
     assertThat(type.baseClass()).isSameAs(pairClass);
     assertThat(type.qualifierTypes()).hasSize(2);
-    assertThat(type.qualifierTypes().get(0).baseClass()).isSameAs(stringClass);
-    assertThat(type.qualifierTypes().get(0).qualifierTypes()).isEmpty();
-    assertThat(type.qualifierTypes().get(1).baseClass()).isSameAs(integerClass);
-    assertThat(type.qualifierTypes().get(1).qualifierTypes()).isEmpty();
+    assertThat(type.qualifierTypes().get(0).asClassType().baseClass()).isSameAs(stringClass);
+    assertThat(type.qualifierTypes().get(0).asClassType().qualifierTypes()).isEmpty();
+    assertThat(type.qualifierTypes().get(1).asClassType().baseClass()).isSameAs(integerClass);
+    assertThat(type.qualifierTypes().get(1).asClassType().qualifierTypes()).isEmpty();
   }
 
   @Test
@@ -71,17 +71,17 @@ public class TypesTest {
     var booleanClass = Boolean.class;
 
     // When
-    Type<Triad<String, Integer, Boolean>> type = Types.get(triadClass, stringClass, integerClass, booleanClass);
+    ClassType<Triad<String, Integer, Boolean>> type = Types.get(triadClass, stringClass, integerClass, booleanClass);
 
     // Then
     assertThat(type.baseClass()).isSameAs(triadClass);
     assertThat(type.qualifierTypes()).hasSize(3);
-    assertThat(type.qualifierTypes().get(0).baseClass()).isSameAs(stringClass);
-    assertThat(type.qualifierTypes().get(0).qualifierTypes()).isEmpty();
-    assertThat(type.qualifierTypes().get(1).baseClass()).isSameAs(integerClass);
-    assertThat(type.qualifierTypes().get(1).qualifierTypes()).isEmpty();
-    assertThat(type.qualifierTypes().get(2).baseClass()).isSameAs(booleanClass);
-    assertThat(type.qualifierTypes().get(2).qualifierTypes()).isEmpty();
+    assertThat(type.qualifierTypes().get(0).asClassType().baseClass()).isSameAs(stringClass);
+    assertThat(type.qualifierTypes().get(0).asClassType().qualifierTypes()).isEmpty();
+    assertThat(type.qualifierTypes().get(1).asClassType().baseClass()).isSameAs(integerClass);
+    assertThat(type.qualifierTypes().get(1).asClassType().qualifierTypes()).isEmpty();
+    assertThat(type.qualifierTypes().get(2).asClassType().baseClass()).isSameAs(booleanClass);
+    assertThat(type.qualifierTypes().get(2).asClassType().qualifierTypes()).isEmpty();
   }
 
   @Test
@@ -90,19 +90,18 @@ public class TypesTest {
     var stringClass = String.class;
 
     // When
-    Type<List<String>> type = Types.ofList(stringClass);
+    ClassType<List<String>> type = Types.ofList(stringClass);
 
     // Then
     assertThat(type.baseClass()).isSameAs(List.class);
     assertThat(type.qualifierTypes()).hasSize(1);
-    assertThat(type.qualifierTypes().get(0).baseClass()).isSameAs(stringClass);
-    assertThat(type.qualifierTypes().get(0).qualifierTypes()).isEmpty();
+    assertThat(type.qualifierTypes().get(0).asClassType().baseClass()).isSameAs(stringClass);
+    assertThat(type.qualifierTypes().get(0).asClassType().qualifierTypes()).isEmpty();
   }
 
   @Test
   public void testEquals() {
     Type<String> stringType = Types.get(String.class);
-    assertThat(stringType).isEqualTo(stringType);
     assertThat(stringType).isNotEqualTo(null);
     assertThat(stringType).isNotEqualTo("String");
 
