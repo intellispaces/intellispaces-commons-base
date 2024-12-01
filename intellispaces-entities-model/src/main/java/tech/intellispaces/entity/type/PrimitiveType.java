@@ -4,7 +4,7 @@ package tech.intellispaces.entity.type;
  * Primitive type.
  */
 @SuppressWarnings("rawtypes")
-public interface PrimitiveType extends Type {
+public interface PrimitiveType extends Type, EnumerableType {
 
   /**
    * The primitive typename.
@@ -15,8 +15,6 @@ public interface PrimitiveType extends Type {
    * The wrapper class.
    */
   Class<?> wrapperClass();
-
-  boolean is(String name);
 
   boolean isChar();
 

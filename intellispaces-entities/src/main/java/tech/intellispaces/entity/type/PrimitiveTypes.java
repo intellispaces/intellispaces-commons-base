@@ -71,6 +71,11 @@ public enum PrimitiveTypes implements PrimitiveType {
   }
 
   @Override
+  public boolean is(int ordinal) {
+    return this.ordinal() == ordinal;
+  }
+
+  @Override
   public boolean isChar() {
     return this == PrimitiveTypes.Char;
   }

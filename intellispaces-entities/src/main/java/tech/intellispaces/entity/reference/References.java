@@ -1,4 +1,4 @@
-package tech.intellispaces.entity.data;
+package tech.intellispaces.entity.reference;
 
 /**
  * Reference provider.
