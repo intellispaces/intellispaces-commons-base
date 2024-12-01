@@ -1,4 +1,4 @@
 package tech.intellispaces.entity.type;
 
-public interface EnumerableType extends OrdinalReferencableType, NameReferencableType {
+public interface EnumerableType<T> extends OrdinalReferencableType<T>, NameReferencableType<T> {
 }

@@ -1,6 +1,6 @@
 package tech.intellispaces.entity.type;
 
-public interface OrdinalReferencableType {
+public interface OrdinalReferencableType<T> extends Type<T> {
 
   int ordinal();
 

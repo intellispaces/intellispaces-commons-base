@@ -1,6 +1,6 @@
 package tech.intellispaces.entity.type;
 
-public interface NameReferencableType {
+public interface NameReferencableType<T> extends Type<T> {
 
   String name();
 

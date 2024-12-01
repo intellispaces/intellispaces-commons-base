@@ -4,7 +4,7 @@ package tech.intellispaces.entity.type;
  * Primitive type.
  */
 @SuppressWarnings("rawtypes")
-public interface PrimitiveType extends Type, EnumerableType {
+public interface PrimitiveType extends EnumerableType {
 
   /**
    * The primitive typename.

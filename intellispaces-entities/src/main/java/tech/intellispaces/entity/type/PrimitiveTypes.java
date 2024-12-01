@@ -9,8 +9,7 @@ import java.util.Map;
 /**
  * Primitive type provider.
  */
-@SuppressWarnings("rawtypes")
-public enum PrimitiveTypes implements PrimitiveType, ClassType {
+public enum PrimitiveTypes implements PrimitiveType {
 
   Boolean("boolean", boolean.class, java.lang.Boolean.class),
 
@@ -31,6 +30,7 @@ public enum PrimitiveTypes implements PrimitiveType, ClassType {
   private final String typename;
   private final Class<?> baseClass;
   private final Class<?> wrapperClass;
+  private final ClassType<?> classType;
 
   public static PrimitiveType get(String typename) {
     PrimitiveType primitiveType = VALUES.get(typename);
@@ -44,6 +44,7 @@ public enum PrimitiveTypes implements PrimitiveType, ClassType {
     this.typename = typename;
     this.baseClass = baseClass;
     this.wrapperClass = wrapperClass;
+    this.classType = new ClassTypeImpl<>(baseClass, List.of());
   }
 
   @Override
@@ -55,12 +56,6 @@ public enum PrimitiveTypes implements PrimitiveType, ClassType {
   public Class<?> wrapperClass() {
     return wrapperClass;
   }
-
-  @Override
-  public Class<?> baseClass() {
-    return baseClass;
-  }
-
 
   @Override
   public Type<?> baseType() {
@@ -124,7 +119,7 @@ public enum PrimitiveTypes implements PrimitiveType, ClassType {
 
   @Override
   public ClassType<?> asClassType() {
-    return this;
+    return classType;
   }
 
   private static final Map<String, PrimitiveType> VALUES = new HashMap<>();
