@@ -68,6 +68,11 @@ public enum PrimitiveTypes implements PrimitiveType {
   }
 
   @Override
+  public PrimitiveType get() {
+    return this;
+  }
+
+  @Override
   public boolean is(String name) {
     return this.name().equals(name);
   }

@@ -3,7 +3,7 @@ package tech.intellispaces.entity.reference;
 /**
  * Reference to something.
  *
- * @param <T> reference target type.
+ * @param <T> the reference target type.
  */
 public interface Reference<T> {
 
