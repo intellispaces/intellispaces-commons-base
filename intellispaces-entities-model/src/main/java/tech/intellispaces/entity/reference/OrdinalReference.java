@@ -13,4 +13,6 @@ public interface OrdinalReference<T> extends Reference<T> {
   int ordinal();
 
   boolean is(int ordinal);
+
+  boolean is(OrdinalReference<T> reference);
 }

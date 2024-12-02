@@ -29,7 +29,7 @@ public class PrimitiveTypesTest {
 
   @Test
   public void testIs_byName_whenBoolean() {
-    assertThat(PrimitiveTypes.Boolean.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Boolean.is((String) null)).isFalse();
     assertThat(PrimitiveTypes.Boolean.is("")).isFalse();
     assertThat(PrimitiveTypes.Boolean.is("Boolean")).isTrue();
     assertThat(PrimitiveTypes.Boolean.is("Char")).isFalse();
@@ -43,7 +43,7 @@ public class PrimitiveTypesTest {
 
   @Test
   public void testIs_byName_whenChar() {
-    assertThat(PrimitiveTypes.Char.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Char.is((String) null)).isFalse();
     assertThat(PrimitiveTypes.Char.is("")).isFalse();
     assertThat(PrimitiveTypes.Char.is("Boolean")).isFalse();
     assertThat(PrimitiveTypes.Char.is("Char")).isTrue();
@@ -57,7 +57,7 @@ public class PrimitiveTypesTest {
 
   @Test
   public void testIs_byName_whenByte() {
-    assertThat(PrimitiveTypes.Byte.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Byte.is((String) null)).isFalse();
     assertThat(PrimitiveTypes.Byte.is("")).isFalse();
     assertThat(PrimitiveTypes.Byte.is("Boolean")).isFalse();
     assertThat(PrimitiveTypes.Byte.is("Char")).isFalse();
@@ -71,7 +71,7 @@ public class PrimitiveTypesTest {
 
   @Test
   public void testIs_byName_whenShort() {
-    assertThat(PrimitiveTypes.Short.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Short.is((String) null)).isFalse();
     assertThat(PrimitiveTypes.Short.is("")).isFalse();
     assertThat(PrimitiveTypes.Short.is("Boolean")).isFalse();
     assertThat(PrimitiveTypes.Short.is("Char")).isFalse();
@@ -85,7 +85,7 @@ public class PrimitiveTypesTest {
 
   @Test
   public void testIs_byName_whenInt() {
-    assertThat(PrimitiveTypes.Int.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Int.is((String) null)).isFalse();
     assertThat(PrimitiveTypes.Int.is("")).isFalse();
     assertThat(PrimitiveTypes.Int.is("Boolean")).isFalse();
     assertThat(PrimitiveTypes.Int.is("Char")).isFalse();
@@ -99,7 +99,7 @@ public class PrimitiveTypesTest {
 
   @Test
   public void testIs_byName_whenLong() {
-    assertThat(PrimitiveTypes.Long.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Long.is((String) null)).isFalse();
     assertThat(PrimitiveTypes.Long.is("")).isFalse();
     assertThat(PrimitiveTypes.Long.is("Boolean")).isFalse();
     assertThat(PrimitiveTypes.Long.is("Char")).isFalse();
@@ -113,7 +113,7 @@ public class PrimitiveTypesTest {
 
   @Test
   public void testIs_byName_whenFloat() {
-    assertThat(PrimitiveTypes.Float.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Float.is((String) null)).isFalse();
     assertThat(PrimitiveTypes.Float.is("")).isFalse();
     assertThat(PrimitiveTypes.Float.is("Boolean")).isFalse();
     assertThat(PrimitiveTypes.Float.is("Char")).isFalse();
@@ -127,7 +127,7 @@ public class PrimitiveTypesTest {
 
   @Test
   public void testIs_byName_whenDouble() {
-    assertThat(PrimitiveTypes.Double.is(null)).isFalse();
+    assertThat(PrimitiveTypes.Double.is((String) null)).isFalse();
     assertThat(PrimitiveTypes.Double.is("")).isFalse();
     assertThat(PrimitiveTypes.Double.is("Boolean")).isFalse();
     assertThat(PrimitiveTypes.Double.is("Char")).isFalse();

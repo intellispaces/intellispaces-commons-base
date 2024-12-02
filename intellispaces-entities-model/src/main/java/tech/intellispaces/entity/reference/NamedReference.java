@@ -13,4 +13,6 @@ public interface NamedReference<T> extends Reference<T> {
   String name();
 
   boolean is(String name);
+
+  boolean is(NamedReference<T> reference);
 }

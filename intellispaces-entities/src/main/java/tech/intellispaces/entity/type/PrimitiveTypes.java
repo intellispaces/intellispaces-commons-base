@@ -1,6 +1,8 @@
 package tech.intellispaces.entity.type;
 
 import tech.intellispaces.entity.exception.UnexpectedExceptions;
+import tech.intellispaces.entity.reference.NamedReference;
+import tech.intellispaces.entity.reference.OrdinalReference;
 
 import java.util.HashMap;
 import java.util.List;
@@ -78,8 +80,18 @@ public enum PrimitiveTypes implements PrimitiveType {
   }
 
   @Override
+  public boolean is(NamedReference<PrimitiveType> reference) {
+    return this.is(reference.name());
+  }
+
+  @Override
   public boolean is(int ordinal) {
     return this.ordinal() == ordinal;
+  }
+
+  @Override
+  public boolean is(OrdinalReference<PrimitiveType> reference) {
+    return this.is(reference.ordinal());
   }
 
   @Override
