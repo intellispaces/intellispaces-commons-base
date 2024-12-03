@@ -1,4 +1,4 @@
-package tech.intellispaces.entity.reference;
+package tech.intellispaces.entity.entity;
 
 import org.junit.jupiter.api.Test;
 

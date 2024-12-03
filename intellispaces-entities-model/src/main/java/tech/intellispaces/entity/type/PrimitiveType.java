@@ -1,12 +1,12 @@
 package tech.intellispaces.entity.type;
 
-import tech.intellispaces.entity.reference.EnumerableReference;
+import tech.intellispaces.entity.entity.Enumerable;
 
 /**
- * Primitive type.
+ * The primitive type.
  */
 @SuppressWarnings("rawtypes")
-public interface PrimitiveType extends Type, EnumerableReference<PrimitiveType> {
+public interface PrimitiveType extends Type, Enumerable<PrimitiveType> {
 
   /**
    * The primitive typename.
