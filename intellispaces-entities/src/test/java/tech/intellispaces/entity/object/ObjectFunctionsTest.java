@@ -2,9 +2,6 @@ package tech.intellispaces.entity.object;
 
 import org.junit.jupiter.api.Test;
 import tech.intellispaces.entity.exception.UnexpectedException;
-import tech.intellispaces.entity.sample.ClassWithDefaultConstructor;
-import tech.intellispaces.entity.sample.ClassWithDefaultConstructorThatThrowException;
-import tech.intellispaces.entity.sample.ClassWithoutDefaultConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,28 +13,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * Tests for class {@link ObjectFunctions}.
  */
 public class ObjectFunctionsTest {
-
-  @Test
-  public void testNewInstance_whenHasDefaultConstructor() {
-    ClassWithDefaultConstructor instance = ObjectFunctions.newInstance(ClassWithDefaultConstructor.class);
-    assertThat(instance).isNotNull();
-  }
-
-  @Test
-  public void testNewInstance_whenHasNotDefaultConstructor() {
-    assertThatThrownBy(() -> ObjectFunctions.newInstance(ClassWithoutDefaultConstructor.class))
-        .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Class %s does not contain default constructor without parameters",
-            ClassWithoutDefaultConstructor.class.getCanonicalName());
-  }
-
-  @Test
-  public void testNewInstance_whenHasDefaultConstructorThatThrowException() {
-    assertThatThrownBy(() -> ObjectFunctions.newInstance(ClassWithDefaultConstructorThatThrowException.class))
-        .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Failed to create instance of the class %s",
-            ClassWithDefaultConstructorThatThrowException.class.getCanonicalName());
-  }
 
   @Test
   public void testCastToInt() {

@@ -2,7 +2,6 @@ package tech.intellispaces.entity.object;
 
 import tech.intellispaces.entity.exception.UnexpectedExceptions;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -13,20 +12,6 @@ import java.util.function.Supplier;
  * Object related functions.
  */
 public interface ObjectFunctions {
-
-  static <T> T newInstance(Class<T> aClass) {
-    Objects.requireNonNull(aClass);
-    try {
-      Constructor<T> constructor = aClass.getConstructor();
-      return constructor.newInstance();
-    } catch (NoSuchMethodException e) {
-      throw UnexpectedExceptions.withCauseAndMessage(e, "Class {0} does not contain default constructor " +
-          "without parameters", aClass.getCanonicalName());
-    } catch (Exception e) {
-      throw UnexpectedExceptions.withCauseAndMessage(e, "Failed to create instance of the class {0}",
-          aClass.getCanonicalName());
-    }
-  }
 
   static <T> int castToInt(T object) {
     if (object instanceof Long || object instanceof Float || object instanceof Double) {

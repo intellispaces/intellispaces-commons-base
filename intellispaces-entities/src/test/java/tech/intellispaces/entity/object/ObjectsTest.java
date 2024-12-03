@@ -1,44 +1,39 @@
 package tech.intellispaces.entity.object;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
+import tech.intellispaces.entity.exception.UnexpectedException;
 import tech.intellispaces.entity.sample.ClassWithDefaultConstructor;
+import tech.intellispaces.entity.sample.ClassWithDefaultConstructorThatThrowException;
+import tech.intellispaces.entity.sample.ClassWithoutDefaultConstructor;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mockStatic;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests for {@link Objects} class.
  */
 public class ObjectsTest {
-  private MockedStatic<ObjectFunctions> objectFunctions;
 
-  @BeforeEach
-  public void init() {
-    objectFunctions = mockStatic(ObjectFunctions.class);
-  }
-
-  @AfterEach
-  public void deinit() {
-    objectFunctions.close();
+  @Test
+  public void testGet_whenHasDefaultConstructor() {
+    ClassWithDefaultConstructor instance = Objects.get(ClassWithDefaultConstructor.class);
+    assertThat(instance).isNotNull();
   }
 
   @Test
-  public void testGet() {
-    // Given
-    var aClass = ClassWithDefaultConstructor.class;
-    var instance = new ClassWithDefaultConstructor();
+  public void testGet_whenHasNotDefaultConstructor() {
+    assertThatThrownBy(() -> Objects.get(ClassWithoutDefaultConstructor.class))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Class %s does not contain default constructor without parameters",
+            ClassWithoutDefaultConstructor.class.getCanonicalName());
+  }
 
-    objectFunctions.when(() -> ObjectFunctions.newInstance(aClass)).thenReturn(instance);
-
-    // When
-    ClassWithDefaultConstructor result = Objects.get(aClass);
-
-    // Then
-    objectFunctions.verify(() -> ObjectFunctions.newInstance(aClass));
-    assertThat(result).isSameAs(instance);
+  @Test
+  public void testGet_whenHasDefaultConstructorThatThrowException() {
+    assertThatThrownBy(() -> Objects.get(ClassWithDefaultConstructorThatThrowException.class))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Failed to create instance of the class %s",
+            ClassWithDefaultConstructorThatThrowException.class.getCanonicalName());
   }
 
   @Test
