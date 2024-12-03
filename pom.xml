@@ -10,20 +10,20 @@
     </parent>
 
     <groupId>tech.intellispaces.common</groupId>
-    <artifactId>intellispaces-entities-parent</artifactId>
+    <artifactId>intellispaces-general-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
 	<modules>
-        <module>intellispaces-entities-model</module>
-	    <module>intellispaces-entities</module>
+        <module>intellispaces-general-model</module>
+	    <module>intellispaces-general</module>
 	</modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>tech.intellispaces.common</groupId>
-                <artifactId>intellispaces-entities-model</artifactId>
+                <artifactId>intellispaces-general-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
