@@ -2,7 +2,7 @@ package tech.intellispaces.general.function;
 
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
-import tech.intellispaces.general.exception.AssumptionViolationException;
+import tech.intellispaces.general.exception.CheckedException;
 import tech.intellispaces.general.exception.WrappedException;
 import tech.intellispaces.general.sample.ThrowingFunctions;
 
@@ -24,7 +24,7 @@ public class ConsumersTest {
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(WrappedException.class)
-        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
+        .hasCauseExactlyInstanceOf(CheckedException.class);
   }
 
   @Test
@@ -47,7 +47,7 @@ public class ConsumersTest {
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(IllegalArgumentException.class)
-        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
+        .hasCauseExactlyInstanceOf(CheckedException.class);
   }
 
   @Test

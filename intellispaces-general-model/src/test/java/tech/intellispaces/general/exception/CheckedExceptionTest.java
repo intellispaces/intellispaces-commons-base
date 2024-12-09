@@ -5,20 +5,20 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AssumptionViolationException}.
+ * Tests for {@link CheckedException}.
  */
-public class AssumptionViolationExceptionTest {
+public class CheckedExceptionTest {
 
   @Test
   public void testInstantiation_whenDefault() {
-    AssumptionViolationException exception = new AssumptionViolationException();
+    CheckedException exception = new CheckedException();
     assertThat(exception.getCause()).isNull();
     assertThat(exception.getMessage()).isNull();
   }
 
   @Test
   public void testInstantiation_whenMessage() {
-    AssumptionViolationException exception = new AssumptionViolationException("Exception message");
+    CheckedException exception = new CheckedException("Exception message");
     assertThat(exception.getCause()).isNull();
     assertThat(exception.getMessage()).isEqualTo("Exception message");
   }
@@ -26,7 +26,7 @@ public class AssumptionViolationExceptionTest {
   @Test
   public void testInstantiation_whenCause() {
     Exception cause = new RuntimeException();
-    AssumptionViolationException exception = new AssumptionViolationException(cause);
+    CheckedException exception = new CheckedException(cause);
     assertThat(exception.getCause()).isSameAs(cause);
     assertThat(exception.getMessage()).isEqualTo(cause.toString());
   }
@@ -34,7 +34,7 @@ public class AssumptionViolationExceptionTest {
   @Test
   public void testInstantiation_whenCauseAndMessage() {
     Exception cause = new RuntimeException();
-    AssumptionViolationException exception = new AssumptionViolationException("Exception message", cause);
+    CheckedException exception = new CheckedException("Exception message", cause);
     assertThat(exception.getCause()).isSameAs(cause);
     assertThat(exception.getMessage()).isEqualTo("Exception message");
   }

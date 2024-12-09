@@ -1,8 +1,8 @@
 package tech.intellispaces.general.exception;
 
 /**
- * Unexpected assumption violation exception.<p/>
- *
+ * The unexpected exception.
+ * <p>
  * This is the parent class for any exceptions related to violations of assumptions that are not expected to be violated
  * on a particular method.
  */

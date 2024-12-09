@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AssumptionViolationExceptions} class.
+ * Tests for {@link CheckedExceptions} class.
  */
 public class AssumptionViolationExceptionsTest {
 
   @Test
   public void testWithCause() {
     var cause = new RuntimeException();
-    assertThat(AssumptionViolationExceptions.withCause(cause))
-        .isExactlyInstanceOf(AssumptionViolationException.class)
+    assertThat(CheckedExceptions.withCause(cause))
+        .isExactlyInstanceOf(CheckedException.class)
         .hasCause(cause)
         .hasMessage(null);
   }
@@ -21,8 +21,8 @@ public class AssumptionViolationExceptionsTest {
   @Test
   public void testWithMessage() {
     var message = "The message";
-    assertThat(AssumptionViolationExceptions.withMessage(message))
-        .isExactlyInstanceOf(AssumptionViolationException.class)
+    assertThat(CheckedExceptions.withMessage(message))
+        .isExactlyInstanceOf(CheckedException.class)
         .hasCause(null)
         .hasMessage(message);
   }
@@ -31,8 +31,8 @@ public class AssumptionViolationExceptionsTest {
   public void testWithCauseAndMessage() {
     var cause = new RuntimeException();
     var message = "The message";
-    assertThat(AssumptionViolationExceptions.withCauseAndMessage(cause, message))
-        .isExactlyInstanceOf(AssumptionViolationException.class)
+    assertThat(CheckedExceptions.withCauseAndMessage(cause, message))
+        .isExactlyInstanceOf(CheckedException.class)
         .hasCause(cause)
         .hasMessage(message);
   }
@@ -40,8 +40,8 @@ public class AssumptionViolationExceptionsTest {
   @Test
   public void testWithTemplateMessage() {
     var template = "The message '{0}'";
-    assertThat(AssumptionViolationExceptions.withMessage(template, "abc"))
-        .isExactlyInstanceOf(AssumptionViolationException.class)
+    assertThat(CheckedExceptions.withMessage(template, "abc"))
+        .isExactlyInstanceOf(CheckedException.class)
         .hasCause(null)
         .hasMessage("The message 'abc'");
   }
@@ -50,8 +50,8 @@ public class AssumptionViolationExceptionsTest {
   public void testWithCauseAndTemplateMessage() {
     var cause = new RuntimeException();
     var template = "The message '{0}'";
-    assertThat(AssumptionViolationExceptions.withCauseAndMessage(cause, template, "abc"))
-        .isExactlyInstanceOf(AssumptionViolationException.class)
+    assertThat(CheckedExceptions.withCauseAndMessage(cause, template, "abc"))
+        .isExactlyInstanceOf(CheckedException.class)
         .hasCause(cause)
         .hasMessage("The message 'abc'");
   }
@@ -59,8 +59,8 @@ public class AssumptionViolationExceptionsTest {
   @Test
   public void testWithFormattedMessage() {
     var template = "The message ''{0}''";
-    assertThat(AssumptionViolationExceptions.withFormattedMessage(template, "abc"))
-        .isExactlyInstanceOf(AssumptionViolationException.class)
+    assertThat(CheckedExceptions.withFormattedMessage(template, "abc"))
+        .isExactlyInstanceOf(CheckedException.class)
         .hasCause(null)
         .hasMessage("The message 'abc'");
   }
@@ -69,8 +69,8 @@ public class AssumptionViolationExceptionsTest {
   public void testWithCauseFormattedMessage() {
     var cause = new RuntimeException();
     var template = "The message ''{0}''";
-    assertThat(AssumptionViolationExceptions.withCauseAndFormattedMessage(cause, template, "abc"))
-        .isExactlyInstanceOf(AssumptionViolationException.class)
+    assertThat(CheckedExceptions.withCauseAndFormattedMessage(cause, template, "abc"))
+        .isExactlyInstanceOf(CheckedException.class)
         .hasCause(cause)
         .hasMessage("The message 'abc'");
   }

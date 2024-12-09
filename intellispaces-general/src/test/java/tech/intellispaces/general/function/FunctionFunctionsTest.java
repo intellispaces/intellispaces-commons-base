@@ -2,7 +2,7 @@ package tech.intellispaces.general.function;
 
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
-import tech.intellispaces.general.exception.AssumptionViolationException;
+import tech.intellispaces.general.exception.CheckedException;
 import tech.intellispaces.general.exception.UnexpectedException;
 import tech.intellispaces.general.exception.WrappedException;
 import tech.intellispaces.general.sample.ThrowingFunctions;
@@ -29,10 +29,10 @@ public class FunctionFunctionsTest {
         (s) -> s
           .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
           .toList(),
-        AssumptionViolationException.class);
+        CheckedException.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(AssumptionViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(CheckedException.class);
   }
 
   @Test
@@ -49,7 +49,7 @@ public class FunctionFunctionsTest {
         Exception.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(AssumptionViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(CheckedException.class);
   }
 
   @Test
@@ -67,17 +67,17 @@ public class FunctionFunctionsTest {
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(WrappedException.class)
-        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
+        .hasCauseExactlyInstanceOf(CheckedException.class);
   }
 
   @Test
   public void testApplyAndWrap_whenFunction() {
     // Given
-    ThrowingFunction<String, Integer, AssumptionViolationException> function1 = s -> 1;
-    ThrowingFunction<String, Integer, AssumptionViolationException> function2 = s -> {
-      throw new AssumptionViolationException();
+    ThrowingFunction<String, Integer, CheckedException> function1 = s -> 1;
+    ThrowingFunction<String, Integer, CheckedException> function2 = s -> {
+      throw new CheckedException();
     };
-    ThrowingFunction<String, Integer, AssumptionViolationException> function3 = s -> {
+    ThrowingFunction<String, Integer, CheckedException> function3 = s -> {
       throw new UnexpectedException("Something went wrong");
     };
 
@@ -85,7 +85,7 @@ public class FunctionFunctionsTest {
     assertThat(FunctionFunctions.applyAndWrap("", function1)).isEqualTo(1);
     assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", function2))
         .isExactlyInstanceOf(WrappedException.class)
-        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
+        .hasCauseExactlyInstanceOf(CheckedException.class);
     assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", function3))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
@@ -94,11 +94,11 @@ public class FunctionFunctionsTest {
   @Test
   public void testApplyAndWrap_whenBiFunction() {
     // Given
-    ThrowingBiFunction<String, String, Integer, AssumptionViolationException> function1 = (s1, s2) -> 1;
-    ThrowingBiFunction<String, String, Integer, AssumptionViolationException> function2 = (s1, s2) -> {
-      throw new AssumptionViolationException();
+    ThrowingBiFunction<String, String, Integer, CheckedException> function1 = (s1, s2) -> 1;
+    ThrowingBiFunction<String, String, Integer, CheckedException> function2 = (s1, s2) -> {
+      throw new CheckedException();
     };
-    ThrowingBiFunction<String, String, Integer, AssumptionViolationException> function3 = (s1, s2) -> {
+    ThrowingBiFunction<String, String, Integer, CheckedException> function3 = (s1, s2) -> {
       throw new UnexpectedException("Something went wrong");
     };
 
@@ -106,7 +106,7 @@ public class FunctionFunctionsTest {
     assertThat(FunctionFunctions.applyAndWrap("", "", function1)).isEqualTo(1);
     assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", function2))
         .isExactlyInstanceOf(WrappedException.class)
-        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
+        .hasCauseExactlyInstanceOf(CheckedException.class);
     assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", function3))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
@@ -115,11 +115,11 @@ public class FunctionFunctionsTest {
   @Test
   public void testApplyAndWrap_whenTriFunction() {
     // Given
-    ThrowingTriFunction<String, String, String, Integer, AssumptionViolationException> function1 = (s1, s2, s3) -> 1;
-    ThrowingTriFunction<String, String, String, Integer, AssumptionViolationException> function2 = (s1, s2, s3) -> {
-      throw new AssumptionViolationException();
+    ThrowingTriFunction<String, String, String, Integer, CheckedException> function1 = (s1, s2, s3) -> 1;
+    ThrowingTriFunction<String, String, String, Integer, CheckedException> function2 = (s1, s2, s3) -> {
+      throw new CheckedException();
     };
-    ThrowingTriFunction<String, String, String, Integer, AssumptionViolationException> function3 = (s1, s2, s3) -> {
+    ThrowingTriFunction<String, String, String, Integer, CheckedException> function3 = (s1, s2, s3) -> {
       throw new UnexpectedException("Something went wrong");
     };
 
@@ -127,7 +127,7 @@ public class FunctionFunctionsTest {
     assertThat(FunctionFunctions.applyAndWrap("", "", "", function1)).isEqualTo(1);
     assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", "", function2))
         .isExactlyInstanceOf(WrappedException.class)
-        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
+        .hasCauseExactlyInstanceOf(CheckedException.class);
     assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", "", function3))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
@@ -136,11 +136,11 @@ public class FunctionFunctionsTest {
   @Test
   public void testApplyAndWrap_whenQuadriFunction() {
     // Given
-    ThrowingQuadriFunction<String, String, String, String, Integer, AssumptionViolationException> function1 = (s1, s2, s3, s4) -> 1;
-    ThrowingQuadriFunction<String, String, String, String, Integer, AssumptionViolationException> function2 = (s1, s2, s3, s4) -> {
-      throw new AssumptionViolationException();
+    ThrowingQuadriFunction<String, String, String, String, Integer, CheckedException> function1 = (s1, s2, s3, s4) -> 1;
+    ThrowingQuadriFunction<String, String, String, String, Integer, CheckedException> function2 = (s1, s2, s3, s4) -> {
+      throw new CheckedException();
     };
-    ThrowingQuadriFunction<String, String, String, String, Integer, AssumptionViolationException> function3 = (s1, s2, s3, s4) -> {
+    ThrowingQuadriFunction<String, String, String, String, Integer, CheckedException> function3 = (s1, s2, s3, s4) -> {
       throw new UnexpectedException("Something went wrong");
     };
 
@@ -148,7 +148,7 @@ public class FunctionFunctionsTest {
     assertThat(FunctionFunctions.applyAndWrap("", "", "", "", function1)).isEqualTo(1);
     assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", "", "", function2))
         .isExactlyInstanceOf(WrappedException.class)
-        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
+        .hasCauseExactlyInstanceOf(CheckedException.class);
     assertThatThrownBy(() -> FunctionFunctions.applyAndWrap("", "", "", "", function3))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasNoCause();
@@ -161,10 +161,10 @@ public class FunctionFunctionsTest {
         () -> Stream.of("a", "", "b")
             .map(Functions.wrapThrowingFunction(ThrowingFunctions::throwingCheckedFunction))
             .toList(),
-        AssumptionViolationException.class);
+        CheckedException.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(AssumptionViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(CheckedException.class);
   }
 
   @Test
@@ -177,7 +177,7 @@ public class FunctionFunctionsTest {
         Exception.class);
 
     // Then
-    assertThatThrownBy(callable).isExactlyInstanceOf(AssumptionViolationException.class);
+    assertThatThrownBy(callable).isExactlyInstanceOf(CheckedException.class);
   }
 
   @Test
@@ -191,6 +191,6 @@ public class FunctionFunctionsTest {
 
     // Then
     assertThatThrownBy(callable).isExactlyInstanceOf(WrappedException.class)
-        .hasCauseExactlyInstanceOf(AssumptionViolationException.class);
+        .hasCauseExactlyInstanceOf(CheckedException.class);
   }
 }
