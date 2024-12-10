@@ -219,23 +219,23 @@ public class ClassFunctionsTest {
   }
 
   @Test
-  public void testIsStandardClass() {
-    assertThat(ClassFunctions.isStandardClass(Object.class)).isTrue();
-    assertThat(ClassFunctions.isStandardClass(String.class)).isTrue();
-    assertThat(ClassFunctions.isStandardClass(Integer.class)).isTrue();
+  public void testIsLanguageClass() {
+    assertThat(ClassFunctions.isLanguageClass(Object.class)).isTrue();
+    assertThat(ClassFunctions.isLanguageClass(String.class)).isTrue();
+    assertThat(ClassFunctions.isLanguageClass(Integer.class)).isTrue();
 
-    assertThat(ClassFunctions.isStandardClass(Stream.class)).isFalse();
-    assertThat(ClassFunctions.isStandardClass(Annotation.class)).isFalse();
+    assertThat(ClassFunctions.isLanguageClass(Stream.class)).isFalse();
+    assertThat(ClassFunctions.isLanguageClass(Annotation.class)).isFalse();
   }
 
   @Test
-  public void testIsStandardClassByClassName() {
-    assertThat(ClassFunctions.isStandardClass(Object.class.getCanonicalName())).isTrue();
-    assertThat(ClassFunctions.isStandardClass(String.class.getCanonicalName())).isTrue();
-    assertThat(ClassFunctions.isStandardClass(Integer.class.getCanonicalName())).isTrue();
+  public void testIsLanguageClassByClassName() {
+    assertThat(ClassFunctions.isLanguageClass(Object.class.getCanonicalName())).isTrue();
+    assertThat(ClassFunctions.isLanguageClass(String.class.getCanonicalName())).isTrue();
+    assertThat(ClassFunctions.isLanguageClass(Integer.class.getCanonicalName())).isTrue();
 
-    assertThat(ClassFunctions.isStandardClass(Stream.class.getCanonicalName())).isFalse();
-    assertThat(ClassFunctions.isStandardClass(Annotation.class.getCanonicalName())).isFalse();
+    assertThat(ClassFunctions.isLanguageClass(Stream.class.getCanonicalName())).isFalse();
+    assertThat(ClassFunctions.isLanguageClass(Annotation.class.getCanonicalName())).isFalse();
   }
 
   @Test
