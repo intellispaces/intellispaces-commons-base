@@ -158,12 +158,12 @@ public interface StringFunctions {
                 sb.append(params[paramInd]);
               } else {
                 throw UnexpectedExceptions.withMessage(
-                    "Could not resolve string template. Parameter index {0} is out of range", value
+                    "Could not resolve string template '{0}'. Parameter index {1} is out of range", template, value
                 );
               }
             } catch (NumberFormatException e) {
               throw UnexpectedExceptions.withCauseAndMessage(
-                  e, "Could not resolve string template. Invalid parameter index '{0}'", value);
+                  e, "Could not resolve string template '{0}'. Invalid parameter index '{1}'", template, value);
             }
             break;
           }
@@ -172,7 +172,7 @@ public interface StringFunctions {
       }
       if (openBrace) {
         throw UnexpectedExceptions.withMessage(
-            "Could not resolve string template. There is no paired closing curly brace"
+            "Could not resolve string template '{0}'. There is no paired closing curly brace", template
         );
       }
     }

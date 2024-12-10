@@ -161,18 +161,18 @@ public class StringFunctionsTest {
 
     assertThatThrownBy(() -> StringFunctions.resolveTemplate("{0}"))
         .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Could not resolve string template. Parameter index 0 is out of range");
+        .hasMessage("Could not resolve string template '{0}'. Parameter index 0 is out of range");
     assertThatThrownBy(() -> StringFunctions.resolveTemplate("{-1}"))
         .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Could not resolve string template. Parameter index -1 is out of range");
+        .hasMessage("Could not resolve string template '{-1}'. Parameter index -1 is out of range");
     assertThatThrownBy(() -> StringFunctions.resolveTemplate("{a}", 1))
         .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Could not resolve string template. Invalid parameter index 'a'");
+        .hasMessage("Could not resolve string template '{a}'. Invalid parameter index 'a'");
     assertThatThrownBy(() -> StringFunctions.resolveTemplate("{", 1))
         .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Could not resolve string template. There is no paired closing curly brace");
+        .hasMessage("Could not resolve string template '{'. There is no paired closing curly brace");
     assertThatThrownBy(() -> StringFunctions.resolveTemplate("{0}{abc", 1))
         .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Could not resolve string template. There is no paired closing curly brace");
+        .hasMessage("Could not resolve string template '{0}{abc'. There is no paired closing curly brace");
   }
 }
