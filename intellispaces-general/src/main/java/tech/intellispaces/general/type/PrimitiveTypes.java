@@ -1,7 +1,7 @@
 package tech.intellispaces.general.type;
 
-import tech.intellispaces.general.exception.UnexpectedExceptions;
 import tech.intellispaces.general.entity.Enumeration;
+import tech.intellispaces.general.exception.UnexpectedExceptions;
 
 import java.util.HashMap;
 import java.util.List;

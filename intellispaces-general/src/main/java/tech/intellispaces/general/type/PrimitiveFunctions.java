@@ -5,6 +5,15 @@ package tech.intellispaces.general.type;
  */
 public interface PrimitiveFunctions {
 
+  static boolean isPrimitiveTypename(String typename) {
+    for (var type : PrimitiveTypes.values()) {
+      if (type.typename().equals(typename)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   static int booleanToInt(boolean value) {
     return value ? 1 : 0;
   }
