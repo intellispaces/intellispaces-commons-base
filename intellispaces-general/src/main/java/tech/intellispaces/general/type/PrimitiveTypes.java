@@ -34,7 +34,7 @@ public enum PrimitiveTypes implements PrimitiveType, Enumeration<PrimitiveType> 
   private final ClassType<?> classType;
 
   public static PrimitiveType get(String typename) {
-    PrimitiveType primitiveType = VALUES.get(typename);
+    PrimitiveType primitiveType = PRIMITIVES.get(typename);
     if (primitiveType == null) {
       throw UnexpectedExceptions.withMessage("Not primitive typename: {0}", typename);
     }
@@ -66,6 +66,10 @@ public enum PrimitiveTypes implements PrimitiveType, Enumeration<PrimitiveType> 
   @Override
   public List<Type<?>> qualifierTypes() {
     return List.of();
+  }
+
+  public static PrimitiveTypes from(PrimitiveType value) {
+    return VALUES[value.ordinal()];
   }
 
   @Override
@@ -113,15 +117,17 @@ public enum PrimitiveTypes implements PrimitiveType, Enumeration<PrimitiveType> 
     return classType;
   }
 
-  private static final Map<String, PrimitiveType> VALUES = new HashMap<>();
+  private static final PrimitiveTypes[] VALUES = values();
+
+  private static final Map<String, PrimitiveType> PRIMITIVES = new HashMap<>();
   static {
-    VALUES.put("boolean", Boolean);
-    VALUES.put("char", Char);
-    VALUES.put("byte", Byte);
-    VALUES.put("short", Short);
-    VALUES.put("long", Long);
-    VALUES.put("int", Int);
-    VALUES.put("float", Float);
-    VALUES.put("double", Double);
+    PRIMITIVES.put("boolean", Boolean);
+    PRIMITIVES.put("char", Char);
+    PRIMITIVES.put("byte", Byte);
+    PRIMITIVES.put("short", Short);
+    PRIMITIVES.put("long", Long);
+    PRIMITIVES.put("int", Int);
+    PRIMITIVES.put("float", Float);
+    PRIMITIVES.put("double", Double);
   }
 }

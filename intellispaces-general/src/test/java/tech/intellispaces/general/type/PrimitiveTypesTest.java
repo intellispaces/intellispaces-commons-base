@@ -12,6 +12,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class PrimitiveTypesTest {
 
   @Test
+  public void testOrdinal() {
+    assertThat(PrimitiveTypes.Boolean.ordinal()).isEqualTo(0);
+    assertThat(PrimitiveTypes.Char.ordinal()).isEqualTo(1);
+    assertThat(PrimitiveTypes.Byte.ordinal()).isEqualTo(2);
+    assertThat(PrimitiveTypes.Short.ordinal()).isEqualTo(3);
+    assertThat(PrimitiveTypes.Int.ordinal()).isEqualTo(4);
+    assertThat(PrimitiveTypes.Long.ordinal()).isEqualTo(5);
+    assertThat(PrimitiveTypes.Float.ordinal()).isEqualTo(6);
+    assertThat(PrimitiveTypes.Double.ordinal()).isEqualTo(7);
+  }
+
+  @Test
   public void testGet() {
     assertThat(PrimitiveTypes.get("boolean")).isSameAs(PrimitiveTypes.Boolean);
     assertThat(PrimitiveTypes.get("char")).isSameAs(PrimitiveTypes.Char);
@@ -25,6 +37,51 @@ public class PrimitiveTypesTest {
     assertThatThrownBy(() -> PrimitiveTypes.get("String"))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Not primitive typename: String");
+  }
+
+  @Test
+  public void testFrom() {
+    assertThat(PrimitiveTypes.from(PrimitiveTypes.Boolean)).isSameAs(PrimitiveTypes.Boolean);
+    assertThat(PrimitiveTypes.from(PrimitiveTypes.Char)).isSameAs(PrimitiveTypes.Char);
+    assertThat(PrimitiveTypes.from(PrimitiveTypes.Byte)).isSameAs(PrimitiveTypes.Byte);
+    assertThat(PrimitiveTypes.from(PrimitiveTypes.Short)).isSameAs(PrimitiveTypes.Short);
+    assertThat(PrimitiveTypes.from(PrimitiveTypes.Int)).isSameAs(PrimitiveTypes.Int);
+    assertThat(PrimitiveTypes.from(PrimitiveTypes.Long)).isSameAs(PrimitiveTypes.Long);
+    assertThat(PrimitiveTypes.from(PrimitiveTypes.Float)).isSameAs(PrimitiveTypes.Float);
+    assertThat(PrimitiveTypes.from(PrimitiveTypes.Double)).isSameAs(PrimitiveTypes.Double);
+  }
+
+  @Test
+  public void testIs() {
+    assertThat(PrimitiveTypes.Boolean.is(PrimitiveTypes.Boolean)).isTrue();
+    assertThat(PrimitiveTypes.Char.is(PrimitiveTypes.Char)).isTrue();
+    assertThat(PrimitiveTypes.Byte.is(PrimitiveTypes.Byte)).isTrue();
+    assertThat(PrimitiveTypes.Short.is(PrimitiveTypes.Short)).isTrue();
+    assertThat(PrimitiveTypes.Int.is(PrimitiveTypes.Int)).isTrue();
+    assertThat(PrimitiveTypes.Long.is(PrimitiveTypes.Long)).isTrue();
+    assertThat(PrimitiveTypes.Float.is(PrimitiveTypes.Float)).isTrue();
+    assertThat(PrimitiveTypes.Double.is(PrimitiveTypes.Double)).isTrue();
+  }
+
+  @Test
+  public void testIsNot() {
+    assertThat(PrimitiveTypes.Boolean.isNot(PrimitiveTypes.Boolean)).isFalse();
+    assertThat(PrimitiveTypes.Char.isNot(PrimitiveTypes.Char)).isFalse();
+    assertThat(PrimitiveTypes.Byte.isNot(PrimitiveTypes.Byte)).isFalse();
+    assertThat(PrimitiveTypes.Short.isNot(PrimitiveTypes.Short)).isFalse();
+    assertThat(PrimitiveTypes.Int.isNot(PrimitiveTypes.Int)).isFalse();
+    assertThat(PrimitiveTypes.Long.isNot(PrimitiveTypes.Long)).isFalse();
+    assertThat(PrimitiveTypes.Float.isNot(PrimitiveTypes.Float)).isFalse();
+    assertThat(PrimitiveTypes.Double.isNot(PrimitiveTypes.Double)).isFalse();
+
+    assertThat(PrimitiveTypes.Boolean.isNot(PrimitiveTypes.Char)).isTrue();
+    assertThat(PrimitiveTypes.Char.isNot(PrimitiveTypes.Boolean)).isTrue();
+    assertThat(PrimitiveTypes.Byte.isNot(PrimitiveTypes.Char)).isTrue();
+    assertThat(PrimitiveTypes.Short.isNot(PrimitiveTypes.Int)).isTrue();
+    assertThat(PrimitiveTypes.Int.isNot(PrimitiveTypes.Short)).isTrue();
+    assertThat(PrimitiveTypes.Long.isNot(PrimitiveTypes.Int)).isTrue();
+    assertThat(PrimitiveTypes.Float.isNot(PrimitiveTypes.Double)).isTrue();
+    assertThat(PrimitiveTypes.Double.isNot(PrimitiveTypes.Float)).isTrue();
   }
 
   @Test

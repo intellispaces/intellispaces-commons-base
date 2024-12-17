@@ -20,4 +20,8 @@ public interface Enumeration<T> extends Enumerable<T> {
   default boolean is(Enumerable<T> enumerable) {
     return this.is(enumerable.name());
   }
+
+  default boolean isNot(Enumerable<T> enumerable) {
+    return !is(enumerable);
+  }
 }
