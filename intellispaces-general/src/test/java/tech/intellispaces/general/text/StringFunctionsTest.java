@@ -50,6 +50,42 @@ public class StringFunctionsTest {
   }
 
   @Test
+  public void testJoin_whenTwoStrings() {
+    assertThat(StringFunctions.join(null, null, null)).isNull();
+    assertThat(StringFunctions.join(null, null, "")).isNull();
+
+    assertThat(StringFunctions.join("a", null, ".")).isEqualTo("a");
+    assertThat(StringFunctions.join("a", "", ".")).isEqualTo("a");
+
+    assertThat(StringFunctions.join(null, "b", ".")).isEqualTo("b");
+    assertThat(StringFunctions.join("", "b", ".")).isEqualTo("b");
+
+    assertThat(StringFunctions.join("a", "b", ".")).isEqualTo("a.b");
+    assertThat(StringFunctions.join("a", "b", null)).isEqualTo("anullb");
+  }
+
+  @Test
+  public void testJoin_whenThreeStrings() {
+    assertThat(StringFunctions.join(null, null, null, null)).isNull();
+    assertThat(StringFunctions.join(null, null, null, "")).isNull();
+
+    assertThat(StringFunctions.join("a", null, null, ".")).isEqualTo("a");
+    assertThat(StringFunctions.join("a", "", "", ".")).isEqualTo("a");
+
+    assertThat(StringFunctions.join(null, "b", null, ".")).isEqualTo("b");
+    assertThat(StringFunctions.join("", "b", "", ".")).isEqualTo("b");
+
+    assertThat(StringFunctions.join(null, null, "c", ".")).isEqualTo("c");
+    assertThat(StringFunctions.join("", "", "c", ".")).isEqualTo("c");
+
+    assertThat(StringFunctions.join("a", "b", null, ".")).isEqualTo("a.b");
+    assertThat(StringFunctions.join("a", "b", "", ".")).isEqualTo("a.b");
+
+    assertThat(StringFunctions.join("a", "b", "c", ".")).isEqualTo("a.b.c");
+    assertThat(StringFunctions.join("a", "b", "c", null)).isEqualTo("anullbnullc");
+  }
+
+  @Test
   public void testNumberSubstrings() {
     assertThat(StringFunctions.numberSubstrings(null, null)).isEqualTo(0);
     assertThat(StringFunctions.numberSubstrings("abc", "a")).isEqualTo(1);

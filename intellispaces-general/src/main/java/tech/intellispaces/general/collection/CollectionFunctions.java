@@ -1,5 +1,7 @@
 package tech.intellispaces.general.collection;
 
+import tech.intellispaces.general.function.ThrowingFunction;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -100,5 +102,18 @@ public interface CollectionFunctions {
       }
     }
     return false;
+  }
+
+  static <E1, E2, E extends Exception> List<E2> mapEach(
+      Collection<E1> source, ThrowingFunction<E1, E2, E> mapper
+  ) throws E {
+    if (source == null) {
+      return null;
+    }
+    var result = new ArrayList<E2>(source.size());
+    for (E1 e1 : source) {
+      result.add(mapper.applyThrows(e1));
+    }
+    return result;
   }
 }

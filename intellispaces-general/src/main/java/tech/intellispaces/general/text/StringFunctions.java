@@ -34,6 +34,35 @@ public interface StringFunctions {
     return string.substring(0, 1).toLowerCase() + string.substring(1);
   }
 
+  static String join(String first, String second, String separator) {
+    if (first == null && second == null) {
+      return null;
+    }
+    if (isNullOrBlank(first)) {
+      return second;
+    }
+    if (isNullOrBlank(second)) {
+      return first;
+    }
+    return first + separator + second;
+  }
+
+  static String join(String first, String second, String third, String separator) {
+    if (first == null && second == null && third == null) {
+      return null;
+    }
+    if (isNullOrBlank(first)) {
+      return join(second, third, separator);
+    }
+    if (isNullOrBlank(second)) {
+      return join(first, third, separator);
+    }
+    if (isNullOrBlank(third)) {
+      return join(first, second, separator);
+    }
+    return first + separator + second + separator + third;
+  }
+
   static int numberSubstrings(String string, String subString) {
     if (string == null || subString == null) {
       return 0;
