@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * String related functions.
@@ -61,6 +62,18 @@ public interface StringFunctions {
       return join(first, second, separator);
     }
     return first + separator + second + separator + third;
+  }
+
+  static List<String> splitAndTrim(String string, String separator) {
+    if (string == null) {
+      return null;
+    }
+    if (separator == null) {
+      return List.of(string);
+    }
+    return Arrays.stream(string.split(separator))
+        .map(String::trim)
+        .toList();
   }
 
   static int numberSubstrings(String string, String subString) {

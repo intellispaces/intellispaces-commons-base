@@ -86,6 +86,15 @@ public class StringFunctionsTest {
   }
 
   @Test
+  public void testSplitAndTrim() {
+    assertThat(StringFunctions.splitAndTrim(null, ",")).isNull();
+    assertThat(StringFunctions.splitAndTrim("a", null)).containsExactly("a");
+    assertThat(StringFunctions.splitAndTrim("a", "")).containsExactly("a");
+    assertThat(StringFunctions.splitAndTrim("a,b", ",")).containsExactly("a", "b");
+    assertThat(StringFunctions.splitAndTrim("a ,\tb", ",")).containsExactly("a", "b");
+  }
+
+  @Test
   public void testNumberSubstrings() {
     assertThat(StringFunctions.numberSubstrings(null, null)).isEqualTo(0);
     assertThat(StringFunctions.numberSubstrings("abc", "a")).isEqualTo(1);

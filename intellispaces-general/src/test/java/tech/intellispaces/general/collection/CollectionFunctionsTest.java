@@ -1,8 +1,8 @@
 package tech.intellispaces.general.collection;
 
-import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import tech.intellispaces.general.function.ThrowingBiFunction;
 import tech.intellispaces.general.function.ThrowingFunction;
 
 import java.io.ByteArrayInputStream;
@@ -46,7 +46,7 @@ public class CollectionFunctionsTest {
   }
 
   @Test
-  public void testMapEach() throws Exception {
+  public void testMapEach_whenThrowingFunction() throws Exception {
     ThrowingFunction<InputStream, Integer, IOException> function = InputStream::read;
 
     assertThat(CollectionFunctions.mapEach(null, function)).isNull();
@@ -61,9 +61,24 @@ public class CollectionFunctionsTest {
         throw new IOException();
       }
     }) {
-      ThrowableAssert.ThrowingCallable callable = () -> CollectionFunctions.mapEach(List.of(is3), function);
-      assertThatThrownBy(callable)
+      assertThatThrownBy(() -> CollectionFunctions.mapEach(List.of(is3), function))
           .isInstanceOf(IOException.class);
+    }
+  }
+
+  @Test
+  public void testMapEach_whenThrowingBiFunction() throws Exception {
+    ThrowingBiFunction<String, Integer, String, Exception> function = (String s, Integer index) -> {
+      if (s.isEmpty()) {
+        throw new Exception("Empty stream");
       }
+      return s + index;
+    };
+
+    assertThat(CollectionFunctions.mapEach(null, function)).isNull();
+    assertThat(CollectionFunctions.mapEach(List.of("a", "b"), function)).containsExactly("a0", "b1");
+    assertThatThrownBy(() -> CollectionFunctions.mapEach(List.of("a", ""), function))
+        .isInstanceOf(Exception.class)
+        .hasMessage("Empty stream");
   }
 }
