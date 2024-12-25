@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -80,5 +81,11 @@ public class CollectionFunctionsTest {
     assertThatThrownBy(() -> CollectionFunctions.mapEach(List.of("a", ""), function))
         .isInstanceOf(Exception.class)
         .hasMessage("Empty stream");
+  }
+
+  @Test
+  public void testToList_whenEnumeration() {
+    assertThat(CollectionFunctions.toList(null)).isNull();
+    assertThat(CollectionFunctions.toList(new StringTokenizer("a b c"))).containsExactly("a", "b", "c");
   }
 }

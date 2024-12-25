@@ -6,8 +6,12 @@ import tech.intellispaces.general.exception.UnexpectedException;
 import tech.intellispaces.general.exception.UnexpectedExceptions;
 import tech.intellispaces.general.stream.StreamFunctions;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -120,6 +124,21 @@ public class ResourceFunctions {
       LOG.error("Error reading resource by name {}", name, e);
       return Optional.empty();
     }
+  }
+
+  public static String readResourceAsString(URL url) throws IOException {
+    if (url == null) {
+      return null;
+    }
+    var sb = new StringBuilder();
+    URLConnection connection = url.openConnection();
+    try (var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+      String str;
+      while ((str = reader.readLine()) != null) {
+        sb.append(str);
+      }
+    }
+    return sb.toString();
   }
 
   private ResourceFunctions() {}

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
 
@@ -130,5 +131,16 @@ public interface CollectionFunctions {
       result.add(mapper.applyThrows(e1, index++));
     }
     return result;
+  }
+
+  static <E> List<E> toList(Enumeration<E> enumeration) {
+    if (enumeration == null) {
+      return null;
+    }
+    List<E> list = new ArrayList<>();
+    while (enumeration.hasMoreElements()) {
+      list.add(enumeration.nextElement());
+    }
+    return list;
   }
 }

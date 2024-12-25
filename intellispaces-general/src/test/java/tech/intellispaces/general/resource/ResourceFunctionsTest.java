@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import tech.intellispaces.general.exception.UnexpectedException;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,16 +24,26 @@ public class ResourceFunctionsTest {
   }
 
   @Test
-  public void testReadResourceAsString_whenResourceExists() throws Exception {
+  public void testReadResourceAsString_whenClassAndName_andResourceExists() throws Exception {
     Optional<String> resource = ResourceFunctions.readResourceAsString(ResourceFunctionsTest.class, "/resource.txt");
     assertThat(resource).isPresent();
     assertThat(resource.get()).isEqualTo("The resource sample.");
   }
 
   @Test
-  public void testReadResourceAsString_whenResourceNotExists() throws Exception {
+  public void testReadResourceAsString_whenClassAndName_andResourceNotExists() throws Exception {
     Optional<String> resource = ResourceFunctions.readResourceAsString(ResourceFunctionsTest.class, "/nonExistentResource.txt");
     assertThat(resource).isEmpty();
+  }
+
+  @Test
+  public void testReadResourceAsString_whenUrl_andResourceExists() throws Exception {
+    assertThat(ResourceFunctions.readResourceAsString(null)).isNull();
+
+    var url = this.getClass().getResource("/resource.txt");
+    String resource = ResourceFunctions.readResourceAsString(url);
+    assertThat(resource).isNotNull();
+    assertThat(resource).isEqualTo("The resource sample.");
   }
 
   @Test
