@@ -1,6 +1,7 @@
 package tech.intellispaces.general.collection;
 
 import tech.intellispaces.general.function.ThrowingBiFunction;
+import tech.intellispaces.general.function.ThrowingConsumer;
 import tech.intellispaces.general.function.ThrowingFunction;
 
 import java.util.ArrayList;
@@ -106,9 +107,9 @@ public interface CollectionFunctions {
     return false;
   }
 
-  static <E1, E2, E extends Exception> List<E2> mapEach(
-      Collection<E1> source, ThrowingFunction<E1, E2, E> mapper
-  ) throws E {
+  static <E1, E2, Ex extends Exception> List<E2> mapEach(
+      Collection<E1> source, ThrowingFunction<E1, E2, Ex> mapper
+  ) throws Ex {
     if (source == null) {
       return null;
     }
@@ -119,9 +120,9 @@ public interface CollectionFunctions {
     return result;
   }
 
-  static <E1, E2, E extends Exception> List<E2> mapEach(
-      Collection<E1> source, ThrowingBiFunction<E1, Integer, E2, E> mapper
-  ) throws E {
+  static <E1, E2, Ex extends Exception> List<E2> mapEach(
+      Collection<E1> source, ThrowingBiFunction<E1, Integer, E2, Ex> mapper
+  ) throws Ex {
     if (source == null) {
       return null;
     }
@@ -131,6 +132,17 @@ public interface CollectionFunctions {
       result.add(mapper.applyThrows(e1, index++));
     }
     return result;
+  }
+
+  static <E, Ex extends Exception> void forEach(
+      Collection<E> collection, ThrowingConsumer<E, Ex> consumer
+  ) throws Ex {
+    if (collection == null) {
+      return;
+    }
+    for (E e : collection) {
+      consumer.acceptThrows(e);
+    }
   }
 
   static <E> List<E> toList(Enumeration<E> enumeration) {

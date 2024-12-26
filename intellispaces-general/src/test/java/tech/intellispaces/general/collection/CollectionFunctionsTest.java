@@ -3,6 +3,7 @@ package tech.intellispaces.general.collection;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import tech.intellispaces.general.function.ThrowingBiFunction;
+import tech.intellispaces.general.function.ThrowingConsumer;
 import tech.intellispaces.general.function.ThrowingFunction;
 
 import java.io.ByteArrayInputStream;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
@@ -81,6 +83,20 @@ public class CollectionFunctionsTest {
     assertThatThrownBy(() -> CollectionFunctions.mapEach(List.of("a", ""), function))
         .isInstanceOf(Exception.class)
         .hasMessage("Empty stream");
+  }
+
+  @Test
+  public void testForEach() {
+    ThrowingConsumer<String, Exception> consumer = (String string) -> {
+      if (string.isEmpty()) {
+        throw new Exception("Empty string");
+      }
+    };
+
+    assertThatCode(() -> CollectionFunctions.forEach(null, consumer)).doesNotThrowAnyException();
+    assertThatThrownBy(() -> CollectionFunctions.forEach(List.of("", "a"), consumer))
+        .isInstanceOf(Exception.class)
+        .hasMessage("Empty string");
   }
 
   @Test
