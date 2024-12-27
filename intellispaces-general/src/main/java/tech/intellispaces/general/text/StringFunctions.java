@@ -93,6 +93,27 @@ public interface StringFunctions {
     }
   }
 
+  static String replaceHeadOrElseThrow(String source, String head, String replacement) {
+    if (source == null) {
+      throw UnexpectedExceptions.withMessage("Source string is null");
+    }
+    if (head == null) {
+      throw UnexpectedExceptions.withMessage("Substring is null");
+    }
+    if (replacement == null) {
+      replacement = "";
+    }
+
+    if (!source.startsWith(head)) {
+      throw UnexpectedExceptions.withMessage("Source string '{0}' does not contain head '{1}'", source, head);
+    }
+    return replacement + source.substring(head.length());
+  }
+
+  static String removeHeadOrElseThrow(String source, String head) {
+    return replaceHeadOrElseThrow(source, head, "");
+  }
+
   static String replaceLast(String string, String target, String replacement) {
     if (string == null) {
       return null;

@@ -106,6 +106,41 @@ public class StringFunctionsTest {
   }
 
   @Test
+  public void testReplaceHeadOrElseThrow() {
+    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "a", "d")).isEqualTo("dbc");
+    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", "def")).isEqualTo("defc");
+    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", "")).isEqualTo("c");
+    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", null)).isEqualTo("c");
+
+    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow(null, "a", "b"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Source string is null");
+    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow("abc", null, "b"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Substring is null");
+    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow("abc", "d", "e"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Source string 'abc' does not contain head 'd'");
+  }
+
+  @Test
+  public void testHeadTailOrElseThrow() {
+    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "a")).isEqualTo("bc");
+    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "ab")).isEqualTo("c");
+    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "abc")).isEqualTo("");
+
+    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow(null, "a"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Source string is null");
+    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow("abc", null))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Substring is null");
+    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow("abc", "d"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Source string 'abc' does not contain head 'd'");
+  }
+
+  @Test
   public void testReplaceLast() {
     assertThat(StringFunctions.replaceLast(null, null, null)).isNull();
     assertThat(StringFunctions.replaceLast("aa2aa", null, null)).isEqualTo("aa2aa");
