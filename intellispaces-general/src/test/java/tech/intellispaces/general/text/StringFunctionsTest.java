@@ -92,6 +92,7 @@ public class StringFunctionsTest {
     assertThat(StringFunctions.splitAndTrim("a", "")).containsExactly("a");
     assertThat(StringFunctions.splitAndTrim("a,b", ",")).containsExactly("a", "b");
     assertThat(StringFunctions.splitAndTrim("a ,\tb", ",")).containsExactly("a", "b");
+    assertThat(StringFunctions.splitAndTrim("a.b", ".")).containsExactly("a", "b");
   }
 
   @Test

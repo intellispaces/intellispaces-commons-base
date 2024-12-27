@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * String related functions.
@@ -71,7 +72,7 @@ public interface StringFunctions {
     if (separator == null) {
       return List.of(string);
     }
-    return Arrays.stream(string.split(separator))
+    return Arrays.stream(string.split(Pattern.quote(separator)))
         .map(String::trim)
         .toList();
   }
