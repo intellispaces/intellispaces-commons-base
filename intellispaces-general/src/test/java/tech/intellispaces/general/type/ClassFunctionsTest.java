@@ -124,17 +124,30 @@ public class ClassFunctionsTest {
   }
 
   @Test
-  public void testGetPrimitiveWrapperClass() {
-    assertThat(ClassFunctions.getPrimitiveWrapperClass("boolean")).isEqualTo(Boolean.class);
-    assertThat(ClassFunctions.getPrimitiveWrapperClass("char")).isEqualTo(Character.class);
-    assertThat(ClassFunctions.getPrimitiveWrapperClass("byte")).isEqualTo(Byte.class);
-    assertThat(ClassFunctions.getPrimitiveWrapperClass("short")).isEqualTo(Short.class);
-    assertThat(ClassFunctions.getPrimitiveWrapperClass("int")).isEqualTo(Integer.class);
-    assertThat(ClassFunctions.getPrimitiveWrapperClass("long")).isEqualTo(Long.class);
-    assertThat(ClassFunctions.getPrimitiveWrapperClass("float")).isEqualTo(Float.class);
-    assertThat(ClassFunctions.getPrimitiveWrapperClass("double")).isEqualTo(Double.class);
+  public void testIsPrimitiveClass() {
+    assertThat(ClassFunctions.isPrimitiveClass("boolean")).isTrue();
+    assertThat(ClassFunctions.isPrimitiveClass("char")).isTrue();
+    assertThat(ClassFunctions.isPrimitiveClass("byte")).isTrue();
+    assertThat(ClassFunctions.isPrimitiveClass("short")).isTrue();
+    assertThat(ClassFunctions.isPrimitiveClass("int")).isTrue();
+    assertThat(ClassFunctions.isPrimitiveClass("long")).isTrue();
+    assertThat(ClassFunctions.isPrimitiveClass("float")).isTrue();
+    assertThat(ClassFunctions.isPrimitiveClass("double")).isTrue();
+    assertThat(ClassFunctions.isPrimitiveClass("java.lang.String")).isFalse();
+  }
 
-    assertThatThrownBy(() -> ClassFunctions.getPrimitiveWrapperClass("String"))
+  @Test
+  public void testGetWrapperClassOfPrimitive() {
+    assertThat(ClassFunctions.getWrapperClassOfPrimitive("boolean")).isEqualTo(Boolean.class);
+    assertThat(ClassFunctions.getWrapperClassOfPrimitive("char")).isEqualTo(Character.class);
+    assertThat(ClassFunctions.getWrapperClassOfPrimitive("byte")).isEqualTo(Byte.class);
+    assertThat(ClassFunctions.getWrapperClassOfPrimitive("short")).isEqualTo(Short.class);
+    assertThat(ClassFunctions.getWrapperClassOfPrimitive("int")).isEqualTo(Integer.class);
+    assertThat(ClassFunctions.getWrapperClassOfPrimitive("long")).isEqualTo(Long.class);
+    assertThat(ClassFunctions.getWrapperClassOfPrimitive("float")).isEqualTo(Float.class);
+    assertThat(ClassFunctions.getWrapperClassOfPrimitive("double")).isEqualTo(Double.class);
+
+    assertThatThrownBy(() -> ClassFunctions.getWrapperClassOfPrimitive("String"))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Not primitive typename: String");
   }

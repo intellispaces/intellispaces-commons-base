@@ -122,10 +122,14 @@ public class ClassFunctions {
     return (T) DEFAULT_VALUES.get(type);
   }
 
-  public static Class<?> getPrimitiveWrapperClass(String primitiveType) {
-    Class<?> primitiveClass = PRIMITIVE_TO_WRAPPER_CLASSES_MAP.get(primitiveType);
+  public static boolean isPrimitiveClass(String className) {
+    return PRIMITIVE_TYPE_TO_WRAPPER_CLASSES_MAP.containsKey(className);
+   }
+
+  public static Class<?> getWrapperClassOfPrimitive(String typename) {
+    Class<?> primitiveClass = PRIMITIVE_TYPE_TO_WRAPPER_CLASSES_MAP.get(typename);
     if (primitiveClass == null) {
-      throw UnexpectedExceptions.withMessage("Not primitive typename: {0}", primitiveType);
+      throw UnexpectedExceptions.withMessage("Not primitive typename: {0}", typename);
     }
     return primitiveClass;
   }
@@ -216,7 +220,7 @@ public class ClassFunctions {
       Double.class.getCanonicalName(), "double"
   );
 
-  private static final Map<String, Class<?>> PRIMITIVE_TO_WRAPPER_CLASSES_MAP = Map.of(
+  private static final Map<String, Class<?>> PRIMITIVE_TYPE_TO_WRAPPER_CLASSES_MAP = Map.of(
       "boolean", Boolean.class,
       "char", Character.class,
       "byte", Byte.class,
