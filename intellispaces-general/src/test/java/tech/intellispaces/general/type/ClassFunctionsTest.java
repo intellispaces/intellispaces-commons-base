@@ -137,37 +137,37 @@ public class ClassFunctionsTest {
   }
 
   @Test
-  public void testGetWrapperClassOfPrimitive() {
-    assertThat(ClassFunctions.getWrapperClassOfPrimitive("boolean")).isEqualTo(Boolean.class);
-    assertThat(ClassFunctions.getWrapperClassOfPrimitive("char")).isEqualTo(Character.class);
-    assertThat(ClassFunctions.getWrapperClassOfPrimitive("byte")).isEqualTo(Byte.class);
-    assertThat(ClassFunctions.getWrapperClassOfPrimitive("short")).isEqualTo(Short.class);
-    assertThat(ClassFunctions.getWrapperClassOfPrimitive("int")).isEqualTo(Integer.class);
-    assertThat(ClassFunctions.getWrapperClassOfPrimitive("long")).isEqualTo(Long.class);
-    assertThat(ClassFunctions.getWrapperClassOfPrimitive("float")).isEqualTo(Float.class);
-    assertThat(ClassFunctions.getWrapperClassOfPrimitive("double")).isEqualTo(Double.class);
+  public void testWrapperClassOfPrimitive() {
+    assertThat(ClassFunctions.wrapperClassOfPrimitive("boolean")).isEqualTo(Boolean.class);
+    assertThat(ClassFunctions.wrapperClassOfPrimitive("char")).isEqualTo(Character.class);
+    assertThat(ClassFunctions.wrapperClassOfPrimitive("byte")).isEqualTo(Byte.class);
+    assertThat(ClassFunctions.wrapperClassOfPrimitive("short")).isEqualTo(Short.class);
+    assertThat(ClassFunctions.wrapperClassOfPrimitive("int")).isEqualTo(Integer.class);
+    assertThat(ClassFunctions.wrapperClassOfPrimitive("long")).isEqualTo(Long.class);
+    assertThat(ClassFunctions.wrapperClassOfPrimitive("float")).isEqualTo(Float.class);
+    assertThat(ClassFunctions.wrapperClassOfPrimitive("double")).isEqualTo(Double.class);
 
-    assertThatThrownBy(() -> ClassFunctions.getWrapperClassOfPrimitive("String"))
+    assertThatThrownBy(() -> ClassFunctions.wrapperClassOfPrimitive("String"))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Not primitive typename: String");
   }
 
   @Test
-  public void testGetPrimitiveTypeOfWrapper() {
-    assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Boolean.class.getCanonicalName())).isEqualTo("boolean");
-    assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Character.class.getCanonicalName())).isEqualTo("char");
-    assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Byte.class.getCanonicalName())).isEqualTo("byte");
-    assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Short.class.getCanonicalName())).isEqualTo("short");
-    assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Integer.class.getCanonicalName())).isEqualTo("int");
-    assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Long.class.getCanonicalName())).isEqualTo("long");
-    assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Float.class.getCanonicalName())).isEqualTo("float");
-    assertThat(ClassFunctions.getPrimitiveTypeOfWrapper(Double.class.getCanonicalName())).isEqualTo("double");
+  public void testPrimitiveTypenameOfWrapper() {
+    assertThat(ClassFunctions.primitiveTypenameOfWrapper(Boolean.class.getCanonicalName())).isEqualTo("boolean");
+    assertThat(ClassFunctions.primitiveTypenameOfWrapper(Character.class.getCanonicalName())).isEqualTo("char");
+    assertThat(ClassFunctions.primitiveTypenameOfWrapper(Byte.class.getCanonicalName())).isEqualTo("byte");
+    assertThat(ClassFunctions.primitiveTypenameOfWrapper(Short.class.getCanonicalName())).isEqualTo("short");
+    assertThat(ClassFunctions.primitiveTypenameOfWrapper(Integer.class.getCanonicalName())).isEqualTo("int");
+    assertThat(ClassFunctions.primitiveTypenameOfWrapper(Long.class.getCanonicalName())).isEqualTo("long");
+    assertThat(ClassFunctions.primitiveTypenameOfWrapper(Float.class.getCanonicalName())).isEqualTo("float");
+    assertThat(ClassFunctions.primitiveTypenameOfWrapper(Double.class.getCanonicalName())).isEqualTo("double");
 
-    assertThatThrownBy(() -> ClassFunctions.getPrimitiveTypeOfWrapper(Object.class.getCanonicalName()))
+    assertThatThrownBy(() -> ClassFunctions.primitiveTypenameOfWrapper(Object.class.getCanonicalName()))
         .isExactlyInstanceOf(UnexpectedException.class);
-    assertThatThrownBy(() -> ClassFunctions.getPrimitiveTypeOfWrapper(String.class.getCanonicalName()))
+    assertThatThrownBy(() -> ClassFunctions.primitiveTypenameOfWrapper(String.class.getCanonicalName()))
         .isExactlyInstanceOf(UnexpectedException.class);
-    assertThatThrownBy(() -> ClassFunctions.getPrimitiveTypeOfWrapper(Number.class.getCanonicalName()))
+    assertThatThrownBy(() -> ClassFunctions.primitiveTypenameOfWrapper(Number.class.getCanonicalName()))
         .isExactlyInstanceOf(UnexpectedException.class);
   }
 

@@ -122,18 +122,6 @@ public class ClassFunctions {
     return (T) DEFAULT_VALUES.get(type);
   }
 
-  public static boolean isPrimitiveClass(String className) {
-    return PRIMITIVE_TYPE_TO_WRAPPER_CLASSES_MAP.containsKey(className);
-   }
-
-  public static Class<?> getWrapperClassOfPrimitive(String typename) {
-    Class<?> primitiveClass = PRIMITIVE_TYPE_TO_WRAPPER_CLASSES_MAP.get(typename);
-    if (primitiveClass == null) {
-      throw UnexpectedExceptions.withMessage("Not primitive typename: {0}", typename);
-    }
-    return primitiveClass;
-  }
-
   public static List<Class<?>> getParents(Class<?> aClass) {
     var result = new ArrayList<Class<?>>();
     ArraysFunctions.foreach(aClass.getInterfaces(), result::add);
@@ -163,12 +151,24 @@ public class ClassFunctions {
         || double.class.getCanonicalName().equals(classCanonicalName);
   }
 
-  public static String getPrimitiveTypeOfWrapper(String wrapperCanonicalName) {
+  public static String primitiveTypenameOfWrapper(String wrapperCanonicalName) {
     String primitiveType = WRAPPER_CLASS_TO_PRIMITIVE_MAP.get(wrapperCanonicalName);
     if (primitiveType == null) {
       throw UnexpectedExceptions.withMessage("Not primitive wrapper: {0}", wrapperCanonicalName);
     }
     return primitiveType;
+  }
+
+  public static boolean isPrimitiveClass(String className) {
+    return PRIMITIVE_TYPE_TO_WRAPPER_CLASSES_MAP.containsKey(className);
+  }
+
+  public static Class<?> wrapperClassOfPrimitive(String typename) {
+    Class<?> primitiveClass = PRIMITIVE_TYPE_TO_WRAPPER_CLASSES_MAP.get(typename);
+    if (primitiveClass == null) {
+      throw UnexpectedExceptions.withMessage("Not primitive typename: {0}", typename);
+    }
+    return primitiveClass;
   }
 
   public static Optional<PrimitiveType> primitiveByWrapperClassName(String canonicalName) {
