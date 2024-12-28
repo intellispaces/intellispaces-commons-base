@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -39,13 +40,27 @@ public class CollectionFunctionsTest {
   }
 
   @Test
-  public void testJoin() {
-    assertThat(CollectionFunctions.join(null)).isEmpty();
-    assertThat(CollectionFunctions.join(null, 1)).containsExactly(1);
-    assertThat(CollectionFunctions.join(null, 1, 2)).containsExactly(1, 2);
+  public void testJoin_whenCollection() {
+    assertThat(CollectionFunctions.join((Collection<Integer>) null)).isEmpty();
+    assertThat(CollectionFunctions.join((Collection<Integer>) null, 1)).containsExactly(1);
+    assertThat(CollectionFunctions.join((Collection<Integer>) null, 1, 2)).containsExactly(1, 2);
+
+    assertThat(CollectionFunctions.join((Collection<Integer>) List.of(1), 2, 3)).containsExactly(1, 2, 3);
+    assertThat(CollectionFunctions.join((Collection<Integer>) List.of(1, 2), 3, 4)).containsExactly(1, 2, 3, 4);
+  }
+
+  @Test
+  public void testJoin_whenList() {
+    assertThat(CollectionFunctions.join((List<Integer>) null)).isEmpty();
+    assertThat(CollectionFunctions.join((List<Integer>) null, 1)).containsExactly(1);
+    assertThat(CollectionFunctions.join((List<Integer>) null, 1, 2)).containsExactly(1, 2);
 
     assertThat(CollectionFunctions.join(List.of(1), 2, 3)).containsExactly(1, 2, 3);
     assertThat(CollectionFunctions.join(List.of(1, 2), 3, 4)).containsExactly(1, 2, 3, 4);
+
+    assertThat(CollectionFunctions.join((List<Integer>) null, List.of(1))).containsExactly(1);
+    assertThat(CollectionFunctions.join(List.of(1), (List<Integer>) null)).containsExactly(1);
+    assertThat(CollectionFunctions.join(List.of(1), List.of(2, 3))).containsExactly(1, 2, 3);
   }
 
   @Test

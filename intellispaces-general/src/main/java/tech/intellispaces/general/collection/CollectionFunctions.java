@@ -24,10 +24,10 @@ public interface CollectionFunctions {
   }
 
   /**
-   * Creates collection that contain given collection and additional values.
+   * Creates collection that contain given collection and additional elements.
    *
    * @param collection the source collection.
-   * @param other additional value.
+   * @param other additional element(s).
    * @return result collection.
    * @param <T> collection element type.
    */
@@ -41,6 +41,52 @@ public interface CollectionFunctions {
       result.addAll(Arrays.stream(other).toList());
     }
     return Collections.unmodifiableCollection(result);
+  }
+
+  /**
+   * Creates list that contain given list and additional elements.
+   *
+   * @param list the source list.
+   * @param other additional element(s).
+   * @return result list.
+   * @param <T> list element type.
+   */
+  static <T> List<T> join(List<T> list, T... other) {
+    if (list == null) {
+      list = List.of();
+    }
+
+    List<T> result = new ArrayList<>(list);
+    if (other != null && other.length > 0) {
+      result.addAll(Arrays.stream(other).toList());
+    }
+    return Collections.unmodifiableList(result);
+  }
+
+  /**
+   * Creates list that contain given list and additional elements.
+   *
+   * @param list the source list.
+   * @param other additional elements.
+   * @return result list.
+   * @param <T> list element type.
+   */
+  static <T> List<T> join(List<T> list, List<T> other) {
+    if (list == null && other == null) {
+      list = List.of();
+    }
+    if (list == null) {
+      return other;
+    }
+    if (other == null) {
+      return list;
+    }
+
+    List<T> result = new ArrayList<>(list);
+    if (other != null) {
+      result.addAll(other);
+    }
+    return Collections.unmodifiableList(result);
   }
 
   static <E> boolean containsAnyOf(Collection<E> collection, E value1, E value2) {
