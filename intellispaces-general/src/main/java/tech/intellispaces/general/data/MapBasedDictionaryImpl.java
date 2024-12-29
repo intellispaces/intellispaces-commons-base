@@ -5,16 +5,16 @@ import tech.intellispaces.general.exception.NotImplementedExceptions;
 import tech.intellispaces.general.exception.UnexpectedExceptions;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 class MapBasedDictionaryImpl implements Dictionary {
   private final List<String> path;
   private final String name;
-  private final LinkedHashMap<String, Object> map;
+  private final Map<String, Object> map;
 
-  MapBasedDictionaryImpl(List<String> path, LinkedHashMap<String, Object> map) {
+  MapBasedDictionaryImpl(List<String> path, Map<String, Object> map) {
     this.path = (path != null ? path : List.of());
     this.name = (path != null && !path.isEmpty() ? path.get(path.size() - 1) : null);
     this.map = map;
@@ -100,8 +100,8 @@ class MapBasedDictionaryImpl implements Dictionary {
     if (value == null) {
       throw UnexpectedExceptions.withMessage("Property '{0}' is not found", getPath(name));
     }
-    if (value instanceof LinkedHashMap<?,?>) {
-      return new MapBasedDictionaryImpl(getPath(name), (LinkedHashMap<String, Object>) value);
+    if (value instanceof Map<?,?>) {
+      return new MapBasedDictionaryImpl(getPath(name), (Map<String, Object>) value);
     }
     throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", getPath(name));
   }
@@ -122,13 +122,13 @@ class MapBasedDictionaryImpl implements Dictionary {
     if (value == null) {
       return null;
     }
-    if (value instanceof LinkedHashMap) {
-      var valueMap = (LinkedHashMap<String, Object>) value;
+    if (value instanceof Map) {
+      var valueMap = (Map<String, Object>) value;
       return CollectionFunctions.mapEach(valueMap.entrySet(), e -> {
-        if (e.getValue() instanceof LinkedHashMap) {
+        if (e.getValue() instanceof Map) {
           return new MapBasedDictionaryImpl(
               getPath(name, e.getKey()),
-              (LinkedHashMap<String, Object>) e.getValue()
+              (Map<String, Object>) e.getValue()
           );
         } else {
           throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", getPath(name, e.getKey()));
@@ -140,10 +140,10 @@ class MapBasedDictionaryImpl implements Dictionary {
         if (v instanceof String) {
           return new MapBasedDictionaryImpl(
               getPath(name, (String) v),
-              new LinkedHashMap<>()
+              new HashMap<>()
           );
-        } else if (v instanceof LinkedHashMap) {
-          var map = (LinkedHashMap<String, Object>) v;
+        } else if (v instanceof Map) {
+          var map = (Map<String, Object>) v;
           return new MapBasedDictionaryImpl(
               getPath(name, "[" + index + "]"),
               map
@@ -173,10 +173,10 @@ class MapBasedDictionaryImpl implements Dictionary {
       return result;
     } else if (result instanceof List<?> list) {
       return convertToList(list, path);
-    } else if (result instanceof LinkedHashMap<?,?>) {
+    } else if (result instanceof Map<?,?>) {
       return new MapBasedDictionaryImpl(
           getPath(path),
-          (LinkedHashMap<String, Object>) result
+          (Map<String, Object>) result
       );
     } else {
       throw UnexpectedExceptions.withMessage("Property '{0}' has invalid type", path);
@@ -299,8 +299,8 @@ class MapBasedDictionaryImpl implements Dictionary {
   Dictionary convertToDictionary(Object value, List<String> path) {
     if (value instanceof Dictionary) {
       return (Dictionary) value;
-    } else if (value instanceof LinkedHashMap<?,?>) {
-      return new MapBasedDictionaryImpl(getPath(path), (LinkedHashMap<String, Object>) value);
+    } else if (value instanceof Map<?,?>) {
+      return new MapBasedDictionaryImpl(getPath(path), (Map<String, Object>) value);
     }
     throw UnexpectedExceptions.withMessage("Property '{0}' has invalid type", path);
   }
