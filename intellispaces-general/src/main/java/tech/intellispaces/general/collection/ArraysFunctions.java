@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
  */
 public interface ArraysFunctions {
 
-  static String[] ArraysFunctions(String[] array1, String... array2) {
+  static String[] join(String[] array1, String... array2) {
     return join(String.class, array1, array2);
   }
 
