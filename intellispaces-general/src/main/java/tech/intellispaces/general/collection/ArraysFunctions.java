@@ -14,6 +14,24 @@ import java.util.stream.IntStream;
  */
 public interface ArraysFunctions {
 
+  static String[] ArraysFunctions(String[] array1, String... array2) {
+    return join(String.class, array1, array2);
+  }
+
+  @SuppressWarnings("unchecked")
+  static <T> T[] join(Class<T> componentType, T[] array1, T... array2) {
+    if (array1 == null) {
+      return array2;
+    }
+    if (array2 == null) {
+      return array1;
+    }
+    T[] result = (T[]) Array.newInstance(componentType, array1.length + array2.length);
+    System.arraycopy(array1, 0, result, 0, array1.length);
+    System.arraycopy(array2, 0, result, array1.length, array2.length);
+    return result;
+  }
+
   static byte[] toByteArray(List<Byte> bytes) {
     if (bytes == null) {
       return null;

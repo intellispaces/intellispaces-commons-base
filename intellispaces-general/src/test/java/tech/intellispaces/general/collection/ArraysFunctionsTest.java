@@ -13,6 +13,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ArraysFunctionsTest {
 
   @Test
+  public void testJoin_whenString() {
+    assertThat(ArraysFunctions.join(null, (String[]) null)).isNull();
+    assertThat(ArraysFunctions.join(null, "a", "b")).containsExactly("a", "b");
+    assertThat(ArraysFunctions.join(new String[] { "a", "b" })).containsExactly("a", "b");
+    assertThat(ArraysFunctions.join(new String[] { "a", "b" }, (String[]) null)).containsExactly("a", "b");
+
+    assertThat(ArraysFunctions.join(new String[] { "a", "b" }, "c", "d", "e")).containsExactly("a", "b", "c", "d", "e");
+  }
+
+  @Test
   public void testToByteArray() {
     assertThat(ArraysFunctions.toByteArray(null)).isNull();
     assertThat(ArraysFunctions.toByteArray(List.of((byte) 1))).contains(1);
