@@ -132,10 +132,15 @@ public class ResourceFunctions {
     }
     var sb = new StringBuilder();
     URLConnection connection = url.openConnection();
-    try (var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+    try (var reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
       String str;
+      boolean firstLine = true;
       while ((str = reader.readLine()) != null) {
+        if (!firstLine) {
+          sb.append(System.lineSeparator());
+        }
         sb.append(str);
+        firstLine = false;
       }
     }
     return sb.toString();
