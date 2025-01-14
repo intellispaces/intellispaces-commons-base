@@ -8,17 +8,20 @@ import java.util.List;
 public interface Dictionary {
 
   /**
+   * The dictionary name.<p>
+   *
+   * The dictionary name can be <code>null</code>.
+   */
+  String name();
+
+  /**
    * The dictionary path.
    */
   List<String> path();
 
   /**
-   * The dictionary name.
-   * <p>
-   * The dictionary name can be <code>null</code>.
+   * The dictionary size.
    */
-  String name();
-
   int size();
 
   /**
@@ -32,37 +35,41 @@ public interface Dictionary {
 
   boolean isStringValue(String name);
 
+  boolean isStringValue(List<String> path);
+
   boolean isDictionaryValue(String name);
+
+  boolean isDictionaryValue(List<String> path);
+
+  Object valueNullable(List<String> path);
+
+  Integer integerValueNullable(List<String> path);
+
+  Double doubleValueNullable(List<String> path);
 
   String stringValue(String name);
 
   String stringValueNullable(String name);
 
+  String stringValueNullable(List<String> path);
+
+  Dictionary dictionaryValue(String name);
+
+  Dictionary dictionaryValueNullable(List<String> path);
+
+  List<Integer> integerListNullable(List<String> path);
+
+  List<Double> doubleListNullable(List<String> path);
+
   List<String> stringListValue(String name);
 
   List<String> stringListValueNullable(String name);
 
-  Dictionary dictionaryValue(String name);
+  List<String> stringListNullable(List<String> path);
 
   List<Dictionary> dictionaryListValue(String name);
 
   List<Dictionary> dictionaryListValueNullable(String name);
 
-  Object traverseNullable(List<String> path);
-
-  Integer traverseToIntegerNullable(List<String> path);
-
-  Double traverseToDoubleNullable(List<String> path);
-
-  String traverseToStringNullable(List<String> path);
-
-  Dictionary traverseToDictionaryNullable(List<String> path);
-
-  List<String> traverseToStringListNullable(List<String> path);
-
-  List<Integer> traverseToIntegerListNullable(List<String> path);
-
-  List<Double> traverseToDoubleListNullable(List<String> path);
-
-  List<Dictionary> traverseToDictionaryListNullable(List<String> path);
+  List<Dictionary> dictionaryListNullable(List<String> path);
 }

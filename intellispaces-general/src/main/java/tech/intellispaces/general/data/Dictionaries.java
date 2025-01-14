@@ -37,6 +37,6 @@ public interface Dictionaries {
   }
 
   static Dictionary get(List<String> path, Map<String, Object> map) {
-    return new MapBasedDictionaryImpl(path, map);
+    return new MapBasedDictionary(path, map);
   }
 }

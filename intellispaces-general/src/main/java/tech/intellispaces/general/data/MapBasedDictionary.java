@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-class MapBasedDictionaryImpl implements Dictionary {
-  private final List<String> path;
+class MapBasedDictionary implements Dictionary {
   private final String name;
+  private final List<String> path;
   private final Map<String, Object> map;
 
-  MapBasedDictionaryImpl(List<String> path, Map<String, Object> map) {
+  MapBasedDictionary(List<String> path, Map<String, Object> map) {
     this.path = (path != null ? path : List.of());
     this.name = (path != null && !path.isEmpty() ? path.get(path.size() - 1) : null);
     this.map = map;
@@ -56,10 +56,13 @@ class MapBasedDictionaryImpl implements Dictionary {
     if (value == null) {
       return true;
     }
-    if (value instanceof String) {
-      return true;
-    }
-    return false;
+    return (value instanceof String);
+  }
+
+  @Override
+  public boolean isStringValue(List<String> path) {
+    Object destination = traverse(path);
+    return (destination == null || destination instanceof String);
   }
 
   @Override
@@ -68,10 +71,13 @@ class MapBasedDictionaryImpl implements Dictionary {
     if (value == null) {
       return true;
     }
-    if (value instanceof Map<?,?>) {
-      return true;
-    }
-    return false;
+    return (value instanceof Map<?, ?>);
+  }
+
+  @Override
+  public boolean isDictionaryValue(List<String> path) {
+    Object destination = traverse(path);
+    return (destination == null || destination instanceof Map<?,?>);
   }
 
   @Override
@@ -125,10 +131,10 @@ class MapBasedDictionaryImpl implements Dictionary {
       throw UnexpectedExceptions.withMessage("Property '{0}' is not found", getPath(name));
     }
     if (value instanceof Map<?,?>) {
-      return new MapBasedDictionaryImpl(getPath(name), (Map<String, Object>) value);
+      return new MapBasedDictionary(getPath(name), (Map<String, Object>) value);
     }
     if (value instanceof String) {
-      return new MapBasedDictionaryImpl(
+      return new MapBasedDictionary(
           getPath(name, (String) value),
           new HashMap<>()
       );
@@ -152,34 +158,16 @@ class MapBasedDictionaryImpl implements Dictionary {
     if (value == null) {
       return null;
     }
-    if (value instanceof Map) {
-      var valueMap = (Map<String, Object>) value;
-      return CollectionFunctions.mapEach(valueMap.entrySet(), e -> {
-        if (e.getValue() instanceof Map) {
-          return new MapBasedDictionaryImpl(
-              getPath(name, e.getKey()),
-              (Map<String, Object>) e.getValue()
-          );
-        } else if (e.getValue() instanceof String) {
-          return new MapBasedDictionaryImpl(
-              getPath(name, e.getKey()),
-              new HashMap<>()
-          );
-        } else {
-          throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", getPath(name, e.getKey()));
-        }
-      });
-    }
     if (value instanceof List<?> valueList) {
       return CollectionFunctions.mapEach(valueList, (v, index) -> {
         if (v instanceof String) {
-          return new MapBasedDictionaryImpl(
+          return new MapBasedDictionary(
               getPath(name, (String) v),
               new HashMap<>()
           );
         } else if (v instanceof Map) {
           var map = (Map<String, Object>) v;
-          return new MapBasedDictionaryImpl(
+          return new MapBasedDictionary(
               getPath(name, "[" + index + "]"),
               map
           );
@@ -188,13 +176,31 @@ class MapBasedDictionaryImpl implements Dictionary {
         }
       });
     }
+    if (value instanceof Map) {
+      var valueMap = (Map<String, Object>) value;
+      return CollectionFunctions.mapEach(valueMap.entrySet(), e -> {
+        if (e.getValue() instanceof Map) {
+          return new MapBasedDictionary(
+              getPath(name, e.getKey()),
+              (Map<String, Object>) e.getValue()
+          );
+        } else if (e.getValue() instanceof String) {
+          return new MapBasedDictionary(
+              getPath(name, e.getKey()),
+              new HashMap<>()
+          );
+        } else {
+          throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", getPath(name, e.getKey()));
+        }
+      });
+    }
     throw UnexpectedExceptions.withMessage("Property '{0}' is not list", getPath(name));
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public Object traverseNullable(List<String> path) {
-    if (path.isEmpty()) {
+  public Object valueNullable(List<String> path) {
+    if (CollectionFunctions.isNullOrEmpty(path)) {
       return this;
     }
     Object result = traverse(path);
@@ -209,7 +215,7 @@ class MapBasedDictionaryImpl implements Dictionary {
     } else if (result instanceof List<?> list) {
       return convertToList(list, path);
     } else if (result instanceof Map<?,?>) {
-      return new MapBasedDictionaryImpl(
+      return new MapBasedDictionary(
           getPath(path),
           (Map<String, Object>) result
       );
@@ -219,8 +225,8 @@ class MapBasedDictionaryImpl implements Dictionary {
   }
 
   @Override
-  public Integer traverseToIntegerNullable(List<String> path) {
-    Object value = path.isEmpty() ? this : traverse(path);
+  public Integer integerValueNullable(List<String> path) {
+    Object value = CollectionFunctions.isNullOrEmpty(path) ? this : traverse(path);
     if (value == null) {
       return null;
     }
@@ -228,8 +234,8 @@ class MapBasedDictionaryImpl implements Dictionary {
   }
 
   @Override
-  public Double traverseToDoubleNullable(List<String> path) {
-    Object value = path.isEmpty() ? this : traverse(path);
+  public Double doubleValueNullable(List<String> path) {
+    Object value = CollectionFunctions.isNullOrEmpty(path) ? this : traverse(path);
     if (value == null) {
       return null;
     }
@@ -237,8 +243,8 @@ class MapBasedDictionaryImpl implements Dictionary {
   }
 
   @Override
-  public String traverseToStringNullable(List<String> path) {
-    Object value = path.isEmpty() ? this : traverse(path);
+  public String stringValueNullable(List<String> path) {
+    Object value = CollectionFunctions.isNullOrEmpty(path) ? this : traverse(path);
     if (value == null) {
       return null;
     }
@@ -246,8 +252,8 @@ class MapBasedDictionaryImpl implements Dictionary {
   }
 
   @Override
-  public Dictionary traverseToDictionaryNullable(List<String> path) {
-    Object value = path.isEmpty() ? this : traverse(path);
+  public Dictionary dictionaryValueNullable(List<String> path) {
+    Object value = CollectionFunctions.isNullOrEmpty(path) ? this : traverse(path);
     if (value == null) {
       return null;
     }
@@ -256,8 +262,8 @@ class MapBasedDictionaryImpl implements Dictionary {
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<String> traverseToStringListNullable(List<String> path) {
-    Object value = path.isEmpty() ? this : traverse(path);
+  public List<String> stringListNullable(List<String> path) {
+    Object value = CollectionFunctions.isNullOrEmpty(path) ? this : traverse(path);
     if (value == null) {
       return null;
     }
@@ -269,8 +275,8 @@ class MapBasedDictionaryImpl implements Dictionary {
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<Integer> traverseToIntegerListNullable(List<String> path) {
-    Object value = path.isEmpty() ? this : traverse(path);
+  public List<Integer> integerListNullable(List<String> path) {
+    Object value = CollectionFunctions.isNullOrEmpty(path) ? this : traverse(path);
     if (value == null) {
       return null;
     }
@@ -282,8 +288,8 @@ class MapBasedDictionaryImpl implements Dictionary {
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<Double> traverseToDoubleListNullable(List<String> path) {
-    Object value = path.isEmpty() ? this : traverse(path);
+  public List<Double> doubleListNullable(List<String> path) {
+    Object value = CollectionFunctions.isNullOrEmpty(path) ? this : traverse(path);
     if (value == null) {
       return null;
     }
@@ -294,8 +300,8 @@ class MapBasedDictionaryImpl implements Dictionary {
   }
 
   @Override
-  public List<Dictionary> traverseToDictionaryListNullable(List<String> path) {
-    Object value = path.isEmpty() ? this : traverse(path);
+  public List<Dictionary> dictionaryListNullable(List<String> path) {
+    Object value = CollectionFunctions.isNullOrEmpty(path) ? this : traverse(path);
     if (value == null) {
       return null;
     }
@@ -306,7 +312,7 @@ class MapBasedDictionaryImpl implements Dictionary {
   }
 
   List<?> convertToList(List<?> list, List<String> path) {
-    if (list.isEmpty()) {
+    if (CollectionFunctions.isNullOrEmpty(list)) {
       return List.of();
     }
     Object firstElement = list.get(0);
@@ -335,34 +341,54 @@ class MapBasedDictionaryImpl implements Dictionary {
     if (value instanceof Dictionary) {
       return (Dictionary) value;
     } else if (value instanceof Map<?,?>) {
-      return new MapBasedDictionaryImpl(getPath(path), (Map<String, Object>) value);
+      return new MapBasedDictionary(getPath(path), (Map<String, Object>) value);
     }
     throw UnexpectedExceptions.withMessage("Property '{0}' has invalid type", path);
   }
 
   @SuppressWarnings("unchecked")
   Object traverse(List<String> path) {
-    if (path == null || path.isEmpty()) {
+    if (CollectionFunctions.isNullOrEmpty(path)) {
       return this;
     }
 
     Object result = null;
     Map<String, Object> curMap = map;
-    for (String pathPart : path) {
-      if (curMap == null) {
+    List<Object> curList = null;
+    for (String property : path) {
+      if (curMap == null && curList == null) {
         result = null;
         break;
-      } else {
-        Object target = curMap.get(pathPart);
-        if (target == null) {
-          result = null;
-          break;
-        } else if (target instanceof Map) {
-          result = target;
-          curMap = (Map<String, Object>) target;
-        } else {
-          result = target;
+      } else if (curMap != null) {
+        result = curMap.get(property);
+        if (result == null) {
+          return null;
+        } else if (result instanceof Map<?, ?>) {
+          curMap = (Map<String, Object>) result;
+          curList = null;
+        } else if (result instanceof List<?>) {
+          curList = (List<Object>) result;
           curMap = null;
+        } else {
+          curMap = null;
+          curList = null;
+        }
+      } if (curList != null) {
+        Integer index = parseIndexProperty(property);
+        if (index != null) {
+          if (index < 0 || index >= curList.size()) {
+            return null;
+          }
+          result = curList.get(index);
+          if (result instanceof Map<?, ?>) {
+            curMap = (Map<String, Object>) result;
+            curList = null;
+          } else if (result instanceof List<?>) {
+            curList = (List<Object>) result;
+            curMap = null;
+          }
+        } else {
+          return null;
         }
       }
     }
@@ -379,5 +405,13 @@ class MapBasedDictionaryImpl implements Dictionary {
 
   List<String> getPath(String secondPath, String thirdPath) {
     return CollectionFunctions.join(path, secondPath, thirdPath);
+  }
+
+  Integer parseIndexProperty(String property) {
+    try {
+      return Integer.parseInt(property.substring(1, property.length() - 1));
+    } catch (NumberFormatException e) {
+      return null;
+    }
   }
 }
