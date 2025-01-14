@@ -17,6 +17,10 @@ import java.util.Objects;
  */
 public interface CollectionFunctions {
 
+  static <E> boolean isNullOrEmpty(Collection<E> collection) {
+    return collection == null || collection.isEmpty();
+  }
+
   static <T> void addIfNotNull(List<T> list, T value) {
     if (value != null) {
       list.add(value);

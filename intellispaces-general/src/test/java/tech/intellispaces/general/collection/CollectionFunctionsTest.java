@@ -25,6 +25,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class CollectionFunctionsTest {
 
   @Test
+  public void testIsNullOrEmpty() {
+    assertThat(CollectionFunctions.isNullOrEmpty(null)).isTrue();
+    assertThat(CollectionFunctions.isNullOrEmpty(List.of())).isTrue();
+    assertThat(CollectionFunctions.isNullOrEmpty(List.of(1))).isFalse();
+  }
+
+  @Test
   public void testAddIfNotNull() {
     // Given
     List<String> list = Mockito.spy(new ArrayList<>());
