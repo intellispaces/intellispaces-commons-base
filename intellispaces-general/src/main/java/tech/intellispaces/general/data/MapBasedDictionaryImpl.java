@@ -51,6 +51,30 @@ class MapBasedDictionaryImpl implements Dictionary {
   }
 
   @Override
+  public boolean isStringValue(String name) {
+    Object value = map.get(name);
+    if (value == null) {
+      return true;
+    }
+    if (value instanceof String) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean isDictionaryValue(String name) {
+    Object value = map.get(name);
+    if (value == null) {
+      return true;
+    }
+    if (value instanceof Map<?,?>) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
   public String stringValue(String name) {
     String value = stringValueNullable(name);
     if (value == null) {
@@ -103,6 +127,12 @@ class MapBasedDictionaryImpl implements Dictionary {
     if (value instanceof Map<?,?>) {
       return new MapBasedDictionaryImpl(getPath(name), (Map<String, Object>) value);
     }
+    if (value instanceof String) {
+      return new MapBasedDictionaryImpl(
+          getPath(name, (String) value),
+          new HashMap<>()
+      );
+    }
     throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", getPath(name));
   }
 
@@ -129,6 +159,11 @@ class MapBasedDictionaryImpl implements Dictionary {
           return new MapBasedDictionaryImpl(
               getPath(name, e.getKey()),
               (Map<String, Object>) e.getValue()
+          );
+        } else if (e.getValue() instanceof String) {
+          return new MapBasedDictionaryImpl(
+              getPath(name, e.getKey()),
+              new HashMap<>()
           );
         } else {
           throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", getPath(name, e.getKey()));

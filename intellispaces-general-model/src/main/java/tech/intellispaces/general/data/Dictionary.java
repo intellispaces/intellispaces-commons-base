@@ -26,9 +26,13 @@ public interface Dictionary {
    */
   List<String> propertyNames();
 
-  boolean hasProperty(String name) ;
+  boolean hasProperty(String name);
 
   boolean hasValue(String name);
+
+  boolean isStringValue(String name);
+
+  boolean isDictionaryValue(String name);
 
   String stringValue(String name);
 
