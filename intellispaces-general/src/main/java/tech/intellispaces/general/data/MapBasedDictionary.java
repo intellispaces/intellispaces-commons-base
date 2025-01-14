@@ -198,6 +198,11 @@ class MapBasedDictionary implements Dictionary {
   }
 
   @Override
+  public Object valueNullable(String propertyName) {
+    return map.get(propertyName);
+  }
+
+  @Override
   @SuppressWarnings("unchecked")
   public Object valueNullable(List<String> propertyPath) {
     if (CollectionFunctions.isNullOrEmpty(propertyPath)) {

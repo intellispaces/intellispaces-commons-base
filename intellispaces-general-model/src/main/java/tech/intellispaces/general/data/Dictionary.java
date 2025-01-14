@@ -41,6 +41,8 @@ public interface Dictionary {
 
   boolean isDictionaryValue(List<String> propertyPath);
 
+  Object valueNullable(String propertyName);
+
   Object valueNullable(List<String> propertyPath);
 
   Integer integerValueNullable(List<String> propertyPath);
