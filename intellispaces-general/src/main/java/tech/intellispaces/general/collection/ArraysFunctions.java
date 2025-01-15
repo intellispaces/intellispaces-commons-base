@@ -14,6 +14,10 @@ import java.util.stream.IntStream;
  */
 public interface ArraysFunctions {
 
+  static <E> boolean isNullOrEmpty(E[] array) {
+    return array == null || array.length == 0;
+  }
+
   static String[] join(String[] array1, String... array2) {
     return join(String.class, array1, array2);
   }
