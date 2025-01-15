@@ -1,5 +1,6 @@
 package tech.intellispaces.general.data;
 
+import tech.intellispaces.general.collection.ArraysFunctions;
 import tech.intellispaces.general.collection.CollectionFunctions;
 import tech.intellispaces.general.exception.NotImplementedExceptions;
 import tech.intellispaces.general.exception.UnexpectedExceptions;
@@ -60,7 +61,7 @@ class MapBasedDictionary implements Dictionary {
   }
 
   @Override
-  public boolean isStringValue(List<String> propertyPath) {
+  public boolean isStringValue(String... propertyPath) {
     Object destination = traverse(propertyPath);
     return (destination == null || destination instanceof String);
   }
@@ -75,7 +76,7 @@ class MapBasedDictionary implements Dictionary {
   }
 
   @Override
-  public boolean isDictionaryValue(List<String> propertyPath) {
+  public boolean isDictionaryValue(String... propertyPath) {
     Object destination = traverse(propertyPath);
     return (destination == null || destination instanceof Map<?,?>);
   }
@@ -84,7 +85,7 @@ class MapBasedDictionary implements Dictionary {
   public String stringValue(String propertyName) {
     String value = stringValueNullable(propertyName);
     if (value == null) {
-      throw UnexpectedExceptions.withMessage("Property '{0}' is not found", getPath(propertyName));
+      throw UnexpectedExceptions.withMessage("Property '{0}' is not found", fullPropertyPath(propertyName));
     }
     return value;
   }
@@ -98,14 +99,14 @@ class MapBasedDictionary implements Dictionary {
     if (value instanceof String) {
       return (String) value;
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' is not string", getPath(propertyName));
+    throw UnexpectedExceptions.withMessage("Property '{0}' is not string", fullPropertyPath(propertyName));
   }
 
   @Override
   public List<String> stringListValue(String propertyName) {
     List<String> list = stringListValueNullable(propertyName);
     if (list == null) {
-      throw UnexpectedExceptions.withMessage("Property '{0}' is not found", getPath(propertyName));
+      throw UnexpectedExceptions.withMessage("Property '{0}' is not found", fullPropertyPath(propertyName));
     }
     return list;
   }
@@ -120,7 +121,7 @@ class MapBasedDictionary implements Dictionary {
     if (value instanceof List<?>) {
       return (List<String>) value;
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", getPath(propertyName));
+    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", fullPropertyPath(propertyName));
   }
 
   @Override
@@ -128,25 +129,25 @@ class MapBasedDictionary implements Dictionary {
   public Dictionary dictionaryValue(String propertyName) {
     Object value = map.get(propertyName);
     if (value == null) {
-      throw UnexpectedExceptions.withMessage("Property '{0}' is not found", getPath(propertyName));
+      throw UnexpectedExceptions.withMessage("Property '{0}' is not found", fullPropertyPath(propertyName));
     }
     if (value instanceof Map<?,?>) {
-      return new MapBasedDictionary(getPath(propertyName), (Map<String, Object>) value);
+      return new MapBasedDictionary(fullPropertyPath(propertyName), (Map<String, Object>) value);
     }
     if (value instanceof String) {
       return new MapBasedDictionary(
-          getPath(propertyName, (String) value),
+          fullPropertyPath(propertyName, (String) value),
           new HashMap<>()
       );
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", getPath(propertyName));
+    throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", fullPropertyPath(propertyName));
   }
 
   @Override
   public List<Dictionary> dictionaryListValue(String propertyName) {
     List<Dictionary> dictionaries = dictionaryListValueNullable(propertyName);
     if (dictionaries == null) {
-      throw UnexpectedExceptions.withMessage("Property '{0}' is not found", getPath(propertyName));
+      throw UnexpectedExceptions.withMessage("Property '{0}' is not found", fullPropertyPath(propertyName));
     }
     return dictionaries;
   }
@@ -162,13 +163,13 @@ class MapBasedDictionary implements Dictionary {
       return CollectionFunctions.mapEach(valueList, (v, index) -> {
         if (v instanceof String) {
           return new MapBasedDictionary(
-              getPath(propertyName, (String) v),
+              fullPropertyPath(propertyName, (String) v),
               new HashMap<>()
           );
         } else if (v instanceof Map) {
           var map = (Map<String, Object>) v;
           return new MapBasedDictionary(
-              getPath(propertyName, "[" + index + "]"),
+              fullPropertyPath(propertyName, "[" + index + "]"),
               map
           );
         } else {
@@ -181,57 +182,39 @@ class MapBasedDictionary implements Dictionary {
       return CollectionFunctions.mapEach(valueMap.entrySet(), e -> {
         if (e.getValue() instanceof Map) {
           return new MapBasedDictionary(
-              getPath(propertyName, e.getKey()),
+              fullPropertyPath(propertyName, e.getKey()),
               (Map<String, Object>) e.getValue()
           );
         } else if (e.getValue() instanceof String) {
           return new MapBasedDictionary(
-              getPath(propertyName, e.getKey()),
+              fullPropertyPath(propertyName, e.getKey()),
               new HashMap<>()
           );
         } else {
-          throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", getPath(propertyName, e.getKey()));
+          throw UnexpectedExceptions.withMessage("Property '{0}' is not dictionary", fullPropertyPath(propertyName, e.getKey()));
         }
       });
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", getPath(propertyName));
+    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", fullPropertyPath(propertyName));
   }
 
   @Override
   public Object valueNullable(String propertyName) {
-    return map.get(propertyName);
+    return convert(map.get(propertyName), propertyName);
   }
 
   @Override
-  @SuppressWarnings("unchecked")
-  public Object valueNullable(List<String> propertyPath) {
-    if (CollectionFunctions.isNullOrEmpty(propertyPath)) {
+  public Object valueNullable(String... propertyPath) {
+    if (ArraysFunctions.isNullOrEmpty(propertyPath)) {
       return this;
     }
-    Object result = traverse(propertyPath);
-    if (result == null) {
-      return null;
-    } else if (result instanceof Integer) {
-      return result;
-    } else if (result instanceof Double) {
-      return result;
-    } else if (result instanceof String) {
-      return result;
-    } else if (result instanceof List<?> list) {
-      return convertToList(list, propertyPath);
-    } else if (result instanceof Map<?,?>) {
-      return new MapBasedDictionary(
-          getPath(propertyPath),
-          (Map<String, Object>) result
-      );
-    } else {
-      throw UnexpectedExceptions.withMessage("Property '{0}' has invalid type", propertyPath);
-    }
+    Object value = traverse(propertyPath);
+    return convert(value, propertyPath);
   }
 
   @Override
-  public Integer integerValueNullable(List<String> propertyPath) {
-    Object value = CollectionFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
+  public Integer integerValueNullable(String... propertyPath) {
+    Object value = ArraysFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
     if (value == null) {
       return null;
     }
@@ -239,8 +222,8 @@ class MapBasedDictionary implements Dictionary {
   }
 
   @Override
-  public Double doubleValueNullable(List<String> propertyPath) {
-    Object value = CollectionFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
+  public Double doubleValueNullable(String... propertyPath) {
+    Object value = ArraysFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
     if (value == null) {
       return null;
     }
@@ -248,8 +231,8 @@ class MapBasedDictionary implements Dictionary {
   }
 
   @Override
-  public String stringValueNullable(List<String> propertyPath) {
-    Object value = CollectionFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
+  public String stringValueNullable(String... propertyPath) {
+    Object value = ArraysFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
     if (value == null) {
       return null;
     }
@@ -257,8 +240,8 @@ class MapBasedDictionary implements Dictionary {
   }
 
   @Override
-  public Dictionary dictionaryValueNullable(List<String> propertyPath) {
-    Object value = CollectionFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
+  public Dictionary dictionaryValueNullable(String... propertyPath) {
+    Object value = ArraysFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
     if (value == null) {
       return null;
     }
@@ -267,56 +250,75 @@ class MapBasedDictionary implements Dictionary {
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<String> stringListNullable(List<String> propertyPath) {
-    Object value = CollectionFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
+  public List<String> stringListNullable(String... propertyPath) {
+    Object value = ArraysFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
     if (value == null) {
       return null;
     }
     if (value instanceof List<?>) {
       return (List<String>) value;
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", propertyPath);
+    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", propertyPathString(propertyPath));
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<Integer> integerListNullable(List<String> propertyPath) {
-    Object value = CollectionFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
+  public List<Integer> integerListNullable(String... propertyPath) {
+    Object value = ArraysFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
     if (value == null) {
       return null;
     }
     if (value instanceof List<?>) {
       return (List<Integer>) value;
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", propertyPath);
+    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", propertyPathString(propertyPath));
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<Double> doubleListNullable(List<String> propertyPath) {
-    Object value = CollectionFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
+  public List<Double> doubleListNullable(String... propertyPath) {
+    Object value = ArraysFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
     if (value == null) {
       return null;
     }
     if (value instanceof List<?>) {
       return (List<Double>) value;
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", propertyPath);
+    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", propertyPathString(propertyPath));
   }
 
   @Override
-  public List<Dictionary> dictionaryListNullable(List<String> propertyPath) {
-    Object value = CollectionFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
+  public List<Dictionary> dictionaryListNullable(String... propertyPath) {
+    Object value = ArraysFunctions.isNullOrEmpty(propertyPath) ? this : traverse(propertyPath);
     if (value == null) {
       return null;
     }
     if (value instanceof List<?>) {
       return converToDictionaryList((List<?>) value, propertyPath);
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", propertyPath);
+    throw UnexpectedExceptions.withMessage("Property '{0}' is not list", propertyPathString(propertyPath));
   }
 
-  List<?> convertToList(List<?> list, List<String> propertyPath) {
+  @SuppressWarnings("unchecked")
+  Object convert(Object value, String... propertyPath) {
+    if (value == null) {
+      return null;
+    } else if (value instanceof Integer) {
+      return value;
+    } else if (value instanceof Double) {
+      return value;
+    } else if (value instanceof String) {
+      return value;
+    } else if (value instanceof List<?> list) {
+      return convertToList(list, propertyPath);
+    } else if (value instanceof Map<?, ?>) {
+      return new MapBasedDictionary(fullPropertyPath(propertyPath), (Map<String, Object>) value);
+    } else {
+      throw UnexpectedExceptions.withMessage("Property '{0}' has invalid type", propertyPathString(propertyPath));
+    }
+  }
+
+  List<?> convertToList(List<?> list, String... propertyPath) {
     if (CollectionFunctions.isNullOrEmpty(list)) {
       return List.of();
     }
@@ -331,29 +333,27 @@ class MapBasedDictionary implements Dictionary {
     } else if (firstElement instanceof Map<?, ?>) {
       return converToDictionaryList(list, propertyPath);
     } else {
-      throw UnexpectedExceptions.withMessage("Property '{0}' has invalid list type", propertyPath);
+      throw UnexpectedExceptions.withMessage("Property '{0}' has invalid list type", propertyPathString(propertyPath));
     }
   }
 
-  List<Dictionary> converToDictionaryList(List<?> values, List<String> propertyPath) {
-    return values.stream()
-        .map(value -> convertToDictionary(value, propertyPath))
-        .toList();
+  List<Dictionary> converToDictionaryList(List<?> values, String... propertyPath) {
+    return CollectionFunctions.mapEach(values, value -> convertToDictionary(value, propertyPath));
   }
 
   @SuppressWarnings("unchecked")
-  Dictionary convertToDictionary(Object value, List<String> propertyPath) {
+  Dictionary convertToDictionary(Object value, String... propertyPath) {
     if (value instanceof Dictionary) {
       return (Dictionary) value;
-    } else if (value instanceof Map<?,?>) {
-      return new MapBasedDictionary(getPath(propertyPath), (Map<String, Object>) value);
+    } else if (value instanceof Map<?, ?>) {
+      return new MapBasedDictionary(fullPropertyPath(propertyPath), (Map<String, Object>) value);
     }
-    throw UnexpectedExceptions.withMessage("Property '{0}' has invalid type", propertyPath);
+    throw UnexpectedExceptions.withMessage("Property '{0}' has invalid type", propertyPathString(propertyPath));
   }
 
   @SuppressWarnings("unchecked")
-  Object traverse(List<String> propertyPath) {
-    if (CollectionFunctions.isNullOrEmpty(propertyPath)) {
+  Object traverse(String... propertyPath) {
+    if (ArraysFunctions.isNullOrEmpty(propertyPath)) {
       return this;
     }
 
@@ -400,16 +400,23 @@ class MapBasedDictionary implements Dictionary {
     return result;
   }
 
-  List<String> getPath(List<String> nextPath) {
+  List<String> fullPropertyPath(String... nextPath) {
     return CollectionFunctions.join(path, nextPath);
   }
 
-  List<String> getPath(String secondPath) {
+  List<String> fullPropertyPath(String secondPath) {
     return CollectionFunctions.join(path, secondPath);
   }
 
-  List<String> getPath(String secondPath, String thirdPath) {
+  List<String> fullPropertyPath(String secondPath, String thirdPath) {
     return CollectionFunctions.join(path, secondPath, thirdPath);
+  }
+
+  String propertyPathString(String... path) {
+    if (ArraysFunctions.isNullOrEmpty(path)) {
+      return "";
+    }
+    return String.join("\\", path);
   }
 
   Integer parseIndexProperty(String propertyName) {

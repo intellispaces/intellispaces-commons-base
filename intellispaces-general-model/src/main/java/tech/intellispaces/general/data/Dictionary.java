@@ -35,43 +35,43 @@ public interface Dictionary {
 
   boolean isStringValue(String propertyName);
 
-  boolean isStringValue(List<String> propertyPath);
+  boolean isStringValue(String... propertyPath);
 
   boolean isDictionaryValue(String propertyName);
 
-  boolean isDictionaryValue(List<String> propertyPath);
+  boolean isDictionaryValue(String... propertyPath);
 
   Object valueNullable(String propertyName);
 
-  Object valueNullable(List<String> propertyPath);
+  Object valueNullable(String... propertyPath);
 
-  Integer integerValueNullable(List<String> propertyPath);
+  Integer integerValueNullable(String... propertyPath);
 
-  Double doubleValueNullable(List<String> propertyPath);
+  Double doubleValueNullable(String... propertyPath);
 
   String stringValue(String propertyName);
 
   String stringValueNullable(String propertyName);
 
-  String stringValueNullable(List<String> propertyPath);
+  String stringValueNullable(String... propertyPath);
 
   Dictionary dictionaryValue(String propertyName);
 
-  Dictionary dictionaryValueNullable(List<String> propertyPath);
+  Dictionary dictionaryValueNullable(String... propertyPath);
 
-  List<Integer> integerListNullable(List<String> propertyPath);
+  List<Integer> integerListNullable(String... propertyPath);
 
-  List<Double> doubleListNullable(List<String> propertyPath);
+  List<Double> doubleListNullable(String... propertyPath);
 
   List<String> stringListValue(String propertyName);
 
   List<String> stringListValueNullable(String propertyName);
 
-  List<String> stringListNullable(List<String> propertyPath);
+  List<String> stringListNullable(String... propertyPath);
 
   List<Dictionary> dictionaryListValue(String propertyName);
 
   List<Dictionary> dictionaryListValueNullable(String propertyName);
 
-  List<Dictionary> dictionaryListNullable(List<String> propertyPath);
+  List<Dictionary> dictionaryListNullable(String...propertyPath);
 }
