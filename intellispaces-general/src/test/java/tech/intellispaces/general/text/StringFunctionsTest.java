@@ -106,48 +106,27 @@ public class StringFunctionsTest {
   }
 
   @Test
-  public void testReplaceHeadOrElseThrow() {
-    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "a", "d")).isEqualTo("dbc");
-    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", "def")).isEqualTo("defc");
-    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", "")).isEqualTo("c");
-    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", null)).isEqualTo("c");
+  public void testReplaceHead() {
+    assertThat(StringFunctions.replaceHead("abc", "a", "d")).isEqualTo("dbc");
+    assertThat(StringFunctions.replaceHead("abc", "ab", "def")).isEqualTo("defc");
+    assertThat(StringFunctions.replaceHead("abc", "ab", "")).isEqualTo("c");
+    assertThat(StringFunctions.replaceHead("abc", "d", "e")).isEqualTo("abc");
 
-    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow(null, "a", "b"))
-        .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Source string is null");
-    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow("abc", null, "b"))
-        .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Substring is null");
-    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow("abc", "d", "e"))
-        .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Source string 'abc' does not contain head 'd'");
+    assertThat(StringFunctions.replaceHead(null, null, null)).isNull();
+    assertThat(StringFunctions.replaceHead(null, "a", "b")).isNull();
+    assertThat(StringFunctions.replaceHead("abc", null, "e")).isEqualTo("abc");
+    assertThat(StringFunctions.replaceHead("abc", "ab", null)).isEqualTo("c");
   }
 
   @Test
-  public void testHeadTailOrElseThrow() {
-    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "a")).isEqualTo("bc");
-    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "ab")).isEqualTo("c");
-    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "abc")).isEqualTo("");
+  public void testReplaceTail() {
+    assertThat(StringFunctions.replaceTail(null, null, null)).isNull();
+    assertThat(StringFunctions.replaceTail("aa2aa", null, null)).isEqualTo("aa2aa");
+    assertThat(StringFunctions.replaceTail("aa2aa", "aa", null)).isEqualTo("aa2");
 
-    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow(null, "a"))
-        .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Source string is null");
-    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow("abc", null))
-        .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Substring is null");
-    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow("abc", "d"))
-        .isExactlyInstanceOf(UnexpectedException.class)
-        .hasMessage("Source string 'abc' does not contain head 'd'");
-  }
-
-  @Test
-  public void testReplaceLast() {
-    assertThat(StringFunctions.replaceLast(null, null, null)).isNull();
-    assertThat(StringFunctions.replaceLast("aa2aa", null, null)).isEqualTo("aa2aa");
-    assertThat(StringFunctions.replaceLast("aa2aa", "aa", null)).isEqualTo("aa2");
-    assertThat(StringFunctions.replaceLast("aa2aa", "aa", "")).isEqualTo("aa2");
-    assertThat(StringFunctions.replaceLast("aa2aa", "aa", "bbb")).isEqualTo("aa2bbb");
-    assertThat(StringFunctions.replaceLast("aa2aa", "b", "bb")).isEqualTo("aa2aa");
+    assertThat(StringFunctions.replaceTail("aa2aa", "aa", "")).isEqualTo("aa2");
+    assertThat(StringFunctions.replaceTail("aa2aa", "aa", "bbb")).isEqualTo("aa2bbb");
+    assertThat(StringFunctions.replaceTail("aa2aa", "b", "bb")).isEqualTo("aa2aa");
   }
 
   @Test
@@ -191,6 +170,52 @@ public class StringFunctionsTest {
     assertThatThrownBy(() -> StringFunctions.replaceSingleOrElseThrow("abcb", "b", "d"))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string 'abcb' contains more than one substrings 'b'");
+  }
+
+  @Test
+  public void testReplaceHeadOrElseThrow() {
+    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "a", "d")).isEqualTo("dbc");
+    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", "def")).isEqualTo("defc");
+    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", "")).isEqualTo("c");
+    assertThat(StringFunctions.replaceHeadOrElseThrow("abc", "ab", null)).isEqualTo("c");
+
+    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow(null, "a", "b"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Source string is null");
+    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow("abc", null, "b"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Substring is null");
+    assertThatThrownBy(() -> StringFunctions.replaceHeadOrElseThrow("abc", "d", "e"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Source string 'abc' does not contain head 'd'");
+  }
+
+  @Test
+  public void testRemoveHead() {
+    assertThat(StringFunctions.removeHead("abc", "a")).isEqualTo("bc");
+    assertThat(StringFunctions.removeHead("abc", "ab")).isEqualTo("c");
+    assertThat(StringFunctions.removeHead("abc", "abc")).isEqualTo("");
+
+    assertThat(StringFunctions.removeHead(null, null)).isNull();
+    assertThat(StringFunctions.removeHead(null, "a")).isNull();
+    assertThat(StringFunctions.removeHead("abc", null)).isEqualTo("abc");
+  }
+
+  @Test
+  public void testRemoveHeadOrElseThrow() {
+    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "a")).isEqualTo("bc");
+    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "ab")).isEqualTo("c");
+    assertThat(StringFunctions.removeHeadOrElseThrow("abc", "abc")).isEqualTo("");
+
+    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow(null, "a"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Source string is null");
+    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow("abc", null))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Substring is null");
+    assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow("abc", "d"))
+        .isExactlyInstanceOf(UnexpectedException.class)
+        .hasMessage("Source string 'abc' does not contain head 'd'");
   }
 
   @Test

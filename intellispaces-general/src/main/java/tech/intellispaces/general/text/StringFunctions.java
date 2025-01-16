@@ -93,6 +93,45 @@ public interface StringFunctions {
     }
   }
 
+  static String replaceHead(String string, String head, String replacement) {
+    if (string == null) {
+      return null;
+    }
+    if (head == null) {
+      return string;
+    }
+    if (replacement == null) {
+      replacement = "";
+    }
+
+    if (!string.startsWith(head)) {
+      return string;
+    }
+    return replacement + string.substring(head.length());
+  }
+
+  static String replaceTail(String string, String tail, String replacement) {
+    if (string == null) {
+      return null;
+    }
+    if (tail == null) {
+      return string;
+    }
+    if (replacement == null) {
+      replacement = "";
+    }
+    int index = string.lastIndexOf(tail);
+    if (index > -1) {
+      return string.substring(0, index) + replacement + string.substring(index + tail.length());
+    } else {
+      return string;
+    }
+  }
+
+  static String removeHead(String source, String head) {
+    return replaceHead(source, head, "");
+  }
+
   static String replaceHeadOrElseThrow(String source, String head, String replacement) {
     if (source == null) {
       throw UnexpectedExceptions.withMessage("Source string is null");
@@ -112,24 +151,6 @@ public interface StringFunctions {
 
   static String removeHeadOrElseThrow(String source, String head) {
     return replaceHeadOrElseThrow(source, head, "");
-  }
-
-  static String replaceLast(String string, String target, String replacement) {
-    if (string == null) {
-      return null;
-    }
-    if (target == null) {
-      return string;
-    }
-    if (replacement == null) {
-      replacement = "";
-    }
-    int index = string.lastIndexOf(target);
-    if (index > -1) {
-      return string.substring(0, index) + replacement + string.substring(index + target.length());
-    } else {
-      return string;
-    }
   }
 
   static String replaceTailOrElseThrow(String source, String tail, String replacement) {
