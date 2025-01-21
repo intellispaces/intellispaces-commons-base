@@ -106,27 +106,27 @@ public class StringFunctionsTest {
   }
 
   @Test
-  public void testReplaceHead() {
-    assertThat(StringFunctions.replaceHead("abc", "a", "d")).isEqualTo("dbc");
-    assertThat(StringFunctions.replaceHead("abc", "ab", "def")).isEqualTo("defc");
-    assertThat(StringFunctions.replaceHead("abc", "ab", "")).isEqualTo("c");
-    assertThat(StringFunctions.replaceHead("abc", "d", "e")).isEqualTo("abc");
+  public void testReplaceHeadIfPresent() {
+    assertThat(StringFunctions.replaceHeadIfPresent("abc", "a", "d")).isEqualTo("dbc");
+    assertThat(StringFunctions.replaceHeadIfPresent("abc", "ab", "def")).isEqualTo("defc");
+    assertThat(StringFunctions.replaceHeadIfPresent("abc", "ab", "")).isEqualTo("c");
+    assertThat(StringFunctions.replaceHeadIfPresent("abc", "d", "e")).isEqualTo("abc");
 
-    assertThat(StringFunctions.replaceHead(null, null, null)).isNull();
-    assertThat(StringFunctions.replaceHead(null, "a", "b")).isNull();
-    assertThat(StringFunctions.replaceHead("abc", null, "e")).isEqualTo("abc");
-    assertThat(StringFunctions.replaceHead("abc", "ab", null)).isEqualTo("c");
+    assertThat(StringFunctions.replaceHeadIfPresent(null, null, null)).isNull();
+    assertThat(StringFunctions.replaceHeadIfPresent(null, "a", "b")).isNull();
+    assertThat(StringFunctions.replaceHeadIfPresent("abc", null, "e")).isEqualTo("abc");
+    assertThat(StringFunctions.replaceHeadIfPresent("abc", "ab", null)).isEqualTo("c");
   }
 
   @Test
-  public void testReplaceTail() {
-    assertThat(StringFunctions.replaceTail(null, null, null)).isNull();
-    assertThat(StringFunctions.replaceTail("aa2aa", null, null)).isEqualTo("aa2aa");
-    assertThat(StringFunctions.replaceTail("aa2aa", "aa", null)).isEqualTo("aa2");
+  public void testReplaceTailIfPresent() {
+    assertThat(StringFunctions.replaceTailIfPresent(null, null, null)).isNull();
+    assertThat(StringFunctions.replaceTailIfPresent("aa2aa", null, null)).isEqualTo("aa2aa");
+    assertThat(StringFunctions.replaceTailIfPresent("aa2aa", "aa", null)).isEqualTo("aa2");
 
-    assertThat(StringFunctions.replaceTail("aa2aa", "aa", "")).isEqualTo("aa2");
-    assertThat(StringFunctions.replaceTail("aa2aa", "aa", "bbb")).isEqualTo("aa2bbb");
-    assertThat(StringFunctions.replaceTail("aa2aa", "b", "bb")).isEqualTo("aa2aa");
+    assertThat(StringFunctions.replaceTailIfPresent("aa2aa", "aa", "")).isEqualTo("aa2");
+    assertThat(StringFunctions.replaceTailIfPresent("aa2aa", "aa", "bbb")).isEqualTo("aa2bbb");
+    assertThat(StringFunctions.replaceTailIfPresent("aa2aa", "b", "bb")).isEqualTo("aa2aa");
   }
 
   @Test
@@ -191,14 +191,15 @@ public class StringFunctionsTest {
   }
 
   @Test
-  public void testRemoveHead() {
-    assertThat(StringFunctions.removeHead("abc", "a")).isEqualTo("bc");
-    assertThat(StringFunctions.removeHead("abc", "ab")).isEqualTo("c");
-    assertThat(StringFunctions.removeHead("abc", "abc")).isEqualTo("");
+  public void testRemoveHeadIfPresent() {
+    assertThat(StringFunctions.removeHeadIfPresent("abc", "a")).isEqualTo("bc");
+    assertThat(StringFunctions.removeHeadIfPresent("abc", "ab")).isEqualTo("c");
+    assertThat(StringFunctions.removeHeadIfPresent("abc", "abc")).isEqualTo("");
+    assertThat(StringFunctions.removeHeadIfPresent("abc", "d")).isEqualTo("abc");
 
-    assertThat(StringFunctions.removeHead(null, null)).isNull();
-    assertThat(StringFunctions.removeHead(null, "a")).isNull();
-    assertThat(StringFunctions.removeHead("abc", null)).isEqualTo("abc");
+    assertThat(StringFunctions.removeHeadIfPresent(null, null)).isNull();
+    assertThat(StringFunctions.removeHeadIfPresent(null, "a")).isNull();
+    assertThat(StringFunctions.removeHeadIfPresent("abc", null)).isEqualTo("abc");
   }
 
   @Test
@@ -216,6 +217,18 @@ public class StringFunctionsTest {
     assertThatThrownBy(() -> StringFunctions.removeHeadOrElseThrow("abc", "d"))
         .isExactlyInstanceOf(UnexpectedException.class)
         .hasMessage("Source string 'abc' does not contain head 'd'");
+  }
+
+  @Test
+  public void testRemoveTailIfPresent() {
+    assertThat(StringFunctions.removeTailIfPresent("abc", "c")).isEqualTo("ab");
+    assertThat(StringFunctions.removeTailIfPresent("abc", "bc")).isEqualTo("a");
+    assertThat(StringFunctions.removeTailIfPresent("abc", "abc")).isEqualTo("");
+    assertThat(StringFunctions.removeTailIfPresent("abc", "d")).isEqualTo("abc");
+
+    assertThat(StringFunctions.removeTailIfPresent(null, null)).isNull();
+    assertThat(StringFunctions.removeTailIfPresent(null, "a")).isNull();
+    assertThat(StringFunctions.removeTailIfPresent("abc", null)).isEqualTo("abc");
   }
 
   @Test

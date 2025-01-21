@@ -93,7 +93,7 @@ public interface StringFunctions {
     }
   }
 
-  static String replaceHead(String string, String head, String replacement) {
+  static String replaceHeadIfPresent(String string, String head, String replacement) {
     if (string == null) {
       return null;
     }
@@ -110,7 +110,7 @@ public interface StringFunctions {
     return replacement + string.substring(head.length());
   }
 
-  static String replaceTail(String string, String tail, String replacement) {
+  static String replaceTailIfPresent(String string, String tail, String replacement) {
     if (string == null) {
       return null;
     }
@@ -128,8 +128,12 @@ public interface StringFunctions {
     }
   }
 
-  static String removeHead(String source, String head) {
-    return replaceHead(source, head, "");
+  static String removeHeadIfPresent(String source, String head) {
+    return replaceHeadIfPresent(source, head, "");
+  }
+
+  static String removeTailIfPresent(String source, String tail) {
+    return replaceTailIfPresent(source, tail, "");
   }
 
   static String replaceHeadOrElseThrow(String source, String head, String replacement) {
