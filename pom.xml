@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <description>General entity models, providers and functions</description>
+    <description>Basic models, providers and functions</description>
 
     <parent>
         <groupId>tech.intellispaces.parent</groupId>
@@ -10,20 +10,20 @@
     </parent>
 
     <groupId>tech.intellispaces.common</groupId>
-    <artifactId>intellispaces-general-parent</artifactId>
+    <artifactId>intellispaces-basic-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
 	<modules>
-        <module>intellispaces-general-model</module>
-	    <module>intellispaces-general</module>
+        <module>intellispaces-basic-model</module>
+	    <module>intellispaces-basic</module>
 	</modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>tech.intellispaces.common</groupId>
-                <artifactId>intellispaces-general-model</artifactId>
+                <artifactId>intellispaces-basic-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
