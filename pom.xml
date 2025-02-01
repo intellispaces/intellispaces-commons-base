@@ -9,21 +9,21 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>tech.intellispaces.common</groupId>
-    <artifactId>intellispaces-basic-parent</artifactId>
+    <groupId>tech.intellispaces.commons</groupId>
+    <artifactId>intellispaces-commons-basic-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
 	<modules>
-        <module>intellispaces-basic-model</module>
-	    <module>intellispaces-basic</module>
+        <module>intellispaces-commons-basic-model</module>
+	    <module>intellispaces-commons-basic</module>
 	</modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>tech.intellispaces.common</groupId>
-                <artifactId>intellispaces-basic-model</artifactId>
+                <groupId>tech.intellispaces.commons</groupId>
+                <artifactId>intellispaces-commons-basic-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
