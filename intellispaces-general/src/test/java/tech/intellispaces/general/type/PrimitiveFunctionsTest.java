@@ -28,6 +28,20 @@ public class PrimitiveFunctionsTest {
   }
 
   @Test
+  public void testIntToByte() {
+    assertThat(PrimitiveFunctions.intToByte(0)).isEqualTo((byte) 0);
+    assertThat(PrimitiveFunctions.intToByte(1)).isEqualTo((byte) 1);
+    assertThat(PrimitiveFunctions.intToByte(-1)).isEqualTo((byte) -1);
+  }
+
+  @Test
+  public void testIntToBoolean() {
+    assertThat(PrimitiveFunctions.intToBoolean(0)).isFalse();
+    assertThat(PrimitiveFunctions.intToBoolean(1)).isTrue();
+    assertThat(PrimitiveFunctions.intToBoolean(-1)).isFalse();
+  }
+
+  @Test
   public void testBooleanToInt() {
     assertThat(PrimitiveFunctions.booleanToInt(true)).isEqualTo(1);
     assertThat(PrimitiveFunctions.booleanToInt(false)).isEqualTo(0);

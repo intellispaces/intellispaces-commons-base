@@ -14,8 +14,16 @@ public interface PrimitiveFunctions {
     return false;
   }
 
+  static byte intToByte(int value) {
+    return (byte) value;
+  }
+
   static int booleanToInt(boolean value) {
     return value ? 1 : 0;
+  }
+
+  static boolean intToBoolean(int value) {
+    return value >= 1;
   }
 
   static long booleanToLong(boolean value) {
