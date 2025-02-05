@@ -12,6 +12,20 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class StringFunctionsTest {
 
   @Test
+  public void testIsEmpty() {
+    assertThat(StringFunctions.isEmpty(null)).isTrue();
+    assertThat(StringFunctions.isEmpty("")).isTrue();
+    assertThat(StringFunctions.isEmpty(" ")).isFalse();
+  }
+
+  @Test
+  public void testIsNotEmpty() {
+    assertThat(StringFunctions.isNotEmpty(null)).isFalse();
+    assertThat(StringFunctions.isNotEmpty("")).isFalse();
+    assertThat(StringFunctions.isNotEmpty(" ")).isTrue();
+  }
+
+  @Test
   public void testIsNullOrBlank() {
     assertThat(StringFunctions.isNullOrBlank("a")).isFalse();
     assertThat(StringFunctions.isNullOrBlank("")).isTrue();

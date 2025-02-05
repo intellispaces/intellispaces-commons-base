@@ -18,6 +18,14 @@ public interface StringFunctions {
     return string == null || string.isBlank();
   }
 
+  static boolean isEmpty(String string) {
+    return string == null || string.isEmpty();
+  }
+
+  static boolean isNotEmpty(String string) {
+    return !isEmpty(string);
+  }
+
   static boolean isNotBlank(String string) {
     return !isNullOrBlank(string);
   }
