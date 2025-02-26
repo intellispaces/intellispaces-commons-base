@@ -46,6 +46,12 @@ public class StringFunctionsTest {
   }
 
   @Test
+  public void testTrim() {
+    assertThat(StringFunctions.trim(null)).isNull();
+    assertThat(StringFunctions.trim(" a ")).isEqualTo("a");
+  }
+
+  @Test
   public void testCapitalizeFirstLetter() {
     assertThat(StringFunctions.capitalizeFirstLetter(null)).isNull();
     assertThat(StringFunctions.capitalizeFirstLetter("")).isEqualTo("");

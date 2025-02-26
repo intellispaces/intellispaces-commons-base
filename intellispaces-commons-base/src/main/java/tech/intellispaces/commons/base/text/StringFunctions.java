@@ -30,6 +30,13 @@ public interface StringFunctions {
     return !isNullOrBlank(string);
   }
 
+  static String trim(String string) {
+    if (string == null) {
+      return null;
+    }
+    return string.trim();
+  }
+
   static String capitalizeFirstLetter(String string) {
     if (string == null || string.isEmpty()) {
       return string;
