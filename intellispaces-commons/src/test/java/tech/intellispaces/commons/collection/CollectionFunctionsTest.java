@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -123,7 +125,13 @@ public class CollectionFunctionsTest {
 
   @Test
   public void testToList_whenEnumeration() {
-    assertThat(CollectionFunctions.toList(null)).isNull();
+    assertThat(CollectionFunctions.toList((Enumeration<String>) null)).isNull();
     assertThat(CollectionFunctions.toList(new StringTokenizer("a b c"))).containsExactly("a", "b", "c");
+  }
+
+  @Test
+  public void testToList_whenIterator() {
+    assertThat(CollectionFunctions.toList((Iterator<String>) null)).isNull();
+    assertThat(CollectionFunctions.toList(List.of("a", "b", "c").iterator())).containsExactly("a", "b", "c");
   }
 }

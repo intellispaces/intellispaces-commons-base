@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -203,6 +204,15 @@ public interface CollectionFunctions {
     while (enumeration.hasMoreElements()) {
       list.add(enumeration.nextElement());
     }
+    return list;
+  }
+
+  static <E> List<E> toList(Iterator<E> iterator) {
+    if (iterator == null) {
+      return null;
+    }
+    List<E> list = new ArrayList<>();
+    iterator.forEachRemaining(list::add);
     return list;
   }
 }
