@@ -46,6 +46,14 @@ public class StringFunctionsTest {
   }
 
   @Test
+  public void testIsUppercaseChar() {
+    assertThat(StringFunctions.isUppercaseChar(null, 0)).isFalse();
+    assertThat(StringFunctions.isUppercaseChar("", 0)).isFalse();
+    assertThat(StringFunctions.isUppercaseChar("A", 0)).isTrue();
+    assertThat(StringFunctions.isUppercaseChar("A", 1)).isFalse();
+  }
+
+  @Test
   public void testTrim() {
     assertThat(StringFunctions.trim(null)).isNull();
     assertThat(StringFunctions.trim(" a ")).isEqualTo("a");

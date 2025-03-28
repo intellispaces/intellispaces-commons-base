@@ -30,6 +30,13 @@ public interface StringFunctions {
     return !isNullOrBlank(string);
   }
 
+  static boolean isUppercaseChar(String string, int charIndex) {
+    if (string == null || charIndex >= string.length()) {
+      return false;
+    }
+    return Character.isUpperCase(string.charAt(charIndex));
+  }
+
   static String trim(String string) {
     if (string == null) {
       return null;
