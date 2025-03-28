@@ -5,7 +5,7 @@ import tech.intellispaces.commons.exception.UnexpectedExceptions;
 import java.lang.reflect.Constructor;
 
 /**
- * Object provider.
+ * The object provider.
  */
 public interface Objects {
 

@@ -124,6 +124,12 @@ public class CollectionFunctionsTest {
   }
 
   @Test
+  public void testToListOrEmpty() {
+    assertThat(CollectionFunctions.toListOrEmpty(null)).isEmpty();
+    assertThat(CollectionFunctions.toListOrEmpty(new String[] { "a", "b", "c" })).containsExactly("a", "b", "c");
+  }
+
+  @Test
   public void testToList_whenEnumeration() {
     assertThat(CollectionFunctions.toList((Enumeration<String>) null)).isNull();
     assertThat(CollectionFunctions.toList(new StringTokenizer("a b c"))).containsExactly("a", "b", "c");

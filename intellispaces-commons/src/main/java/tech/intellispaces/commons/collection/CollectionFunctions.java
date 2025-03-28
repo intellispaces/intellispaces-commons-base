@@ -196,6 +196,13 @@ public interface CollectionFunctions {
     }
   }
 
+  static <E> List<E> toListOrEmpty(E[] array) {
+    if (array == null) {
+      return List.of();
+    }
+    return Arrays.stream(array).toList();
+  }
+
   static <E> List<E> toList(Enumeration<E> enumeration) {
     if (enumeration == null) {
       return null;
