@@ -1,7 +1,7 @@
 package tech.intellispaces.commons.function;
 
 /**
- * Function that accepts fours arguments.
+ * Function that accepts four arguments.
  *
  * @param <T1> the first argument type.
  * @param <T2> the second argument type.
