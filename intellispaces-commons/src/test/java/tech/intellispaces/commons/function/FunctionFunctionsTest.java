@@ -115,11 +115,11 @@ public class FunctionFunctionsTest {
   @Test
   public void testApplyAndWrap_whenTriFunction() {
     // Given
-    ThrowingTriFunction<String, String, String, Integer, CheckedException> function1 = (s1, s2, s3) -> 1;
-    ThrowingTriFunction<String, String, String, Integer, CheckedException> function2 = (s1, s2, s3) -> {
+    ThrowingFunction3<String, String, String, Integer, CheckedException> function1 = (s1, s2, s3) -> 1;
+    ThrowingFunction3<String, String, String, Integer, CheckedException> function2 = (s1, s2, s3) -> {
       throw new CheckedException();
     };
-    ThrowingTriFunction<String, String, String, Integer, CheckedException> function3 = (s1, s2, s3) -> {
+    ThrowingFunction3<String, String, String, Integer, CheckedException> function3 = (s1, s2, s3) -> {
       throw new UnexpectedException("Something went wrong");
     };
 
@@ -136,11 +136,11 @@ public class FunctionFunctionsTest {
   @Test
   public void testApplyAndWrap_whenQuadriFunction() {
     // Given
-    ThrowingQuadriFunction<String, String, String, String, Integer, CheckedException> function1 = (s1, s2, s3, s4) -> 1;
-    ThrowingQuadriFunction<String, String, String, String, Integer, CheckedException> function2 = (s1, s2, s3, s4) -> {
+    ThrowingFunction4<String, String, String, String, Integer, CheckedException> function1 = (s1, s2, s3, s4) -> 1;
+    ThrowingFunction4<String, String, String, String, Integer, CheckedException> function2 = (s1, s2, s3, s4) -> {
       throw new CheckedException();
     };
-    ThrowingQuadriFunction<String, String, String, String, Integer, CheckedException> function3 = (s1, s2, s3, s4) -> {
+    ThrowingFunction4<String, String, String, String, Integer, CheckedException> function3 = (s1, s2, s3, s4) -> {
       throw new UnexpectedException("Something went wrong");
     };
 

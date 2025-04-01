@@ -3,14 +3,14 @@ package tech.intellispaces.commons.function;
 /**
  * Function that accepts four arguments.
  *
- * @param <T1> the first argument type.
- * @param <T2> the second argument type.
- * @param <T3> the third argument type.
- * @param <T4> the fourth argument type.
- * @param <R> the function result type.
+ * @param <T1> a first argument type.
+ * @param <T2> a second argument type.
+ * @param <T3> a third argument type.
+ * @param <T4> a fourth argument type.
+ * @param <R> a function result type.
  */
 @FunctionalInterface
-public interface QuadriFunction<T1, T2, T3, T4, R> {
+public interface Function4<T1, T2, T3, T4, R> {
 
   /**
    * Applies function.
