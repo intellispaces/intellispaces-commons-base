@@ -4,7 +4,7 @@
     <description>Common object providers and functions</description>
 
     <parent>
-        <groupId>tech.intellispaces.commons</groupId>
+        <groupId>tech.intellispaces</groupId>
         <artifactId>intellispaces-commons-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -31,7 +31,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>tech.intellispaces.commons</groupId>
+            <groupId>tech.intellispaces</groupId>
             <artifactId>intellispaces-commons-model</artifactId>
         </dependency>
 
