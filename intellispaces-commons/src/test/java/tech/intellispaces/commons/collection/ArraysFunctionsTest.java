@@ -119,4 +119,11 @@ public class ArraysFunctionsTest {
     assertThat(ArraysFunctions.arrayToInputStream(new byte[0])).isEmpty();
     assertThat(ArraysFunctions.arrayToInputStream(new byte[] { 1, 2, 3 })).hasBinaryContent(new byte[] { 1, 2, 3 });
   }
+
+  @Test
+  public void testIsEqualArrays() {
+    assertThat(ArraysFunctions.isEqualArrays(new byte[] {}, new byte[] {})).isTrue();
+    assertThat(ArraysFunctions.isEqualArrays(new byte[] {}, new byte[] { 2 })).isFalse();
+    assertThat(ArraysFunctions.isEqualArrays(new byte[] { 1 }, new byte[] { 2 })).isFalse();
+  }
 }
