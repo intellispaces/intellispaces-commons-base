@@ -30,10 +30,23 @@ public interface ArraysFunctions {
     if (array2 == null) {
       return array1;
     }
-    T[] result = (T[]) Array.newInstance(componentType, array1.length + array2.length);
-    System.arraycopy(array1, 0, result, 0, array1.length);
-    System.arraycopy(array2, 0, result, array1.length, array2.length);
-    return result;
+    T[] resultArray = (T[]) Array.newInstance(componentType, array1.length + array2.length);
+    System.arraycopy(array1, 0, resultArray, 0, array1.length);
+    System.arraycopy(array2, 0, resultArray, array1.length, array2.length);
+    return resultArray;
+  }
+
+  static byte[] join(byte[] array1, byte[] array2) {
+    if (array1 == null) {
+      return array2;
+    }
+    if (array2 == null) {
+      return array1;
+    }
+    var resultArray = new byte[array1.length + array2.length];
+    System.arraycopy(array1, 0, resultArray, 0, array1.length);
+    System.arraycopy(array2, 0, resultArray, array1.length, array2.length);
+    return resultArray;
   }
 
   static byte[] toByteArray(List<Byte> bytes) {

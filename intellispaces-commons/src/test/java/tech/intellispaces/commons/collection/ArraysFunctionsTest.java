@@ -30,6 +30,14 @@ public class ArraysFunctionsTest {
   }
 
   @Test
+  public void testJoin_whenBytes() {
+    assertThat(ArraysFunctions.join(null, (byte[]) null)).isNull();
+    assertThat(ArraysFunctions.join(new byte[] { 1, 2, 3 }, null)).containsExactly(1, 2, 3);
+    assertThat(ArraysFunctions.join(null, new byte[] { 4, 5, 6 })).containsExactly(4, 5, 6);
+    assertThat(ArraysFunctions.join(new byte[] { 1, 2, 3 }, new byte[] { 4, 5, 6 })).containsExactly(1, 2, 3, 4, 5, 6);
+  }
+
+  @Test
   public void testToByteArray() {
     assertThat(ArraysFunctions.toByteArray(null)).isNull();
     assertThat(ArraysFunctions.toByteArray(List.of((byte) 1))).contains(1);
